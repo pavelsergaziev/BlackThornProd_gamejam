@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Ground
   - 
   - 
   - 
@@ -40,4 +40,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Level Props Background
+    uniqueID: 3297738673
+    locked: 0
+  - name: Player
+    uniqueID: 450084857
+    locked: 0
+  - name: Level Props Foreground
+    uniqueID: 149169237
     locked: 0
