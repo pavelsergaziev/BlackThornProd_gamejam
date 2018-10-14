@@ -12,15 +12,23 @@ public class GameManager : MonoBehaviour {
 
     [Header("Настройки пикселей")]
     [SerializeField]
-    private int _pixelsPerUnit = 32;
+    private int _texelsPerUnit = 32;
+    public int TexelsPerUnit { get { return _texelsPerUnit; } }
+
     [SerializeField]
     private int _pixelsPerTexel = 3;
+    public int PixelsPerTexel { get { return _pixelsPerTexel; } }
+
+    [Header("Настройки для генерации уровня")]
+    [SerializeField]
+    private LevelLayoutParameters _levelLayoutParameters = new LevelLayoutParameters();
 
     private PixelGridSnapper _pixelGridSnapper;
     public PixelGridSnapper PixelGridSnapper { get { return _pixelGridSnapper; } }
-
+    
 
     private Camera _camera;
+    
 
     void Awake()
     {
@@ -34,8 +42,7 @@ public class GameManager : MonoBehaviour {
 
         #endregion
 
-        _pixelGridSnapper = new PixelGridSnapper(_pixelsPerUnit, _pixelsPerTexel);
-
+        _pixelGridSnapper = new PixelGridSnapper(_texelsPerUnit, _pixelsPerTexel);
 
     }
 
@@ -44,7 +51,12 @@ public class GameManager : MonoBehaviour {
 
         _camera = FindObjectOfType<Camera>();
 
-        _camera.orthographicSize = (float)Screen.height / _pixelsPerUnit / 2 / _pixelsPerTexel;
+        _camera.orthographicSize = (float)Screen.height / _texelsPerUnit / 2 / _pixelsPerTexel;
+        
 
     }
+
+//запустить бесконечную корутину со скоростью, зависящей от средней скорости перемещения уровня, и в ней запускать генерацию уровня.
+
+
 }

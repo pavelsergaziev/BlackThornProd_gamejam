@@ -14,8 +14,8 @@ TagManager:
   - 
   - 
   - Ground
-  - 
-  - 
+  - Player
+  - Deadline
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Level Props Background
     uniqueID: 3297738673
+    locked: 0
+  - name: Platforms
+    uniqueID: 3401917305
     locked: 0
   - name: Player
     uniqueID: 450084857

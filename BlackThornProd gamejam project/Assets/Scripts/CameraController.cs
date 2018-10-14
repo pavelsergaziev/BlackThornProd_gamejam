@@ -14,6 +14,7 @@ public class CameraController : BaseGameObject
     private Transform _player;
 
     private float _cameraPositionZ;
+    private float _cameraPositionX;
 
 
     protected override void Start()
@@ -21,8 +22,9 @@ public class CameraController : BaseGameObject
         base.Start();
 
         _player = FindObjectOfType<PlayerController>().transform;
+        _cameraPositionX = transform.position.x;
         _cameraPositionZ = transform.position.z;
-        transform.position = new Vector3(_player.position.x, _player.position.y, _cameraPositionZ) + offset; ;
+        transform.position = new Vector3(_cameraPositionX, _player.position.y, _cameraPositionZ) + offset; ;
     }
     private void FixedUpdate()
     {
@@ -30,7 +32,7 @@ public class CameraController : BaseGameObject
     }
     private void FollowPlayer()
     {
-        Vector3 desiredPos = new Vector3(_player.position.x, _player.position.y, _cameraPositionZ) + offset;
+        Vector3 desiredPos = new Vector3(_cameraPositionX, _player.position.y, _cameraPositionZ) + offset;
         Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed * Time.deltaTime);
         transform.position = smoothedPos;
     }
