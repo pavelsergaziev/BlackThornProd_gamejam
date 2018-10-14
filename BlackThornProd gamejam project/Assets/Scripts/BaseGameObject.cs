@@ -17,12 +17,13 @@ public abstract class BaseGameObject : MonoBehaviour {
         _pixelGridSnapper = _gameManager.PixelGridSnapper;
 
         _pixelGridSnapper.SnapToTexelGrid(_childTransformToSnapToGrid, transform);
+
+        Debug.Log(_gameManager.TexelsPerUnit);
     }
 
     protected virtual void LateUpdate()
     {
         _pixelGridSnapper.SnapToScreenPixelGrid(_childTransformToSnapToGrid, transform);
     }
-    
 
 }

@@ -56,12 +56,14 @@ public class LevelGenerator : MonoBehaviour {
 
     private GameObject _tempPlatformPart;
 
+    private PixelGridSnapper _gridSnapper;
+
     void Start()
     {
         if (_minPlatformLength > _maxPlatformLength)
             throw new System.ArgumentOutOfRangeException("Минимальная длина платформы превосходит максимальную. Поправьте соответствующие поля в инспекторе LevelGenerator!");
 
-        
+        _gridSnapper = FindObjectOfType<GameManager>().PixelGridSnapper;
 
         //var platformtest = Instantiate(_platformPartPrefab, Vector3.zero, Quaternion.identity);
         //platformtest.GetComponentInChildren<SpriteRenderer>().sprite = _leftPlatformEdgeSprite;
@@ -130,7 +132,6 @@ public class LevelGenerator : MonoBehaviour {
 
         while (true)
         {
-
             CheckAndTryCreatePlatform(_activePlatformParts[_activePlatformParts.Count - 1].transform);
             CheckAndTryRemovePlatformPart(_activePlatformParts[0].transform);
             yield return delay;
@@ -140,14 +141,12 @@ public class LevelGenerator : MonoBehaviour {
 
     private void CheckAndTryRemovePlatformPart(Transform leftmostActivePlatformPart)
     {
-        Debug.Log("для удаления " + leftmostActivePlatformPart.position.x + " меньше ли чем " + (transform.position.x - _distanceToABorder));
         if (leftmostActivePlatformPart.position.x < transform.position.x - _distanceToABorder)
             DeactivatePlatformPartAndPutItIntoPool();
     }
 
     private void CheckAndTryCreatePlatform(Transform rightmostActivePlatformPart)
     {
-        Debug.Log("Для оздания" + rightmostActivePlatformPart.position.x + " меньше ли чем " + (transform.position.x + _distanceToABorder));
         if (rightmostActivePlatformPart.position.x < transform.position.x + _distanceToABorder)
             CreatePlatform(Random.Range(_minPlatformLength, _maxPlatformLength + 1), new Vector3(rightmostActivePlatformPart.position.x + Random.Range(_minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms), rightmostActivePlatformPart.position.y + (Random.Range(_minYDistanceBetweenPlatforms, _maxYDistanceBetweenPlatforms) * Random.Range(-1, 2)), transform.position.z));
     }
@@ -160,12 +159,22 @@ public class LevelGenerator : MonoBehaviour {
             PlacePlatformPartFromPool(_platformMiddlePartsSprites[Random.Range(0, _platformMiddlePartsSprites.Length)], new Vector3(startingPosition.x + ((i + 1) * _platformPartPrefabWidth), startingPosition.y, startingPosition.z));
 
         PlacePlatformPartFromPool(_rightPlatformEdgeSprite, new Vector3(startingPosition.x + ((platformLength - 1) * _platformPartPrefabWidth), startingPosition.y, startingPosition.z));
+
+        //GameObject[] platformPartsArray = new GameObject[platformLength];
+        //for (int i = 0; i < platformLength; i++)
+        //{
+        //    platformPartsArray[i] = _activePlatformParts[_activePlatformParts.Count - platformLength + i];
+        //}
+
+        //StartCoroutine(WaitAndActivatePlatform(platformPartsArray));
     }
 
     private void PlacePlatformPartFromPool(Sprite sprite, Vector3 position)
     {
         _tempPlatformPart = _platformPartsPool.Dequeue();
         _tempPlatformPart.transform.position = position;
+        _gridSnapper.SnapToTexelGrid(_tempPlatformPart.transform.GetComponentInChildren<SpriteRenderer>().transform, _tempPlatformPart.transform);
+        //_tempPlatformPart.GetComponent<ScrollingGameObject>().ResetMovement();
         _tempPlatformPart.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
         _tempPlatformPart.SetActive(true);
         _activePlatformParts.Add(_tempPlatformPart);
@@ -173,11 +182,19 @@ public class LevelGenerator : MonoBehaviour {
 
     private void DeactivatePlatformPartAndPutItIntoPool()
     {
-        Debug.Log("Зашли в удаление");
         _tempPlatformPart = _activePlatformParts[0];
         _activePlatformParts.RemoveAt(0);
         _platformPartsPool.Enqueue(_tempPlatformPart);
         _tempPlatformPart.SetActive(false);        
     }
     
+    //private IEnumerator WaitAndActivatePlatform(GameObject[] platformParts)
+    //{
+    //    yield return new WaitForEndOfFrame(); // или м.б. wait for fixedupdate
+    //    for (int i = 0; i < platformParts.Length; i++)
+    //    {
+    //        platformParts[i].SetActive(true);
+    //    }
+    //}
+
 }

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _childTransformToSnapToGrid: {fileID: 4778247819911712}
-  _scrollSpeed: -1
+  _scrollSpeed: -0.3
 --- !u!212 &212453601211588838
 SpriteRenderer:
   m_ObjectHideFlags: 1

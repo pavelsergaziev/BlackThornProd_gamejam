@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : BaseGameObject
+public class PlayerController : FreeMovingGameObject
 {
     //ВРЕМЕННЫЙ ТЕСТОВЫЙ ПЛЕЕРКОНТРОЛЛЕР
 
