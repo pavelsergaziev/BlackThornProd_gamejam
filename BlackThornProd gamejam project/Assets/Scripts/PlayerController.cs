@@ -1,71 +1,104 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Логика и поля, отвечающие за игрока
+/// </summary>
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : FreeMovingGameObject
 {
-    //ВРЕМЕННЫЙ ТЕСТОВЫЙ ПЛЕЕРКОНТРОЛЛЕР
-
+    #region Поля для инициализации в инспекторе
+    /// <summary>
+    /// Сила прыжка
+    /// </summary>
+    [Header("Параметры движения игрока")]
+    [Tooltip("Сила прыжка")]
+    public float JumpForce;
+    /// <summary>
+    /// Скорость скролла игрока
+    /// </summary>
+    [Tooltip("Скорость скролла игрока")]
+    public float ScrollSpeed;
+    /// <summary>
+    /// Ссылка на обьект для проверки, находится ли игрок на земле
+    /// </summary>
+    [Space(10f)]
+    [Header("Ссылки на обьекты")]
+    [Tooltip("Ссылка на Transform для проверки, находится ли игрок на земле")]
     [SerializeField]
-    private int _movemementSpeed;
-    [SerializeField]
-    private int _jumpForce;
+    private Transform _groundChek;
+    #endregion
 
+    /// <summary>
+    /// Ссылка на RigidBody
+    /// </summary>
     private Rigidbody2D _rigidBody;
-
-    [SerializeField]
-    private Transform _groundCheck;
-
+    /// <summary>
+    /// Можно ли управлять игроком?
+    /// </summary>
+    public bool IsControllable { get;private set; }
+    /// <summary>
+    /// Игрок находится на земеле?
+    /// </summary>
+    public bool IsGrounded { get; private set; }
+    /// <summary>
+    /// Игрок может прыгать?
+    /// </summary>
+    public bool CanJump { get; private set; }
+    /// <summary>
+    /// Маска слоя земли
+    /// </summary>
     private int _groundLayerMask;
-
-    private float _horizontalAxisValue;
-
-    private bool _grounded;
-    private bool _doJumpInFixedUpdate;
     
 
-    // Use this for initialization
+
+
     protected override void Start()
     {
         base.Start();
-
         _rigidBody = GetComponent<Rigidbody2D>();
 
-        _groundLayerMask = 1 << LayerMask.NameToLayer("Ground");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        //простенькая перемещалка
-        _horizontalAxisValue = Input.GetAxis("Horizontal");
-
-
-        if (Input.GetButtonDown("Jump") && _grounded)
-            _doJumpInFixedUpdate = true;
-
-    }
-
-    void FixedUpdate()
-    {
-        _rigidBody.AddForce(new Vector2(_horizontalAxisValue * _movemementSpeed, 0));
-
-        if (_doJumpInFixedUpdate)
+        IsControllable = true;// Временно для теста. Должен включаться после кат сцены
+        if (_groundChek == null)
         {
-            _doJumpInFixedUpdate = false;
-            _rigidBody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+            throw new System.Exception("Cant find GroundChek transform on PlayersController obj named "+ name );
         }
+        _groundLayerMask = 1 << LayerMask.NameToLayer("Ground");
 
 
-
-        _grounded = false;
-
-        foreach (Transform child in _groundCheck)
-            if (Physics2D.Linecast(transform.position, child.position, _groundLayerMask))
+    }
+    private void Update()
+    {
+        if (IsControllable)
+        {
+            var jump = Input.GetAxisRaw("Jump") > 0 && IsGrounded&& Mathf.Abs( _rigidBody.velocity.y)<0.01;
+            if (jump)
             {
-                _grounded = true;
+                CanJump = true;
+                
+            }
+        }
+        _rigidBody.transform.position +=Vector3.right * ScrollSpeed*Time.deltaTime;
+    }
+    private void FixedUpdate()
+    {
+        if (CanJump)
+        {
+            CanJump = false;
+            _rigidBody.AddForce(Vector2.up * JumpForce * Time.deltaTime);
+        }
+        foreach (Transform child in _groundChek)
+        {
+            if (Physics2D.Linecast(transform.position,child.position,_groundLayerMask))
+            {
+                IsGrounded = true;
                 break;
             }
+            else
+            {
+                IsGrounded = false;
+            }
+        }
+        
     }
 }
