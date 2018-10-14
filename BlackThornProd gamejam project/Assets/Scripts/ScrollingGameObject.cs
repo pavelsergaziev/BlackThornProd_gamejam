@@ -13,12 +13,15 @@ public class ScrollingGameObject : BaseGameObject {
     //protected float _currentVirtualScrolledDistance;
     //protected float _currentSnappedScrolledDistance;
     //protected float _currentVirtualScrolledExcess;
-    
+
+    private bool _isPhysical;
 
 
     protected override void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        if (_rigidbody != null)
+            _isPhysical = true;
 
         base.Start();
 
@@ -27,10 +30,21 @@ public class ScrollingGameObject : BaseGameObject {
 
     protected virtual void FixedUpdate()
     {
+        if (!_isPhysical)
+            return;
+
         _rigidbody.MovePosition(_rigidbody.position + (Vector2.left * _scrollSpeed * Time.fixedDeltaTime));
     }
 
-    
+    protected virtual void Update()
+    {
+        if (_isPhysical)
+            return;
+
+        transform.position = new Vector3(transform.position.x - (_scrollSpeed * Time.deltaTime), transform.position.y, transform.position.z);
+    }
+
+
     //public void ResetMovement()
     //{
     //    _currentVirtualScrolledDistance = 0;
