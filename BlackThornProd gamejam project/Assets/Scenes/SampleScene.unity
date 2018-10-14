@@ -259,6 +259,23 @@ Prefab:
       propertyPath: _scrollSpeed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4437736599464114, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437736599464114, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 6.446
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437736599464114, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61080975866383184, guid: bcf56d6690d51cf44924a8e1d5bf40d6,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 10.56
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
   m_IsPrefabAsset: 0
@@ -580,7 +597,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!114 &955205659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _childTransformToSnapToGrid: {fileID: 820811139}
-  JumpForce: 12000
+  JumpForce: 18000
   ScrollSpeed: 0
   _groundChek: {fileID: 1552155919}
 --- !u!4 &955205660
@@ -603,7 +620,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 955205656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.67, y: 0.38, z: 0}
+  m_LocalPosition: {x: 0.33, y: 10.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 820811139}
