@@ -2125,6 +2125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _distanceToABorder: 20
+  _delayToCheckBuildAndRemoveObjects: 1
   _sizeOfThePlatformPartsObjectPool: 60
   _minPlatformLength: 3
   _maxPlatformLength: 15
@@ -2133,7 +2134,6 @@ MonoBehaviour:
   _maxXDistanceBetweenPlatforms: 3.5
   _minYDistanceBetweenPlatforms: 0.2
   _maxYDistanceBetweenPlatforms: 2
-  _delayToCheckBuildAndRemovePlatforms: 0.5
   _leftPlatformEdgeSprite: {fileID: 21300000, guid: 8ef85afd3fb86c84cb810007b07ff077,
     type: 3}
   _rightPlatformEdgeSprite: {fileID: 21300000, guid: 85e60855259089d4dbbb5d523e41ea87,
@@ -2142,6 +2142,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 03085945f82ff1b479e6ceaf2c362e97, type: 3}
   - {fileID: 21300000, guid: fe44e1fa4ba4eec42ba21e17183ce264, type: 3}
   _platformPartPrefab: {fileID: 1987667866764988, guid: bcf56d6690d51cf44924a8e1d5bf40d6,
+    type: 2}
+  _testPickupPrefab: {fileID: 1331326324256318, guid: 14194c23f48694d478f218ea7a9923b5,
     type: 2}
 --- !u!4 &2067548447
 Transform:

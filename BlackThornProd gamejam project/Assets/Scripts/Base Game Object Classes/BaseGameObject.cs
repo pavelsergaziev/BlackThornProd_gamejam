@@ -9,16 +9,14 @@ public abstract class BaseGameObject : MonoBehaviour {
 
     [SerializeField]
     protected Transform _childTransformToSnapToGrid;
+    
 
-    // Use this for initialization
     protected virtual void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
         _pixelGridSnapper = _gameManager.PixelGridSnapper;
 
         _pixelGridSnapper.SnapToTexelGrid(_childTransformToSnapToGrid, transform);
-
-        Debug.Log(_gameManager.TexelsPerUnit);
     }
 
     protected virtual void LateUpdate()

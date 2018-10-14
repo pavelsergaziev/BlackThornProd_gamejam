@@ -18,10 +18,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private int _pixelsPerTexel = 3;
     public int PixelsPerTexel { get { return _pixelsPerTexel; } }
-
-    [Header("Настройки для генерации уровня")]
-    [SerializeField]
-    private LevelLayoutParameters _levelLayoutParameters = new LevelLayoutParameters();
+    
 
     private PixelGridSnapper _pixelGridSnapper;
     public PixelGridSnapper PixelGridSnapper { get { return _pixelGridSnapper; } }
