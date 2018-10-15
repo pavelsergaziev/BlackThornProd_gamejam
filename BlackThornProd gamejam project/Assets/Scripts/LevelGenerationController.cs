@@ -91,19 +91,33 @@ public class LevelGenerationController : MonoBehaviour {
     private float _maxDelayBetweenBugsInTheAir = 5f;
     [SerializeField]
     private GameObject _BugInTheAirPrefab;
-
-
-
+       
+    [Header("Элементы заднего фона")]
+    [SerializeField]
+    private int _sizeOfBackgroundObjectsObjectPool = 200;
+    [SerializeField]
+    [Range(5f, 20f)]
+    private float _backgroundObjectsBatchWidth = 10f;
+    [SerializeField]
+    [Range(5f, 10f)]
+    private float _maxYDistanceOfBackgroundObjectsFromPlatform = 6f;
+    [SerializeField]
+    private int _minAmountOfBackgroundObjectsInBatch = 10;
+    [SerializeField]
+    private int _maxAmountOfBackgroundObjectsInBatch = 20;
+    [SerializeField]
+    private Sprite[] _backgroundObjectsSprites;
+    [SerializeField]
+    GameObject _backgroundObjectPrefab;
 
 
 
     //private float _platformPartPrefabWidth;
 
-    private PlatformGenerator _platformGenerator;
-    private PropsGenerator _backgroundGenerator;
-    private PropsGenerator _someShitGenerator;
+    private PlatformGenerator _platformsGenerator;
     private ObjectsLyingOnPlatformsGenerator _buffsOnPlatformsGenerator;
     private FloatingObjectsGenerator _bugsInTheAirGenerator;
+    private BackgroundElementsGenerator _backgroundObjectsGenerator;
 
 
     private GameObject _tempPlatformPart;
@@ -116,11 +130,10 @@ public class LevelGenerationController : MonoBehaviour {
     {
         _gridSnapper = FindObjectOfType<GameManager>().PixelGridSnapper;
 
-        _platformGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, transform, _platformPartPrefab, _firstPlatformLength, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
-        _someShitGenerator = new PropsGenerator(30, transform, _testPickupPrefab, new Vector3(5, 1, 0), _gridSnapper);//тестовый
-
+        _platformsGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, transform, _platformPartPrefab, _firstPlatformLength, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
         _buffsOnPlatformsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfPickupBuffsOnPlatformsObjectPool, transform, _pickupBuffOnPlatformsPrefab, (int)(_delayBeforeFirstBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects));
         _bugsInTheAirGenerator = new FloatingObjectsGenerator(_sizeOfBugsInTheAirObjectPool, transform, _BugInTheAirPrefab, (int)(_delayBeforeFirstBugInTheAir / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBugsInTheAir / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBugsInTheAir / _delayToCheckBuildAndRemoveObjects));
+        _backgroundObjectsGenerator = new BackgroundElementsGenerator(_sizeOfBackgroundObjectsObjectPool, transform, _backgroundObjectPrefab);
 
         StartCoroutine(LevelGenerationLoop());
     }
@@ -136,23 +149,18 @@ public class LevelGenerationController : MonoBehaviour {
             int rightBorderX = (int)(transform.position.x + _distanceToABorder);
 
 
-            _platformGenerator.CheckAndTryCreatePlatform(rightBorderX, _minPlatformLength, _maxPlatformLength, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, _minYDistanceBetweenPlatforms, _maxYDistanceBetweenPlatforms, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
-
+            _platformsGenerator.CheckAndTryCreatePlatform(rightBorderX, _minPlatformLength, _maxPlatformLength, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, _minYDistanceBetweenPlatforms, _maxYDistanceBetweenPlatforms, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
             _buffsOnPlatformsGenerator.CheckAndTryCreateObjectOnPlatform(rightBorderX, _buffOnPlatformYDistanceToPlatform, _gridSnapper);
-
             _bugsInTheAirGenerator.CheckAndTryCreateFloatingObject(rightBorderX, _minHeightAbovePlatformForBugsInTheAir, _maxHeightAbovePlatformForBugsInTheAir, _gridSnapper);
 
-            _someShitGenerator.CheckAndTryCreateObject(rightBorderX, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, -5, 5, _gridSnapper);//тестовый
+            //спрайт и размер - временно
+            _backgroundObjectsGenerator.CheckAndTryCreateBatchOfObjects(rightBorderX, _backgroundObjectsBatchWidth, _maxYDistanceOfBackgroundObjectsFromPlatform, _minAmountOfBackgroundObjectsInBatch, _maxAmountOfBackgroundObjectsInBatch, _backgroundObjectsSprites, _gridSnapper);
 
 
-
-            _platformGenerator.CheckAndTryRemoveObjects(leftBorderX);
-
+            _platformsGenerator.CheckAndTryRemoveObjects(leftBorderX);
             _buffsOnPlatformsGenerator.CheckAndTryRemoveObjects(leftBorderX);
-
             _bugsInTheAirGenerator.CheckAndTryRemoveObjects(leftBorderX);
-
-            _someShitGenerator.CheckAndTryRemoveObjects(leftBorderX);//тестовый
+            _backgroundObjectsGenerator.CheckAndTryRemoveObjects(leftBorderX);
 
 
             yield return delay;

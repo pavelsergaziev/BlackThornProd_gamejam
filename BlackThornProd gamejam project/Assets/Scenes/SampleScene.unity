@@ -859,48 +859,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
---- !u!1001 &1715542725
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4103765504491000, guid: 14194c23f48694d478f218ea7a9923b5, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 4.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 4103765504491000, guid: 14194c23f48694d478f218ea7a9923b5, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 4103765504491000, guid: 14194c23f48694d478f218ea7a9923b5, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.42773438
-      objectReference: {fileID: 0}
-    - target: {fileID: 4103765504491000, guid: 14194c23f48694d478f218ea7a9923b5, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4103765504491000, guid: 14194c23f48694d478f218ea7a9923b5, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4103765504491000, guid: 14194c23f48694d478f218ea7a9923b5, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4103765504491000, guid: 14194c23f48694d478f218ea7a9923b5, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4103765504491000, guid: 14194c23f48694d478f218ea7a9923b5, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 14194c23f48694d478f218ea7a9923b5, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1985073140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2296,8 +2254,8 @@ MonoBehaviour:
   _sizeOfPickupBuffsOnPlatformsObjectPool: 5
   _buffOnPlatformYDistanceToPlatform: 1
   _delayBeforeFirstBuffOnPlatforms: 5
-  _minDelayBetweenBuffOnPlatforms: 20
-  _maxDelayBetweenBuffOnPlatforms: 45
+  _minDelayBetweenBuffOnPlatforms: 15
+  _maxDelayBetweenBuffOnPlatforms: 25
   _pickupBuffOnPlatformsPrefab: {fileID: 1956731766018664, guid: 0d806c8e660ac2e4a830231cbfc7aabf,
     type: 2}
   _sizeOfBugsInTheAirObjectPool: 15
@@ -2307,6 +2265,18 @@ MonoBehaviour:
   _minDelayBetweenBugsInTheAir: 1
   _maxDelayBetweenBugsInTheAir: 5
   _BugInTheAirPrefab: {fileID: 1767021535727574, guid: c292b58eb9d83864db07cb9d87b096ac,
+    type: 2}
+  _sizeOfBackgroundObjectsObjectPool: 200
+  _backgroundObjectsBatchWidth: 10
+  _maxYDistanceOfBackgroundObjectsFromPlatform: 6
+  _minAmountOfBackgroundObjectsInBatch: 25
+  _maxAmountOfBackgroundObjectsInBatch: 35
+  _backgroundObjectsSprites:
+  - {fileID: 21300000, guid: b16903924e06797469dd933d4a1874ec, type: 3}
+  - {fileID: 21300000, guid: 32672bc6bf37b8f4986407868c6713db, type: 3}
+  - {fileID: 21300000, guid: 19e433f351f02e749b204f2ab4c3f39d, type: 3}
+  - {fileID: 21300000, guid: 8a8b18aa6f33a5c4280fa46a25c68e66, type: 3}
+  _backgroundObjectPrefab: {fileID: 1331326324256318, guid: 14194c23f48694d478f218ea7a9923b5,
     type: 2}
 --- !u!4 &2067548447
 Transform:

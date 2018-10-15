@@ -8,7 +8,7 @@ public abstract class ProximityLevelElementsGenerator : BaseLevelElementsGenerat
     {
     }
 
-    public virtual void CheckAndTryCreateObject(int creatingBorderPositionX, float minXDistanceToNextObject, float maxXDistanceToNextObject, float minYPosition, float maxYPosition, PixelGridSnapper gridSnapper)
+    protected virtual void CheckAndTryCreateObject(int creatingBorderPositionX, float minXDistanceToNextObject, float maxXDistanceToNextObject, float minYPosition, float maxYPosition, PixelGridSnapper gridSnapper)
     {
         Transform rightmostActiveObject = _activeObjects[_activeObjects.Count - 1].transform;
 

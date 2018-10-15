@@ -29,15 +29,20 @@ public abstract class BaseLevelElementsGenerator {
     {
         while (_activeObjects.Count > 0 && _activeObjects[0].transform.position.x < destroyingBorderPositionX)
             DeactivateObjectAndPutItIntoPool();
-    }    
+    }
 
-    protected virtual void PlaceObjectFromPool(Vector3 position, PixelGridSnapper gridSnapper)
+    protected virtual void PlaceObjectFromPool(Vector3 position)
     {
         _tempObject = _objectsPool.Dequeue();
         _tempObject.transform.position = position;
-        gridSnapper.SnapToTexelGrid(_tempObject.transform.GetComponentInChildren<SpriteRenderer>().transform, _tempObject.transform);
         _tempObject.SetActive(true);
         _activeObjects.Add(_tempObject);
+    }
+
+    protected virtual void PlaceObjectFromPool(Vector3 position, PixelGridSnapper gridSnapper)
+    {
+        PlaceObjectFromPool(position);
+        gridSnapper.SnapToTexelGrid(_tempObject.transform.GetComponentInChildren<SpriteRenderer>().transform, _tempObject.transform);
     }
 
     protected virtual void PlaceObjectFromPool(Vector3 position, Sprite sprite, PixelGridSnapper gridSnapper)
@@ -45,6 +50,7 @@ public abstract class BaseLevelElementsGenerator {
         PlaceObjectFromPool(position, gridSnapper);
         _tempObject.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
     }
+    
 
     protected virtual void DeactivateObjectAndPutItIntoPool()
     {
