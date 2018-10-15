@@ -68,9 +68,6 @@ public class LevelGenerationController : MonoBehaviour {
     [Range(30f, 100f)]
     private float _maxXDistanceBetweenBuffsOnPlatforms = 50f;
     [SerializeField]
-    [Range(3f, 10f)]
-    private float _yOfRaycastTesterForBuffsOnPlatforms = 5f;
-    [SerializeField]
     [Range(0.2f, 2f)]
     private float _buffOnPlatformYDistanceToPlatform = 1f;
     [SerializeField]
@@ -107,7 +104,7 @@ public class LevelGenerationController : MonoBehaviour {
         _platformGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, transform, _platformPartPrefab, _firstPlatformLength, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
         _someShitGenerator = new PropsGenerator(30, transform, _testPickupPrefab, new Vector3(5, 1, 0), _gridSnapper);//тестовый
 
-        _buffsOnPlatformsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfPickupBuffsOnPlatformsObjectPool, transform, _pickupBuffOnPlatformsPrefab, _delayBeforeFirstBuffOnPlatforms, _minDelayBetweenBuffOnPlatforms, _maxDelayBetweenBuffOnPlatforms);
+        _buffsOnPlatformsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfPickupBuffsOnPlatformsObjectPool, transform, _pickupBuffOnPlatformsPrefab, (int)(_delayBeforeFirstBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects));
                 
 
         StartCoroutine(LevelGenerationLoop());
@@ -126,7 +123,7 @@ public class LevelGenerationController : MonoBehaviour {
 
             _platformGenerator.CheckAndTryCreatePlatform(rightBorderX, _minPlatformLength, _maxPlatformLength, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, _minYDistanceBetweenPlatforms, _maxYDistanceBetweenPlatforms, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
 
-            _buffsOnPlatformsGenerator.CheckAndTryCreateObjectOnPlatform(_delayToCheckBuildAndRemoveObjects, rightBorderX, _buffOnPlatformYDistanceToPlatform, _gridSnapper);
+            _buffsOnPlatformsGenerator.CheckAndTryCreateObjectOnPlatform(rightBorderX, _buffOnPlatformYDistanceToPlatform, _gridSnapper);
 
             _someShitGenerator.CheckAndTryCreateObject(rightBorderX, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, -5, 5, _gridSnapper);//тестовый
 

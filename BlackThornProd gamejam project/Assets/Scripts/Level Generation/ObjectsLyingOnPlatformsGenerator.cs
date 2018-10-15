@@ -5,24 +5,15 @@ using UnityEngine;
 /// <summary>
 /// Генератор объектов, которые непосредственно лежат на платформах.
 /// </summary>
-public class ObjectsLyingOnPlatformsGenerator : BaseLevelElementsGenerator
+public class ObjectsLyingOnPlatformsGenerator : TimedLevelElementsGenerator
 {
-
-    private float _timeToNextObjectPlacement;
-    private float _minDelayBetweenObjectPlacements;
-    private float _maxDelayBetweenObjectPlacements;
-
+    
     private const int AttemptsToPlaceObject = 10;//просто какой-то предел, чтобы в бесконечный цикл не попасть
 
-    public ObjectsLyingOnPlatformsGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, float delayBeforeFirstPlacement, float minDelayBetweenObjectPlacements, float maxDelayBetweenObjectPlacements) : base(objectsPoolSize, levelLayoutObject, objectPrefab)
+    public ObjectsLyingOnPlatformsGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, int delayBeforeFirstPlacement, int minDelayBetweenObjectPlacements, int maxDelayBetweenObjectPlacements) : base(objectsPoolSize, levelLayoutObject, objectPrefab, delayBeforeFirstPlacement, minDelayBetweenObjectPlacements, maxDelayBetweenObjectPlacements)
     {
-        //_raycastSource = new GameObject("ObjectsLyingOnPlatformsGenerator raycast source").transform;
-        _minDelayBetweenObjectPlacements = minDelayBetweenObjectPlacements;
-        _maxDelayBetweenObjectPlacements = maxDelayBetweenObjectPlacements;
-        _timeToNextObjectPlacement = delayBeforeFirstPlacement;
     }
 
-    //private Transform _raycastSource;
 
     /// <summary>
     /// Попробовать создать объект, лежащий на платформе.
@@ -31,12 +22,9 @@ public class ObjectsLyingOnPlatformsGenerator : BaseLevelElementsGenerator
     /// <param name="minXDistanceToNextObject"></param>
     /// <param name="maxXDistanceToNextObject"></param>
     /// <param name="gridSnapper"></param>
-    public void CheckAndTryCreateObjectOnPlatform(float delayBetweenLevelGenerationLoopCycles, int creatingBorderPositionX, float YDistanceToPlatform, PixelGridSnapper gridSnapper)
+    public void CheckAndTryCreateObjectOnPlatform(int creatingBorderPositionX, float YDistanceToPlatform, PixelGridSnapper gridSnapper)
     {
-
-        if (_timeToNextObjectPlacement > 0)
-            _timeToNextObjectPlacement -= delayBetweenLevelGenerationLoopCycles;
-        else
+        if (CheckIsItTimeToPlaceObject())
         {
             for (int i = 0; i < AttemptsToPlaceObject; i++)//просто какой-то предел, чтобы в бесконечный цикл не попасть
             {
@@ -44,7 +32,7 @@ public class ObjectsLyingOnPlatformsGenerator : BaseLevelElementsGenerator
                 Vector2 raycastSource = new Vector2(creatingBorderPositionX + (i / 2), 0);
 
                 RaycastHit2D hit = Physics2D.Raycast(raycastSource, Vector2.down);
-                if(!hit)
+                if (!hit)
                     hit = Physics2D.Raycast(raycastSource, Vector2.up);
 
                 if (hit && hit.collider.tag == "Platform")
@@ -52,11 +40,8 @@ public class ObjectsLyingOnPlatformsGenerator : BaseLevelElementsGenerator
                     PlaceObjectFromPool(hit.collider.transform.position + Vector3.up * YDistanceToPlatform, gridSnapper);
                     break;
                 }
-                
+
             }
-
-            _timeToNextObjectPlacement = Random.Range(_minDelayBetweenObjectPlacements, _maxDelayBetweenObjectPlacements);            
         }
-
     }
 }

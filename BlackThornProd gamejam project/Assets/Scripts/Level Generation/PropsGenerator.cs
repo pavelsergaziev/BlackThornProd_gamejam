@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PropsGenerator : BaseLevelElementsGenerator {
+public class PropsGenerator : ProximityLevelElementsGenerator {
 
     public PropsGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, Vector3 firstObjectPosition, PixelGridSnapper gridSnapper) : base(objectsPoolSize, levelLayoutObject, objectPrefab)
     {

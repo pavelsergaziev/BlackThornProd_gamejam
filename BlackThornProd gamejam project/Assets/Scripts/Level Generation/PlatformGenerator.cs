@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformGenerator : BaseLevelElementsGenerator
+public class PlatformGenerator : ProximityLevelElementsGenerator
 {
     private float _platformPartPrefabWidth;
 

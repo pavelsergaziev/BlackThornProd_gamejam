@@ -29,15 +29,7 @@ public abstract class BaseLevelElementsGenerator {
     {
         while (_activeObjects.Count > 0 && _activeObjects[0].transform.position.x < destroyingBorderPositionX)
             DeactivateObjectAndPutItIntoPool();
-    }
-
-    public virtual void CheckAndTryCreateObject(int creatingBorderPositionX, float minXDistanceToNextObject, float maxXDistanceToNextObject, float minYPosition, float maxYPosition, PixelGridSnapper gridSnapper)
-    {
-        Transform rightmostActiveObject = _activeObjects[_activeObjects.Count - 1].transform;
-
-        if (rightmostActiveObject.position.x < creatingBorderPositionX)
-            PlaceObjectFromPool(new Vector3(rightmostActiveObject.position.x + Random.Range(minXDistanceToNextObject, maxXDistanceToNextObject), rightmostActiveObject.position.y + Random.Range(minYPosition, maxYPosition), _objectsPool.Peek().transform.position.z), gridSnapper);
-    }
+    }    
 
     protected virtual void PlaceObjectFromPool(Vector3 position, PixelGridSnapper gridSnapper)
     {
