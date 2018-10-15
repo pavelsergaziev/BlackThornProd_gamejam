@@ -20,6 +20,7 @@ public class PlayerController : FreeMovingGameObject
     /// <summary>
     /// Скорость стрельбы(секнды до следующего выстрела)
     /// </summary>
+    [Header("Параметры оружия")]
     [Tooltip("Скорость стрельбы(секнды до следующего выстрела)")]
     [SerializeField]
     private float _timeBetweenShots;
@@ -29,6 +30,30 @@ public class PlayerController : FreeMovingGameObject
     [Tooltip("Скорость снаряда")]
     [SerializeField]
     private float _bulletSpeed;
+    /// <summary>
+    /// Ссылка на префаб гарпуна
+    /// </summary>
+    [Tooltip("Ссылка на префаб гарпуна")]
+    [SerializeField]
+    private Harpoon _harpoon;
+    /// <summary>
+    /// Скорость стрельбы гарпуна
+    /// </summary>
+    [Tooltip("Скорость стрельбы гарпуна")]
+    [SerializeField]
+    private float _harpoonShootSpeed;
+    /// <summary>
+    /// Дальность стрельбы гарпуном
+    /// </summary>
+    [Tooltip("Дальность стрельбы гарпуном")]
+    [SerializeField]
+    private float _harpoonMaxShootDistance;
+    /// <summary>
+    /// Скорость возвращения гарпуна
+    /// </summary>
+    [Tooltip("Скорость возвращения гарпуна")]
+    [SerializeField]
+    private float _harpoonBackSpeed;
 
     /// <summary>
     /// Ссылка на обьект для проверки, находится ли игрок на земле
@@ -48,7 +73,7 @@ public class PlayerController : FreeMovingGameObject
     /// </summary>
     [Tooltip("В этом месте создается пуля")]
     [SerializeField]
-    private Transform _shootingPoint;
+    public Transform ShootingPoint;
     /// <summary>
     /// Ссылка на префаб пули
     /// </summary>
@@ -93,7 +118,12 @@ public class PlayerController : FreeMovingGameObject
     /// Время после последнего выстрела
     /// </summary>
     private float _timeAfterLastShot = 0;
-    
+    /// <summary>
+    /// Можно стрелять гарпуном?
+    /// </summary>
+    [HideInInspector]
+    public bool CanHarpoon = true;
+
     protected override void Start()
     {
         base.Start();
@@ -178,8 +208,19 @@ public class PlayerController : FreeMovingGameObject
         {
             if (Input.GetMouseButtonDown(0))
             {
-                var tmpBullet = Instantiate(_bullet, _shootingPoint.position, _weaponTransform.rotation);
+                var tmpBullet = Instantiate(_bullet, ShootingPoint.position, _weaponTransform.rotation);
                 tmpBullet.Speed = _bulletSpeed;
+                _canFire = false;
+                _timeAfterLastShot = 0;
+            }
+            if (Input.GetMouseButtonDown(1)&&CanHarpoon)
+            {
+                
+                CanHarpoon = false;
+                var tmpHarpoon = Instantiate(_harpoon, ShootingPoint.position, _weaponTransform.rotation);
+                tmpHarpoon.ShootSpeed = _harpoonShootSpeed;
+                tmpHarpoon.MaxShootDistance = _harpoonMaxShootDistance;
+                tmpHarpoon.BackSpeed = _harpoonBackSpeed;
                 _canFire = false;
                 _timeAfterLastShot = 0;
             }
@@ -191,6 +232,43 @@ public class PlayerController : FreeMovingGameObject
             {
                 _canFire = true;
             }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "PickUp")
+        {
+            PickUp(collision.GetComponent<PickUp>().TypeOf);
+        }
+    }
+    /// <summary>
+    /// Срабатывает когда игрок подбирает бафф или дебафф или что душе угодно
+    /// </summary>
+    /// <param name="typeOf">Что подобрал</param>
+    public void PickUp(PickUps typeOf)
+    {
+        switch (typeOf)
+        {
+            case PickUps.buff:
+                Debug.Log("buff");
+                break;
+            case PickUps.debuff:
+                Debug.Log("debuff");
+                break;
+            case PickUps.life:
+                Debug.Log("life");
+                break;
+            case PickUps.weapon:
+                Debug.Log("weapon");
+                break;
+            case PickUps.bullet:
+                Debug.Log("bullet");
+                break;
+            case PickUps.bug:
+                Debug.Log("bug");
+                break;
+            default:
+                break;
         }
     }
 }

@@ -38,9 +38,10 @@ GameObject:
   - component: {fileID: 50237839991136240}
   - component: {fileID: 61272514332940374}
   - component: {fileID: 114909393120939894}
+  - component: {fileID: 114102656927352882}
   m_Layer: 8
   m_Name: Pickup buff on platform
-  m_TagString: Untagged
+  m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,6 +118,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.9453416}
   m_EdgeRadius: 0
+--- !u!114 &114102656927352882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1956731766018664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b545e079496b2e24f9649cf8108d6f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TypeOf: 0
 --- !u!114 &114909393120939894
 MonoBehaviour:
   m_ObjectHideFlags: 1
