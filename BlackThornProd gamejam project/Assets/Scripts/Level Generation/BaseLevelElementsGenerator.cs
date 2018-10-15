@@ -27,7 +27,7 @@ public abstract class BaseLevelElementsGenerator {
 
     public virtual void CheckAndTryRemoveObjects(int destroyingBorderPositionX)
     {
-        while (_activeObjects[0].transform.position.x < destroyingBorderPositionX)
+        while (_activeObjects.Count > 0 && _activeObjects[0].transform.position.x < destroyingBorderPositionX)
             DeactivateObjectAndPutItIntoPool();
     }
 
@@ -38,7 +38,6 @@ public abstract class BaseLevelElementsGenerator {
         if (rightmostActiveObject.position.x < creatingBorderPositionX)
             PlaceObjectFromPool(new Vector3(rightmostActiveObject.position.x + Random.Range(minXDistanceToNextObject, maxXDistanceToNextObject), rightmostActiveObject.position.y + Random.Range(minYPosition, maxYPosition), _objectsPool.Peek().transform.position.z), gridSnapper);
     }
-
 
     protected virtual void PlaceObjectFromPool(Vector3 position, PixelGridSnapper gridSnapper)
     {

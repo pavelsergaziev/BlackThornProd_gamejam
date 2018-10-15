@@ -14,6 +14,7 @@ public class LevelGenerationController : MonoBehaviour {
 
     //вероятно, лучше эти числа получить из отношения размеров экрана к размерам тайлов, но пока вобьём руками
     [Header("Платформы")]
+
     [SerializeField]
     private int _sizeOfThePlatformPartsObjectPool;
     [SerializeField]
@@ -54,59 +55,94 @@ public class LevelGenerationController : MonoBehaviour {
     [SerializeField]
     private GameObject _testPickupPrefab;
 
-    private float _platformPartPrefabWidth;
+
+
+    [Header("Баффы на платформах")]
+
+    [SerializeField]
+    private int _sizeOfPickupBuffsOnPlatformsObjectPool = 5;
+    [SerializeField]
+    [Range(10f, 30f)]
+    private float _minXDistanceBetweenBuffsOnPlatforms = 20f;
+    [SerializeField]
+    [Range(30f, 100f)]
+    private float _maxXDistanceBetweenBuffsOnPlatforms = 50f;
+    [SerializeField]
+    [Range(3f, 10f)]
+    private float _yOfRaycastTesterForBuffsOnPlatforms = 5f;
+    [SerializeField]
+    [Range(0.2f, 2f)]
+    private float _buffOnPlatformYDistanceToPlatform = 1f;
+    [SerializeField]
+    private float _delayBeforeFirstBuffOnPlatforms = 10f;
+    [SerializeField]
+    private float _minDelayBetweenBuffOnPlatforms = 5f;
+    [SerializeField]
+    private float _maxDelayBetweenBuffOnPlatforms = 20f;
+
+
+    [SerializeField]
+    private GameObject _pickupBuffOnPlatformsPrefab;
+    
+
+
+    //private float _platformPartPrefabWidth;
 
     private PlatformGenerator _platformGenerator;
     private PropsGenerator _backgroundGenerator;
-    private PropsGenerator _pickupsGenerator;
+    private PropsGenerator _someShitGenerator;
+    private ObjectsLyingOnPlatformsGenerator _buffsOnPlatformsGenerator;
 
 
     private GameObject _tempPlatformPart;
 
     private PixelGridSnapper _gridSnapper;
 
+
+
     void Start()
     {
         _gridSnapper = FindObjectOfType<GameManager>().PixelGridSnapper;
 
         _platformGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, transform, _platformPartPrefab, _firstPlatformLength, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
-        _pickupsGenerator = new PropsGenerator(30, transform, _testPickupPrefab, new Vector3(5, 1, 0), _gridSnapper);//тестовый
-        
+        _someShitGenerator = new PropsGenerator(30, transform, _testPickupPrefab, new Vector3(5, 1, 0), _gridSnapper);//тестовый
+
+        _buffsOnPlatformsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfPickupBuffsOnPlatformsObjectPool, transform, _pickupBuffOnPlatformsPrefab, _delayBeforeFirstBuffOnPlatforms, _minDelayBetweenBuffOnPlatforms, _maxDelayBetweenBuffOnPlatforms);
+                
+
         StartCoroutine(LevelGenerationLoop());
     }
      
 
     private IEnumerator LevelGenerationLoop()
     {
-        WaitForSeconds delay = new WaitForSeconds(_delayToCheckBuildAndRemoveObjects);
+        WaitForSeconds delay = new WaitForSeconds(_delayToCheckBuildAndRemoveObjects);        
 
         while (true)
         {
             int leftBorderX = (int)(transform.position.x - _distanceToABorder);
             int rightBorderX = (int)(transform.position.x + _distanceToABorder);
 
-            #region создание объектов генераторами
-            _platformGenerator.CheckAndTryCreateObject(rightBorderX, _minPlatformLength, _maxPlatformLength, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, _minYDistanceBetweenPlatforms, _maxYDistanceBetweenPlatforms, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
 
-            _pickupsGenerator.CheckAndTryCreateObject(rightBorderX, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, -5, 5, _gridSnapper);//тестовый
+            _platformGenerator.CheckAndTryCreatePlatform(rightBorderX, _minPlatformLength, _maxPlatformLength, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, _minYDistanceBetweenPlatforms, _maxYDistanceBetweenPlatforms, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
 
-            #endregion
-            
-            #region уничтожение объектов генераторами
+            _buffsOnPlatformsGenerator.CheckAndTryCreateObjectOnPlatform(_delayToCheckBuildAndRemoveObjects, rightBorderX, _buffOnPlatformYDistanceToPlatform, _gridSnapper);
+
+            _someShitGenerator.CheckAndTryCreateObject(rightBorderX, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, -5, 5, _gridSnapper);//тестовый
+
+
+
             _platformGenerator.CheckAndTryRemoveObjects(leftBorderX);
 
-            _pickupsGenerator.CheckAndTryRemoveObjects(leftBorderX);//тестовый
+            _buffsOnPlatformsGenerator.CheckAndTryRemoveObjects(leftBorderX);
 
-            #endregion
+            _someShitGenerator.CheckAndTryRemoveObjects(leftBorderX);//тестовый
+
 
             yield return delay;
         }
     }
-
     
-
-
-
 
     //а это так, посмотреть, как рандом работает в Юнити и как можно организовать точное воспроизведение уровня через "сид", точнее через стейт.
     public void TestRandom()

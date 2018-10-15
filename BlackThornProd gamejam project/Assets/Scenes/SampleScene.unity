@@ -398,6 +398,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114961398132517752, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
+        type: 2}
+      propertyPath: _scrollSpeed
+      value: -0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d0d8c10ef6ca6a47876d89a448d1cae, type: 2}
   m_IsPrefabAsset: 0
@@ -2161,6 +2166,16 @@ MonoBehaviour:
   _platformPartPrefab: {fileID: 1987667866764988, guid: bcf56d6690d51cf44924a8e1d5bf40d6,
     type: 2}
   _testPickupPrefab: {fileID: 1331326324256318, guid: 14194c23f48694d478f218ea7a9923b5,
+    type: 2}
+  _sizeOfPickupBuffsOnPlatformsObjectPool: 5
+  _minXDistanceBetweenBuffsOnPlatforms: 20
+  _maxXDistanceBetweenBuffsOnPlatforms: 50
+  _yOfRaycastTesterForBuffsOnPlatforms: 5
+  _buffOnPlatformYDistanceToPlatform: 1
+  _delayBeforeFirstBuffOnPlatforms: 5
+  _minDelayBetweenBuffOnPlatforms: 20
+  _maxDelayBetweenBuffOnPlatforms: 45
+  _pickupBuffOnPlatformsPrefab: {fileID: 1956731766018664, guid: 0d806c8e660ac2e4a830231cbfc7aabf,
     type: 2}
 --- !u!4 &2067548447
 Transform:

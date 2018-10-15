@@ -12,7 +12,21 @@ public class PlatformGenerator : BaseLevelElementsGenerator
         CreatePlatform(firstPlatformLength, levelLayoutObject.position, leftEdge, middleSprites, rightEdge, gridSnapper);
     }
 
-    public void CheckAndTryCreateObject(int creatingBorderPositionX, int minPlatformLength, int maxPlatformLength, float minXDistanceBetweenPlatforms, float maxXDistanceBetweenPlatforms, float minYDistanceBetweenPlatforms, float maxYDistanceBetweenPlatforms, Sprite leftEdge, Sprite[] middleSprites, Sprite rightEdge, PixelGridSnapper gridSnapper)
+    /// <summary>
+    /// Попытаться создать платформу.
+    /// </summary>
+    /// <param name="creatingBorderPositionX"></param>
+    /// <param name="minPlatformLength"></param>
+    /// <param name="maxPlatformLength"></param>
+    /// <param name="minXDistanceBetweenPlatforms"></param>
+    /// <param name="maxXDistanceBetweenPlatforms"></param>
+    /// <param name="minYDistanceBetweenPlatforms"></param>
+    /// <param name="maxYDistanceBetweenPlatforms"></param>
+    /// <param name="leftEdge"></param>
+    /// <param name="middleSprites"></param>
+    /// <param name="rightEdge"></param>
+    /// <param name="gridSnapper"></param>
+    public void CheckAndTryCreatePlatform(int creatingBorderPositionX, int minPlatformLength, int maxPlatformLength, float minXDistanceBetweenPlatforms, float maxXDistanceBetweenPlatforms, float minYDistanceBetweenPlatforms, float maxYDistanceBetweenPlatforms, Sprite leftEdge, Sprite[] middleSprites, Sprite rightEdge, PixelGridSnapper gridSnapper)
     {
         Transform rightmostActivePlatformPart = _activeObjects[_activeObjects.Count - 1].transform;
         if (rightmostActivePlatformPart.position.x < creatingBorderPositionX)
