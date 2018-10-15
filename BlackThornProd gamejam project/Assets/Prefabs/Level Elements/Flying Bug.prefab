@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 50264208671448636}
   - component: {fileID: 61045372252395114}
   - component: {fileID: 114201798019531674}
+  - component: {fileID: 114860439898105406}
   m_Layer: 8
   m_Name: Flying Bug
-  m_TagString: Platform
+  m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,6 +131,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _childTransformToSnapToGrid: {fileID: 4983782512116618}
   _scrollSpeed: 2
+--- !u!114 &114860439898105406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767021535727574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b545e079496b2e24f9649cf8108d6f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TypeOf: 5
 --- !u!212 &212403683008135418
 SpriteRenderer:
   m_ObjectHideFlags: 1
