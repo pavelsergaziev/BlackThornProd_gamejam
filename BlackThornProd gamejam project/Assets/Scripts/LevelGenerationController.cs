@@ -62,12 +62,6 @@ public class LevelGenerationController : MonoBehaviour {
     [SerializeField]
     private int _sizeOfPickupBuffsOnPlatformsObjectPool = 5;
     [SerializeField]
-    [Range(10f, 30f)]
-    private float _minXDistanceBetweenBuffsOnPlatforms = 20f;
-    [SerializeField]
-    [Range(30f, 100f)]
-    private float _maxXDistanceBetweenBuffsOnPlatforms = 50f;
-    [SerializeField]
     [Range(0.2f, 2f)]
     private float _buffOnPlatformYDistanceToPlatform = 1f;
     [SerializeField]
@@ -76,11 +70,31 @@ public class LevelGenerationController : MonoBehaviour {
     private float _minDelayBetweenBuffOnPlatforms = 5f;
     [SerializeField]
     private float _maxDelayBetweenBuffOnPlatforms = 20f;
-
-
     [SerializeField]
     private GameObject _pickupBuffOnPlatformsPrefab;
-    
+
+    [Header("Баги в воздухе")]
+
+    [SerializeField]
+    private int _sizeOfBugsInTheAirObjectPool = 15;
+    [SerializeField]
+    [Range(2f, 4f)]
+    private float _minHeightAbovePlatformForBugsInTheAir = 2f;
+    [SerializeField]
+    [Range(4f, 8f)]
+    private float _maxHeightAbovePlatformForBugsInTheAir = 5f;
+    [SerializeField]
+    private float _delayBeforeFirstBugInTheAir = 10f;
+    [SerializeField]
+    private float _minDelayBetweenBugsInTheAir = 1f;
+    [SerializeField]
+    private float _maxDelayBetweenBugsInTheAir = 5f;
+    [SerializeField]
+    private GameObject _BugInTheAirPrefab;
+
+
+
+
 
 
     //private float _platformPartPrefabWidth;
@@ -89,6 +103,7 @@ public class LevelGenerationController : MonoBehaviour {
     private PropsGenerator _backgroundGenerator;
     private PropsGenerator _someShitGenerator;
     private ObjectsLyingOnPlatformsGenerator _buffsOnPlatformsGenerator;
+    private FloatingObjectsGenerator _bugsInTheAirGenerator;
 
 
     private GameObject _tempPlatformPart;
@@ -105,7 +120,7 @@ public class LevelGenerationController : MonoBehaviour {
         _someShitGenerator = new PropsGenerator(30, transform, _testPickupPrefab, new Vector3(5, 1, 0), _gridSnapper);//тестовый
 
         _buffsOnPlatformsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfPickupBuffsOnPlatformsObjectPool, transform, _pickupBuffOnPlatformsPrefab, (int)(_delayBeforeFirstBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects));
-                
+        _bugsInTheAirGenerator = new FloatingObjectsGenerator(_sizeOfBugsInTheAirObjectPool, transform, _BugInTheAirPrefab, (int)(_delayBeforeFirstBugInTheAir / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBugsInTheAir / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBugsInTheAir / _delayToCheckBuildAndRemoveObjects));
 
         StartCoroutine(LevelGenerationLoop());
     }
@@ -125,6 +140,8 @@ public class LevelGenerationController : MonoBehaviour {
 
             _buffsOnPlatformsGenerator.CheckAndTryCreateObjectOnPlatform(rightBorderX, _buffOnPlatformYDistanceToPlatform, _gridSnapper);
 
+            _bugsInTheAirGenerator.CheckAndTryCreateFloatingObject(rightBorderX, _minHeightAbovePlatformForBugsInTheAir, _maxHeightAbovePlatformForBugsInTheAir, _gridSnapper);
+
             _someShitGenerator.CheckAndTryCreateObject(rightBorderX, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, -5, 5, _gridSnapper);//тестовый
 
 
@@ -132,6 +149,8 @@ public class LevelGenerationController : MonoBehaviour {
             _platformGenerator.CheckAndTryRemoveObjects(leftBorderX);
 
             _buffsOnPlatformsGenerator.CheckAndTryRemoveObjects(leftBorderX);
+
+            _bugsInTheAirGenerator.CheckAndTryRemoveObjects(leftBorderX);
 
             _someShitGenerator.CheckAndTryRemoveObjects(leftBorderX);//тестовый
 

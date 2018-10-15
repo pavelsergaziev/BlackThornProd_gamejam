@@ -561,7 +561,7 @@ GameObject:
   m_Layer: 0
   m_Name: FirePoint
   m_TagString: Untagged
-  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -754,7 +754,7 @@ GameObject:
   m_Layer: 0
   m_Name: Ground Check
   m_TagString: Untagged
-  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2294,13 +2294,19 @@ MonoBehaviour:
   _testPickupPrefab: {fileID: 1331326324256318, guid: 14194c23f48694d478f218ea7a9923b5,
     type: 2}
   _sizeOfPickupBuffsOnPlatformsObjectPool: 5
-  _minXDistanceBetweenBuffsOnPlatforms: 20
-  _maxXDistanceBetweenBuffsOnPlatforms: 50
   _buffOnPlatformYDistanceToPlatform: 1
   _delayBeforeFirstBuffOnPlatforms: 5
   _minDelayBetweenBuffOnPlatforms: 20
   _maxDelayBetweenBuffOnPlatforms: 45
   _pickupBuffOnPlatformsPrefab: {fileID: 1956731766018664, guid: 0d806c8e660ac2e4a830231cbfc7aabf,
+    type: 2}
+  _sizeOfBugsInTheAirObjectPool: 15
+  _minHeightAbovePlatformForBugsInTheAir: 2
+  _maxHeightAbovePlatformForBugsInTheAir: 5
+  _delayBeforeFirstBugInTheAir: 3
+  _minDelayBetweenBugsInTheAir: 1
+  _maxDelayBetweenBugsInTheAir: 5
+  _BugInTheAirPrefab: {fileID: 1767021535727574, guid: c292b58eb9d83864db07cb9d87b096ac,
     type: 2}
 --- !u!4 &2067548447
 Transform:
