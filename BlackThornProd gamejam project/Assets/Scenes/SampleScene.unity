@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _texelsPerUnit: 32
-  _pixelsPerTexel: 3
+  _pixelsPerTexel: 2
 --- !u!4 &167839815
 Transform:
   m_ObjectHideFlags: 0
@@ -215,8 +215,7 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 61080975866383184, guid: bcf56d6690d51cf44924a8e1d5bf40d6,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Size.x
       value: 17.41
       objectReference: {fileID: 0}
@@ -405,7 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _childTransformToSnapToGrid: {fileID: 1586875395}
-  offset: {x: 0, y: 0, z: -20}
+  offset: {x: 4, y: 2, z: -20}
   smoothSpeed: 3
 --- !u!4 &519420032
 Transform:
@@ -2297,12 +2296,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5782e21921041264f96ab94fbb3fed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distanceToABorder: 20
+  _leftBorderX: -10
+  _rightBorderX: 10
   _delayToCheckBuildAndRemoveObjects: 1
   _sizeOfThePlatformPartsObjectPool: 60
+  _sizeOfThePlatformsObjectPool: 10
   _minPlatformLength: 3
   _maxPlatformLength: 15
-  _firstPlatformLength: 5
+  _firstPlatformLength: 15
   _minXDistanceBetweenPlatforms: 1.5
   _maxXDistanceBetweenPlatforms: 2
   _minYDistanceBetweenPlatforms: 0.2
@@ -2315,6 +2316,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 03085945f82ff1b479e6ceaf2c362e97, type: 3}
   - {fileID: 21300000, guid: fe44e1fa4ba4eec42ba21e17183ce264, type: 3}
   _platformPartPrefab: {fileID: 1987667866764988, guid: bcf56d6690d51cf44924a8e1d5bf40d6,
+    type: 2}
+  _platformPrefab: {fileID: 1069711202996472, guid: 03425c2f046de7949bf1002d7740da35,
     type: 2}
   _testPickupPrefab: {fileID: 1331326324256318, guid: 14194c23f48694d478f218ea7a9923b5,
     type: 2}

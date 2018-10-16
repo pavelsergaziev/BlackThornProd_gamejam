@@ -19,13 +19,8 @@ public class BackgroundElementsGenerator : ProximityLevelElementsGenerator {
 
             if (hit && hit.collider.tag == "Platform")
             {
-                Debug.Log(hit.transform.position);
-
                 int amountOfObjects = Random.Range(minAmountOfObjectsInBatch, maxAmountOfObjectsInBatch + 1);
                 float xDistanceBetweenObjects = maxXDistanceToOriginPoint / amountOfObjects;
-
-                Debug.Log(amountOfObjects);
-                Debug.Log(xDistanceBetweenObjects);
 
                 for (int i = 0; i < amountOfObjects; i++)
                     PlaceObjectFromPool

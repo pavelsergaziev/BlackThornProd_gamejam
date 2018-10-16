@@ -16,8 +16,7 @@ public abstract class BaseLevelElementsGenerator {
             _tempObject = Object.Instantiate(objectPrefab, levelLayoutObject.position, Quaternion.identity, levelLayoutObject);
             _tempObject.SetActive(false);
             _objectsPool.Enqueue(_tempObject);
-        }
-        
+        }        
     }
 
     public virtual void PlaceFirstObject(Vector3 position, PixelGridSnapper gridSnapper)
@@ -56,8 +55,7 @@ public abstract class BaseLevelElementsGenerator {
     {
         PlaceObjectFromPool(position, gridSnapper);
         _tempObject.GetComponent<ScrollingGameObject>().ChildTransformToSnapToGrid.GetComponent<SpriteRenderer>().sprite = sprite;
-    }
-    
+    }    
 
     protected virtual void DeactivateObjectAndPutItIntoPool()
     {

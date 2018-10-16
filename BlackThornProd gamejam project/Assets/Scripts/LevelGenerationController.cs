@@ -21,6 +21,8 @@ public class LevelGenerationController : MonoBehaviour {
     [SerializeField]
     private int _sizeOfThePlatformPartsObjectPool;
     [SerializeField]
+    private int _sizeOfThePlatformsObjectPool;
+    [SerializeField]
     [Range(2,10)]
     private int _minPlatformLength = 3;
     [SerializeField]
@@ -55,6 +57,11 @@ public class LevelGenerationController : MonoBehaviour {
 
     [SerializeField]
     private GameObject _platformPartPrefab;
+
+    [SerializeField]
+    private GameObject _platformPrefab;
+
+
     [SerializeField]
     private GameObject _testPickupPrefab;
 
@@ -133,7 +140,7 @@ public class LevelGenerationController : MonoBehaviour {
     {
         _gridSnapper = FindObjectOfType<GameManager>().PixelGridSnapper;
 
-        _platformsGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, transform, _platformPartPrefab, _firstPlatformLength, _leftBorderX, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
+        _platformsGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, _sizeOfThePlatformsObjectPool, transform, _platformPartPrefab, _platformPrefab, _firstPlatformLength, _leftBorderX, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
         _buffsOnPlatformsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfPickupBuffsOnPlatformsObjectPool, transform, _pickupBuffOnPlatformsPrefab, (int)(_delayBeforeFirstBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects));
         _bugsInTheAirGenerator = new FloatingObjectsGenerator(_sizeOfBugsInTheAirObjectPool, transform, _BugInTheAirPrefab, (int)(_delayBeforeFirstBugInTheAir / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBugsInTheAir / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBugsInTheAir / _delayToCheckBuildAndRemoveObjects));
         _backgroundObjectsGenerator = new BackgroundElementsGenerator(_sizeOfBackgroundObjectsObjectPool, transform, _backgroundObjectPrefab);
