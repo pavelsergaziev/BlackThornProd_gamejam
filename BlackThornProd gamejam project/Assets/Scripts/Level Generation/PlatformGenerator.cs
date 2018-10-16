@@ -6,10 +6,10 @@ public class PlatformGenerator : ProximityLevelElementsGenerator
 {
     private float _platformPartPrefabWidth;
 
-    public PlatformGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, int firstPlatformLength, Sprite leftEdge, Sprite[] middleSprites, Sprite rightEdge, PixelGridSnapper gridSnapper) : base(objectsPoolSize, levelLayoutObject, objectPrefab)
+    public PlatformGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, int firstPlatformLength, float firstPlatformStartingPositionX, Sprite leftEdge, Sprite[] middleSprites, Sprite rightEdge, PixelGridSnapper gridSnapper) : base(objectsPoolSize, levelLayoutObject, objectPrefab)
     {
         _platformPartPrefabWidth = objectPrefab.GetComponentInChildren<SpriteRenderer>().sprite.bounds.size.x;
-        CreatePlatform(firstPlatformLength, levelLayoutObject.position, leftEdge, middleSprites, rightEdge, gridSnapper);
+        CreatePlatform(firstPlatformLength, new Vector3(levelLayoutObject.position.x + firstPlatformStartingPositionX, levelLayoutObject.position.y, levelLayoutObject.position.z), leftEdge, middleSprites, rightEdge, gridSnapper);
     }
 
     /// <summary>

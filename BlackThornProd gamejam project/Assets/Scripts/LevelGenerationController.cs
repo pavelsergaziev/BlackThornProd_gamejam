@@ -5,8 +5,11 @@ using UnityEngine;
 public class LevelGenerationController : MonoBehaviour {
 
     [SerializeField]
-    [Tooltip("Расстояние в юнитах от центра геймобжекта до левого или правого краёв, за пределами которых происходит генерация карты")]
-    private int _distanceToABorder;
+    [Tooltip("Расстояние в юнитах от центра геймобжекта до левого края, за которым объекты уничтожаются")]
+    private int _leftBorderX = - 10;
+    [SerializeField]
+    [Tooltip("Расстояние в юнитах от центра геймобжекта до правого края, за которым объекты создаются")]
+    private int _rightBorderX = 10;
 
     [SerializeField]
     [Tooltip("Задержка между проверками создания/уничтожения объектов")]
@@ -130,11 +133,13 @@ public class LevelGenerationController : MonoBehaviour {
     {
         _gridSnapper = FindObjectOfType<GameManager>().PixelGridSnapper;
 
-        _platformsGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, transform, _platformPartPrefab, _firstPlatformLength, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
+        _platformsGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, transform, _platformPartPrefab, _firstPlatformLength, _leftBorderX, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
         _buffsOnPlatformsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfPickupBuffsOnPlatformsObjectPool, transform, _pickupBuffOnPlatformsPrefab, (int)(_delayBeforeFirstBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects));
         _bugsInTheAirGenerator = new FloatingObjectsGenerator(_sizeOfBugsInTheAirObjectPool, transform, _BugInTheAirPrefab, (int)(_delayBeforeFirstBugInTheAir / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBugsInTheAir / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBugsInTheAir / _delayToCheckBuildAndRemoveObjects));
         _backgroundObjectsGenerator = new BackgroundElementsGenerator(_sizeOfBackgroundObjectsObjectPool, transform, _backgroundObjectPrefab);
 
+
+        _backgroundObjectsGenerator.CheckAndTryCreateBatchOfObjects(_leftBorderX, _rightBorderX - _leftBorderX, _maxYDistanceOfBackgroundObjectsFromPlatform, (int)(((_rightBorderX - _leftBorderX) / _backgroundObjectsBatchWidth) * _minAmountOfBackgroundObjectsInBatch), (int)(((_rightBorderX - _leftBorderX) / _backgroundObjectsBatchWidth) * _maxAmountOfBackgroundObjectsInBatch), _backgroundObjectsSprites, _gridSnapper);
         StartCoroutine(LevelGenerationLoop());
     }
      
@@ -145,22 +150,17 @@ public class LevelGenerationController : MonoBehaviour {
 
         while (true)
         {
-            int leftBorderX = (int)(transform.position.x - _distanceToABorder);
-            int rightBorderX = (int)(transform.position.x + _distanceToABorder);
+
+            _platformsGenerator.CheckAndTryCreatePlatform(_rightBorderX, _minPlatformLength, _maxPlatformLength, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, _minYDistanceBetweenPlatforms, _maxYDistanceBetweenPlatforms, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
+            _buffsOnPlatformsGenerator.CheckAndTryCreateObjectOnPlatform(_rightBorderX, _buffOnPlatformYDistanceToPlatform, _gridSnapper);
+            _bugsInTheAirGenerator.CheckAndTryCreateFloatingObject(_rightBorderX, _minHeightAbovePlatformForBugsInTheAir, _maxHeightAbovePlatformForBugsInTheAir, _gridSnapper);            
+            _backgroundObjectsGenerator.CheckAndTryCreateBatchOfObjects(_rightBorderX, _backgroundObjectsBatchWidth, _maxYDistanceOfBackgroundObjectsFromPlatform, _minAmountOfBackgroundObjectsInBatch, _maxAmountOfBackgroundObjectsInBatch, _backgroundObjectsSprites, _gridSnapper);
 
 
-            _platformsGenerator.CheckAndTryCreatePlatform(rightBorderX, _minPlatformLength, _maxPlatformLength, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, _minYDistanceBetweenPlatforms, _maxYDistanceBetweenPlatforms, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
-            _buffsOnPlatformsGenerator.CheckAndTryCreateObjectOnPlatform(rightBorderX, _buffOnPlatformYDistanceToPlatform, _gridSnapper);
-            _bugsInTheAirGenerator.CheckAndTryCreateFloatingObject(rightBorderX, _minHeightAbovePlatformForBugsInTheAir, _maxHeightAbovePlatformForBugsInTheAir, _gridSnapper);
-
-            //спрайт и размер - временно
-            _backgroundObjectsGenerator.CheckAndTryCreateBatchOfObjects(rightBorderX, _backgroundObjectsBatchWidth, _maxYDistanceOfBackgroundObjectsFromPlatform, _minAmountOfBackgroundObjectsInBatch, _maxAmountOfBackgroundObjectsInBatch, _backgroundObjectsSprites, _gridSnapper);
-
-
-            _platformsGenerator.CheckAndTryRemoveObjects(leftBorderX);
-            _buffsOnPlatformsGenerator.CheckAndTryRemoveObjects(leftBorderX);
-            _bugsInTheAirGenerator.CheckAndTryRemoveObjects(leftBorderX);
-            _backgroundObjectsGenerator.CheckAndTryRemoveObjects(leftBorderX);
+            _platformsGenerator.CheckAndTryRemoveObjects(_leftBorderX);
+            _buffsOnPlatformsGenerator.CheckAndTryRemoveObjects(_leftBorderX);
+            _bugsInTheAirGenerator.CheckAndTryRemoveObjects(_leftBorderX);
+            _backgroundObjectsGenerator.CheckAndTryRemoveObjects(_leftBorderX);
 
 
             yield return delay;
