@@ -43,10 +43,14 @@ public abstract class BaseLevelElementsGenerator {
 
     protected virtual void PlaceObjectFromPool(Vector3 position)
     {
-        _tempObject = _objectsPool.Dequeue();
-        _tempObject.transform.position = position;
-        _tempObject.SetActive(true);        
-        _activeObjects.Add(_tempObject);
+        if (_objectsPool.Count > 1)//Иногда в наследуемых классах делается _objectsPool.Peek(), поэтому тут единица, а не ноль. Но надо посмотреть, не сломал ли я чего этим условием
+        {
+            _tempObject = _objectsPool.Dequeue();
+            _tempObject.transform.position = position;
+            _tempObject.SetActive(true);
+            _activeObjects.Add(_tempObject);
+        }
+
     }
 
     protected virtual void PlaceObjectFromPool(Vector3 position, PixelGridSnapper gridSnapper)

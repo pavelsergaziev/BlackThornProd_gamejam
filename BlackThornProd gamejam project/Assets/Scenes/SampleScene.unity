@@ -486,7 +486,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 450084857
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e4cf67234d853304c969dc17db841294, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -684,7 +684,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 450084857
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1fa0243e4de002d4ca0a3cce8c718191, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -905,6 +905,13 @@ MonoBehaviour:
   _maxDelayBetweenBuffOnPlatforms: 25
   _pickupBuffOnPlatformsPrefab: {fileID: 1956731766018664, guid: 0d806c8e660ac2e4a830231cbfc7aabf,
     type: 2}
+  _sizeOfPickupDebuffsOnPlatformsObjectPool: 5
+  _debuffOnPlatformYDistanceToPlatform: 1
+  _delayBeforeFirstDebuffOnPlatforms: 10
+  _minDelayBetweenDebuffOnPlatforms: 5
+  _maxDelayBetweenDebuffOnPlatforms: 20
+  _pickupDebuffOnPlatformsPrefab: {fileID: 1843716650251902, guid: 0c00d2edad63b314f80a3a55931b8ff9,
+    type: 2}
   _sizeOfBugsInTheAirObjectPool: 15
   _minHeightAbovePlatformForBugsInTheAir: 2
   _maxHeightAbovePlatformForBugsInTheAir: 5
@@ -913,17 +920,47 @@ MonoBehaviour:
   _maxDelayBetweenBugsInTheAir: 5
   _BugInTheAirPrefab: {fileID: 1767021535727574, guid: c292b58eb9d83864db07cb9d87b096ac,
     type: 2}
-  _sizeOfBackgroundObjectsObjectPool: 200
-  _backgroundObjectsBatchWidth: 10
+  _sizeOfBuffsInTheAirObjectPool: 15
+  _minHeightAbovePlatformForBuffsInTheAir: 2
+  _maxHeightAbovePlatformForBuffsInTheAir: 5
+  _delayBeforeFirstBuffInTheAir: 10
+  _minDelayBetweenBuffsInTheAir: 1
+  _maxDelayBetweenBuffsInTheAir: 5
+  _BuffInTheAirPrefab: {fileID: 1237371561541416, guid: 0d6dddf037e4ff744a39e55e91a70a95,
+    type: 2}
   _maxYDistanceOfBackgroundObjectsFromPlatform: 6
-  _minAmountOfBackgroundObjectsInBatch: 25
-  _maxAmountOfBackgroundObjectsInBatch: 35
-  _backgroundObjectsSprites:
-  - {fileID: 21300000, guid: b16903924e06797469dd933d4a1874ec, type: 3}
+  _backgroundObjectsBatchWidth: 10
+  _sizeOfFarBackgroundObjectsObjectPool: 200
+  _minAmountOfFarBackgroundObjectsInBatch: 10
+  _maxAmountOfFarBackgroundObjectsInBatch: 20
+  _farBackgroundObjectsSprites:
   - {fileID: 21300000, guid: 32672bc6bf37b8f4986407868c6713db, type: 3}
   - {fileID: 21300000, guid: 19e433f351f02e749b204f2ab4c3f39d, type: 3}
   - {fileID: 21300000, guid: 8a8b18aa6f33a5c4280fa46a25c68e66, type: 3}
-  _backgroundObjectPrefab: {fileID: 1331326324256318, guid: 14194c23f48694d478f218ea7a9923b5,
+  _farBackgroundObjectPrefab: {fileID: 1639599721793070, guid: 64955095c95070746a926c3670b39d3c,
+    type: 2}
+  _sizeOfMidBackgroundObjectsObjectPool: 200
+  _minAmountOfMidBackgroundObjectsInBatch: 10
+  _maxAmountOfMidBackgroundObjectsInBatch: 20
+  _midBackgroundObjectsSprites:
+  - {fileID: 21300000, guid: 19e433f351f02e749b204f2ab4c3f39d, type: 3}
+  - {fileID: 21300000, guid: 8a8b18aa6f33a5c4280fa46a25c68e66, type: 3}
+  _midBackgroundObjectPrefab: {fileID: 1882029523809378, guid: 103653f404d6a1d4c8a9d698b121020f,
+    type: 2}
+  _sizeOfNearBackgroundObjectsObjectPool: 200
+  _minAmountOfNearBackgroundObjectsInBatch: 10
+  _maxAmountOfNearBackgroundObjectsInBatch: 20
+  _nearBackgroundObjectsSprites:
+  - {fileID: 21300000, guid: b16903924e06797469dd933d4a1874ec, type: 3}
+  _nearBackgroundObjectPrefab: {fileID: 1765188691103628, guid: 1f5b95f0167fd314184dc786b4b4ce59,
+    type: 2}
+  _sizeOfForegroundObjectsObjectPool: 200
+  _minAmountOfForegroundObjectsInBatch: 10
+  _maxAmountOfForegroundObjectsInBatch: 20
+  _foregroundObjectsSprites:
+  - {fileID: 21300000, guid: 88e3f746d7556f44181cbb623078faa5, type: 3}
+  - {fileID: 21300000, guid: fab66318894aa7644b0aa22353f74b5b, type: 3}
+  _foregroundObjectPrefab: {fileID: 1691674851080476, guid: 23b9605fec625a648ae95c84f1d37cab,
     type: 2}
 --- !u!4 &2067548447
 Transform:
