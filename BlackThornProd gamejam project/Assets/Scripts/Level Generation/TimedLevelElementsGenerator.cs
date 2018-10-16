@@ -11,6 +11,16 @@ public abstract class TimedLevelElementsGenerator : BaseLevelElementsGenerator
 
     public TimedLevelElementsGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, int delayBeforeFirstPlacement, int minDelayBetweenObjectPlacements, int maxDelayBetweenObjectPlacements) : base(objectsPoolSize, levelLayoutObject, objectPrefab)
     {
+        setStartValues(minDelayBetweenObjectPlacements, maxDelayBetweenObjectPlacements, delayBeforeFirstPlacement);
+    }
+
+    public TimedLevelElementsGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, int delayBeforeFirstPlacement, int minDelayBetweenObjectPlacements, int maxDelayBetweenObjectPlacements, float objectScrollSpeed) : base(objectsPoolSize, levelLayoutObject, objectPrefab, objectScrollSpeed)
+    {
+        setStartValues(minDelayBetweenObjectPlacements, maxDelayBetweenObjectPlacements, delayBeforeFirstPlacement);
+    }
+
+    private void setStartValues(int minDelayBetweenObjectPlacements, int maxDelayBetweenObjectPlacements, int delayBeforeFirstPlacement)
+    {
         _minDelayBetweenObjectPlacements = minDelayBetweenObjectPlacements;
         _maxDelayBetweenObjectPlacements = maxDelayBetweenObjectPlacements;
         _levelGenerationLoopCyclesToNextObjectPlacement = delayBeforeFirstPlacement;

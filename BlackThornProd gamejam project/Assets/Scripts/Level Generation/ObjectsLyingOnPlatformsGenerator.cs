@@ -7,11 +7,13 @@ using UnityEngine;
 /// </summary>
 public class ObjectsLyingOnPlatformsGenerator : TimedLevelElementsGenerator
 {
-    
+    bool _placeObjectsOnlyAtPlatformCenter;
+
     private const int AttemptsToPlaceObject = 10;//просто какой-то предел, чтобы в бесконечный цикл не попасть
 
-    public ObjectsLyingOnPlatformsGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, int delayBeforeFirstPlacement, int minDelayBetweenObjectPlacements, int maxDelayBetweenObjectPlacements) : base(objectsPoolSize, levelLayoutObject, objectPrefab, delayBeforeFirstPlacement, minDelayBetweenObjectPlacements, maxDelayBetweenObjectPlacements)
+    public ObjectsLyingOnPlatformsGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, int delayBeforeFirstPlacement, int minDelayBetweenObjectPlacements, int maxDelayBetweenObjectPlacements, bool placeObjectsOnlyAtPlatformCenter) : base(objectsPoolSize, levelLayoutObject, objectPrefab, delayBeforeFirstPlacement, minDelayBetweenObjectPlacements, maxDelayBetweenObjectPlacements)
     {
+        _placeObjectsOnlyAtPlatformCenter = placeObjectsOnlyAtPlatformCenter;
     }
 
 
@@ -31,13 +33,23 @@ public class ObjectsLyingOnPlatformsGenerator : TimedLevelElementsGenerator
 
                 Vector2 raycastSource = new Vector2(creatingBorderPositionX + (i / 2), 0);
 
-                RaycastHit2D hit = Physics2D.Raycast(raycastSource, Vector2.down);
-                if (!hit)
-                    hit = Physics2D.Raycast(raycastSource, Vector2.up);
+                Collider2D hitCollider = Physics2D.Raycast(raycastSource, Vector2.down).collider;
+                if (hitCollider == null)
+                    hitCollider = Physics2D.Raycast(raycastSource, Vector2.up).collider;
 
-                if (hit && hit.collider.tag == "Platform")
+                if (hitCollider != null && hitCollider.tag == "Platform")
                 {
-                    PlaceObjectFromPool(hit.collider.transform.position + Vector3.up * YDistanceToPlatform, gridSnapper);
+                    _objectsPool.Peek().GetComponent<ScrollingGameObject>().ScrollSpeed = hitCollider.gameObject.GetComponent<ScrollingGameObject>().ScrollSpeed;
+
+                    Vector3 spawnPosition =
+                        _placeObjectsOnlyAtPlatformCenter
+                        ?
+                        hitCollider.transform.position + Vector3.up * YDistanceToPlatform
+                        :
+                        new Vector3(Random.Range(hitCollider.transform.position.x - (hitCollider.bounds.size.x / 2), hitCollider.transform.position.x + (hitCollider.bounds.size.x / 2)), hitCollider.transform.position.y + YDistanceToPlatform, _objectsPool.Peek().transform.position.z);
+
+                    PlaceObjectFromPool(spawnPosition, gridSnapper);
+
                     break;
                 }
 
