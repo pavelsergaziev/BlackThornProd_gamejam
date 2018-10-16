@@ -19,6 +19,17 @@ public abstract class BaseLevelElementsGenerator {
         }        
     }
 
+    public BaseLevelElementsGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, float objectScrollSpeed)
+    {
+        for (int i = 0; i < objectsPoolSize; i++)
+        {
+            _tempObject = Object.Instantiate(objectPrefab, levelLayoutObject.position, Quaternion.identity, levelLayoutObject);
+            _tempObject.GetComponent<ScrollingGameObject>().ScrollSpeed = objectScrollSpeed;
+            _tempObject.SetActive(false);
+            _objectsPool.Enqueue(_tempObject);
+        }
+    }
+
     public virtual void PlaceFirstObject(Vector3 position, PixelGridSnapper gridSnapper)
     {
         PlaceObjectFromPool(position, gridSnapper);

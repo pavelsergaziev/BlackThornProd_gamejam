@@ -15,7 +15,8 @@ public class LevelGenerationController : MonoBehaviour {
     [Tooltip("Задержка между проверками создания/уничтожения объектов")]
     private float _delayToCheckBuildAndRemoveObjects = 1;
 
-    //вероятно, лучше эти числа получить из отношения размеров экрана к размерам тайлов, но пока вобьём руками
+
+    
     [Header("Платформы")]
 
     [SerializeField]
@@ -30,42 +31,43 @@ public class LevelGenerationController : MonoBehaviour {
     private int _maxPlatformLength = 10;
     [SerializeField]
     private int _firstPlatformLength = 5;
-
     [SerializeField]
-    [Range(1.5f, 2f)]
-    private float _minXDistanceBetweenPlatforms = 1.5f;
+    [Range(1.5f, 3f)]
+    private float _minXDistanceBetweenPlatforms = 2f;
     [SerializeField]
-    [Range(2f, 4f)]
-    private float _maxXDistanceBetweenPlatforms = 3f;
-
+    [Range(3f, 5f)]
+    private float _maxXDistanceBetweenPlatforms = 4f;
     [SerializeField]
-    [Range(0.1f, 1f)]
+    [Range(0f, 1f)]
     private float _minYDistanceBetweenPlatforms = 0.2f;
     [SerializeField]
     [Range(1f, 3f)]
     private float _maxYDistanceBetweenPlatforms = 2f;
-
-
-
-
     [SerializeField]
     private Sprite _leftPlatformEdgeSprite;
     [SerializeField]
     private Sprite _rightPlatformEdgeSprite;
     [SerializeField]
     private Sprite[] _platformMiddlePartsSprites;
-
     [SerializeField]
     private GameObject _platformPartPrefab;
-
     [SerializeField]
     private GameObject _platformPrefab;
 
 
+    [Header("Стены")]
     [SerializeField]
-    private GameObject _testPickupPrefab;
-
-
+    private int _sizeOfWallsObjectPool = 5;
+    [SerializeField]
+    private float _wallsYDistanceToPlatform = 3f;
+    [SerializeField]
+    private float _delayBeforeFirstWall = 30f;
+    [SerializeField]
+    private float _minDelayBetweenWalls = 25f;
+    [SerializeField]
+    private float _maxDelayBetweenWalls = 60f;
+    [SerializeField]
+    private GameObject _wallPrefab;
 
     [Header("Баффы на платформах")]
 
@@ -82,6 +84,7 @@ public class LevelGenerationController : MonoBehaviour {
     private float _maxDelayBetweenBuffOnPlatforms = 20f;
     [SerializeField]
     private GameObject _pickupBuffOnPlatformsPrefab;
+
 
     [Header("Баги в воздухе")]
 
@@ -102,7 +105,9 @@ public class LevelGenerationController : MonoBehaviour {
     [SerializeField]
     private GameObject _BugInTheAirPrefab;
        
+
     [Header("Элементы заднего фона")]
+
     [SerializeField]
     private int _sizeOfBackgroundObjectsObjectPool = 200;
     [SerializeField]
@@ -125,6 +130,7 @@ public class LevelGenerationController : MonoBehaviour {
     //private float _platformPartPrefabWidth;
 
     private PlatformGenerator _platformsGenerator;
+    private ObjectsLyingOnPlatformsGenerator _wallsGenerator;
     private ObjectsLyingOnPlatformsGenerator _buffsOnPlatformsGenerator;
     private FloatingObjectsGenerator _bugsInTheAirGenerator;
     private BackgroundElementsGenerator _backgroundObjectsGenerator;
@@ -141,7 +147,8 @@ public class LevelGenerationController : MonoBehaviour {
         _gridSnapper = FindObjectOfType<GameManager>().PixelGridSnapper;
 
         _platformsGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, _sizeOfThePlatformsObjectPool, transform, _platformPartPrefab, _platformPrefab, _firstPlatformLength, _leftBorderX, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
-        _buffsOnPlatformsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfPickupBuffsOnPlatformsObjectPool, transform, _pickupBuffOnPlatformsPrefab, (int)(_delayBeforeFirstBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects));
+        _buffsOnPlatformsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfPickupBuffsOnPlatformsObjectPool, transform, _pickupBuffOnPlatformsPrefab, (int)(_delayBeforeFirstBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBuffOnPlatforms / _delayToCheckBuildAndRemoveObjects), false);
+        _wallsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfWallsObjectPool, transform, _wallPrefab, (int)(_delayBeforeFirstWall / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenWalls / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenWalls / _delayToCheckBuildAndRemoveObjects), true);
         _bugsInTheAirGenerator = new FloatingObjectsGenerator(_sizeOfBugsInTheAirObjectPool, transform, _BugInTheAirPrefab, (int)(_delayBeforeFirstBugInTheAir / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenBugsInTheAir / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenBugsInTheAir / _delayToCheckBuildAndRemoveObjects));
         _backgroundObjectsGenerator = new BackgroundElementsGenerator(_sizeOfBackgroundObjectsObjectPool, transform, _backgroundObjectPrefab);
 
@@ -159,15 +166,25 @@ public class LevelGenerationController : MonoBehaviour {
         {
 
             _platformsGenerator.CheckAndTryCreatePlatform(_rightBorderX, _minPlatformLength, _maxPlatformLength, _minXDistanceBetweenPlatforms, _maxXDistanceBetweenPlatforms, _minYDistanceBetweenPlatforms, _maxYDistanceBetweenPlatforms, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
+
+            #region создаём объекты
+
             _buffsOnPlatformsGenerator.CheckAndTryCreateObjectOnPlatform(_rightBorderX, _buffOnPlatformYDistanceToPlatform, _gridSnapper);
             _bugsInTheAirGenerator.CheckAndTryCreateFloatingObject(_rightBorderX, _minHeightAbovePlatformForBugsInTheAir, _maxHeightAbovePlatformForBugsInTheAir, _gridSnapper);            
             _backgroundObjectsGenerator.CheckAndTryCreateBatchOfObjects(_rightBorderX, _backgroundObjectsBatchWidth, _maxYDistanceOfBackgroundObjectsFromPlatform, _minAmountOfBackgroundObjectsInBatch, _maxAmountOfBackgroundObjectsInBatch, _backgroundObjectsSprites, _gridSnapper);
+            _wallsGenerator.CheckAndTryCreateObjectOnPlatform(_rightBorderX, _wallsYDistanceToPlatform, _gridSnapper);
 
+            #endregion
+
+            #region уничтожаем объекты
 
             _platformsGenerator.CheckAndTryRemoveObjects(_leftBorderX);
             _buffsOnPlatformsGenerator.CheckAndTryRemoveObjects(_leftBorderX);
             _bugsInTheAirGenerator.CheckAndTryRemoveObjects(_leftBorderX);
             _backgroundObjectsGenerator.CheckAndTryRemoveObjects(_leftBorderX);
+            _wallsGenerator.CheckAndTryRemoveObjects(_leftBorderX);
+
+            #endregion
 
 
             yield return delay;

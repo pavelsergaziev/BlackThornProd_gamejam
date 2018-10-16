@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundElementsGenerator : ProximityLevelElementsGenerator {
+
+    private const int MaxSortingOrder = 300;
+
     public BackgroundElementsGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab) : base(objectsPoolSize, levelLayoutObject, objectPrefab)
     {
     }
@@ -23,6 +26,7 @@ public class BackgroundElementsGenerator : ProximityLevelElementsGenerator {
                 float xDistanceBetweenObjects = maxXDistanceToOriginPoint / amountOfObjects;
 
                 for (int i = 0; i < amountOfObjects; i++)
+                { 
                     PlaceObjectFromPool
                     (
                         new Vector3(
@@ -32,9 +36,22 @@ public class BackgroundElementsGenerator : ProximityLevelElementsGenerator {
                         sprites[Random.Range(0, sprites.Length)],
                         gridSnapper
                     );
+
+                    if (_activeObjects.Count > 1)
+                    {
+                        SpriteRenderer previousObjectSpriteRenderer = _activeObjects[_activeObjects.Count - 2].GetComponentInChildren<SpriteRenderer>();
+
+                        if (previousObjectSpriteRenderer.sortingOrder > MaxSortingOrder)
+                            previousObjectSpriteRenderer.sortingOrder = 0;
+
+                        _activeObjects[_activeObjects.Count - 1].GetComponentInChildren<SpriteRenderer>().sortingOrder = previousObjectSpriteRenderer.sortingOrder + 1;
+                    }
+
+                }
+
+
             }
         }
     }
-
 
 }

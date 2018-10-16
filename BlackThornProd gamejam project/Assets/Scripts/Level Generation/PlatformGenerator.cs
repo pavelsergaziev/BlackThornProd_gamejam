@@ -11,7 +11,7 @@ public class PlatformGenerator : ProximityLevelElementsGenerator
     public PlatformGenerator(int platformPartsPoolSize, int platformWrappersPoolSize, Transform levelLayoutObject, GameObject platformPartPrefab, GameObject platformWrapperPrefab, int firstPlatformLength, float firstPlatformStartingPositionX, Sprite leftEdge, Sprite[] middleSprites, Sprite rightEdge, PixelGridSnapper gridSnapper) : base(platformPartsPoolSize, levelLayoutObject, platformPartPrefab)
     {
         _platformPartPrefabWidth = platformPartPrefab.GetComponentInChildren<SpriteRenderer>().sprite.bounds.size.x;
-        PlatformWrappersGenerator = new InnerGeneratorForPlatformGenerator(platformWrappersPoolSize, levelLayoutObject, platformWrapperPrefab);
+        PlatformWrappersGenerator = new InnerGeneratorForPlatformGenerator(platformWrappersPoolSize, levelLayoutObject, platformWrapperPrefab, platformPartPrefab.GetComponent<ScrollingGameObject>().ScrollSpeed);
 
         CreatePlatform(firstPlatformLength, new Vector3(levelLayoutObject.position.x + firstPlatformStartingPositionX, levelLayoutObject.position.y, levelLayoutObject.position.z), leftEdge, middleSprites, rightEdge, gridSnapper);
     }
@@ -45,7 +45,7 @@ public class PlatformGenerator : ProximityLevelElementsGenerator
             PlaceObjectFromPool(new Vector3(startingPosition.x + ((i + 1) * _platformPartPrefabWidth), startingPosition.y, startingPosition.z), middleSprites[Random.Range(0, middleSprites.Length)], gridSnapper);
 
         PlaceObjectFromPool(new Vector3(startingPosition.x + ((platformLength - 1) * _platformPartPrefabWidth), startingPosition.y, startingPosition.z), rightEdge, gridSnapper);
-
+        
         PlatformWrappersGenerator.PlacePlatformFromPool((startingPosition + _activeObjects[_activeObjects.Count - 1].transform.position) / 2, new Vector2(_platformPartPrefabWidth * platformLength, PlatformWrappersGenerator.NextPlatformInPool.GetComponent<BoxCollider2D>().size.y));
     }
 

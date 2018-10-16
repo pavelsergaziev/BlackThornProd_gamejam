@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InnerGeneratorForPlatformGenerator : BaseLevelElementsGenerator {
-    public InnerGeneratorForPlatformGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab) : base(objectsPoolSize, levelLayoutObject, objectPrefab)
+    public InnerGeneratorForPlatformGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab, float platformScrollSpeed) : base(objectsPoolSize, levelLayoutObject, objectPrefab, platformScrollSpeed)
     {
     }
 

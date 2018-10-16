@@ -44,14 +44,29 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background Elements Far
+    uniqueID: 2620567499
+    locked: 0
+  - name: Background Elements Mid
+    uniqueID: 2163498129
+    locked: 0
+  - name: Background Elements Near
+    uniqueID: 2344268511
+    locked: 0
   - name: Level Props Background
     uniqueID: 3297738673
     locked: 0
   - name: Platforms
     uniqueID: 3401917305
     locked: 0
+  - name: Walls
+    uniqueID: 2940850555
+    locked: 0
   - name: Player
     uniqueID: 450084857
+    locked: 0
+  - name: Pickups
+    uniqueID: 1681178253
     locked: 0
   - name: Level Props Foreground
     uniqueID: 149169237

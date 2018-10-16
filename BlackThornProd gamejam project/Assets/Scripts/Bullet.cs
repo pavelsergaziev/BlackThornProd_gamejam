@@ -12,7 +12,7 @@ class Bullet : MonoBehaviour
     /// <summary>
     /// Время, через которое снаряд будет уничтожен, если ни во что не врежется
     /// </summary>
-    private const float _destroyTime = 3f;
+    private const float _destroyTime = 1.5f;
     
     private void Start()
     {
