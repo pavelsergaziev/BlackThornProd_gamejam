@@ -9,6 +9,7 @@ public abstract class BaseGameObject : MonoBehaviour {
 
     [SerializeField]
     protected Transform _childTransformToSnapToGrid;
+    public Transform ChildTransformToSnapToGrid { get { return _childTransformToSnapToGrid; } }
     
 
     protected virtual void Start()
@@ -22,6 +23,14 @@ public abstract class BaseGameObject : MonoBehaviour {
     protected virtual void LateUpdate()
     {
         _pixelGridSnapper.SnapToScreenPixelGrid(_childTransformToSnapToGrid, transform);
+    }
+
+    public virtual void SwitchVisibility()
+    {
+        _childTransformToSnapToGrid.gameObject.SetActive(!_childTransformToSnapToGrid.gameObject.activeSelf);
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+            collider.enabled = !collider.enabled;
     }
 
 }

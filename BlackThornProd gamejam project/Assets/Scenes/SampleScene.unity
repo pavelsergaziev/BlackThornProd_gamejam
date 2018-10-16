@@ -155,62 +155,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &289136843
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4146716551496074, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4146716551496074, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4146716551496074, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4146716551496074, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4146716551496074, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4146716551496074, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4146716551496074, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4146716551496074, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1987667866764988, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114500315420706782, guid: bcf56d6690d51cf44924a8e1d5bf40d6,
-        type: 2}
-      propertyPath: _scrollSpeed
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 50109123185598802, guid: bcf56d6690d51cf44924a8e1d5bf40d6,
-        type: 2}
-      propertyPath: m_UseFullKinematicContacts
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1001 &422116066
 Prefab:
   m_ObjectHideFlags: 0
@@ -275,6 +219,10 @@ Prefab:
         type: 2}
       propertyPath: m_Size.x
       value: 17.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1987667866764988, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcf56d6690d51cf44924a8e1d5bf40d6, type: 2}
@@ -379,7 +327,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &515273786
 MonoBehaviour:
@@ -510,7 +458,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4253441347277726, guid: 5d0d8c10ef6ca6a47876d89a448d1cae, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114961398132517752, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
         type: 2}
@@ -535,7 +483,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!156049354 &568656307
 Grid:
   m_ObjectHideFlags: 0
@@ -2356,7 +2304,7 @@ MonoBehaviour:
   _maxPlatformLength: 15
   _firstPlatformLength: 5
   _minXDistanceBetweenPlatforms: 1.5
-  _maxXDistanceBetweenPlatforms: 3.5
+  _maxXDistanceBetweenPlatforms: 2
   _minYDistanceBetweenPlatforms: 0.2
   _maxYDistanceBetweenPlatforms: 2
   _leftPlatformEdgeSprite: {fileID: 21300000, guid: 8ef85afd3fb86c84cb810007b07ff077,
@@ -2381,7 +2329,7 @@ MonoBehaviour:
   _minHeightAbovePlatformForBugsInTheAir: 2
   _maxHeightAbovePlatformForBugsInTheAir: 5
   _delayBeforeFirstBugInTheAir: 3
-  _minDelayBetweenBugsInTheAir: 1
+  _minDelayBetweenBugsInTheAir: 2
   _maxDelayBetweenBugsInTheAir: 5
   _BugInTheAirPrefab: {fileID: 1767021535727574, guid: c292b58eb9d83864db07cb9d87b096ac,
     type: 2}
@@ -2408,5 +2356,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

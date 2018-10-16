@@ -35,20 +35,27 @@ public abstract class BaseLevelElementsGenerator {
     {
         _tempObject = _objectsPool.Dequeue();
         _tempObject.transform.position = position;
-        _tempObject.SetActive(true);
+        _tempObject.SetActive(true);        
         _activeObjects.Add(_tempObject);
     }
 
     protected virtual void PlaceObjectFromPool(Vector3 position, PixelGridSnapper gridSnapper)
-    {
+    {        
+
         PlaceObjectFromPool(position);
-        gridSnapper.SnapToTexelGrid(_tempObject.transform.GetComponentInChildren<SpriteRenderer>().transform, _tempObject.transform);
+
+        ScrollingGameObject tempScrollingObject = _tempObject.GetComponent<ScrollingGameObject>();
+
+        if (!tempScrollingObject.ChildTransformToSnapToGrid.gameObject.activeSelf)
+            tempScrollingObject.SwitchVisibility();
+
+        gridSnapper.SnapToTexelGrid(tempScrollingObject.ChildTransformToSnapToGrid, _tempObject.transform);
     }
 
     protected virtual void PlaceObjectFromPool(Vector3 position, Sprite sprite, PixelGridSnapper gridSnapper)
     {
         PlaceObjectFromPool(position, gridSnapper);
-        _tempObject.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
+        _tempObject.GetComponent<ScrollingGameObject>().ChildTransformToSnapToGrid.GetComponent<SpriteRenderer>().sprite = sprite;
     }
     
 

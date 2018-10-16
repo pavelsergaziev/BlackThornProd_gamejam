@@ -91,7 +91,13 @@ public class Harpoon : MonoBehaviour
     {
         if (collision.tag == "PickUp"&& _pickUpisCatched == false)
         {
-            collision.gameObject.transform.SetParent(transform);///Здесь подбирается зацепленный обьект и становится дочерним
+            ///Здесь подбирается зацепленный обьект и становится дочерним
+            //я всё-таки сделал с копированием объекта. Так реально получается сильно меньше кода.
+            GameObject affectedObject = collision.gameObject;
+            GameObject pickedUpObjectClone = Instantiate(affectedObject, affectedObject.transform.position, Quaternion.identity, transform);
+            pickedUpObjectClone.GetComponent<ScrollingGameObject>().ScrollSpeed = 0;
+            affectedObject.GetComponent<ScrollingGameObject>().SwitchVisibility();
+            
             _moveToTarget = false;
             _pickUpisCatched = true;
             _typeOfCathedPickUp = collision.GetComponent<PickUp>().TypeOf;
