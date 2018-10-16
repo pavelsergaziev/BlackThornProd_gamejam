@@ -89,6 +89,7 @@ public class Harpoon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.tag == "PickUp"&& _pickUpisCatched == false)
         {
             ///Здесь подбирается зацепленный обьект и становится дочерним

@@ -13,10 +13,11 @@ class Bullet : MonoBehaviour
     /// Время, через которое снаряд будет уничтожен, если ни во что не врежется
     /// </summary>
     private const float _destroyTime = 3f;
-    
+    private PlayerController _playerController;
     private void Start()
     {
         DestroyBullet(_destroyTime);
+        _playerController = FindObjectOfType<PlayerController>();
     }
     private void Update()
     {
@@ -40,6 +41,17 @@ class Bullet : MonoBehaviour
         //анимация взрыва
         Destroy(gameObject, time);
         return;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+        if (collision.tag == "PickUp" )
+        {
+            var collisionScript = collision.GetComponent<ScrollingGameObject>();
+            collisionScript.SwitchVisibility();
+            //применить штраф за уничтожение бафа или дать бонус за уничтожение бага
+            DestroyBullet();
+        }
     }
 }
 
