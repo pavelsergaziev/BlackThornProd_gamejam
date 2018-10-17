@@ -10,7 +10,8 @@ public enum TypeOfObject
     weapon,
     bullet,
     bug,
-    destructable
+    destructable,
+    codeStroke
 
 }
 
