@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _texelsPerUnit: 32
-  _pixelsPerTexel: 2
+  _pixelsPerTexel: 3
 --- !u!4 &167839815
 Transform:
   m_ObjectHideFlags: 0
@@ -244,11 +244,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4253441347277726, guid: 5d0d8c10ef6ca6a47876d89a448d1cae, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -10.69
+      value: -4.41
       objectReference: {fileID: 0}
     - target: {fileID: 4253441347277726, guid: 5d0d8c10ef6ca6a47876d89a448d1cae, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.84
+      value: -0.78
       objectReference: {fileID: 0}
     - target: {fileID: 4253441347277726, guid: 5d0d8c10ef6ca6a47876d89a448d1cae, type: 2}
       propertyPath: m_LocalPosition.z
@@ -274,10 +274,53 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114961398132517752, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
+    - target: {fileID: 212453601211588838, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
         type: 2}
-      propertyPath: _scrollSpeed
-      value: -0.1
+      propertyPath: m_DrawMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778247819911712, guid: 5d0d8c10ef6ca6a47876d89a448d1cae, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778247819911712, guid: 5d0d8c10ef6ca6a47876d89a448d1cae, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212453601211588838, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 212453601211588838, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212453601211588838, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
+        type: 2}
+      propertyPath: m_SpriteTileMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212453601211588838, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
+        type: 2}
+      propertyPath: m_AdaptiveModeThreshold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61992088643954862, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: -0.030000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 61992088643954862, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61992088643954862, guid: 5d0d8c10ef6ca6a47876d89a448d1cae,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d0d8c10ef6ca6a47876d89a448d1cae, type: 2}
@@ -319,6 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 820811139}
   - component: {fileID: 820811140}
+  - component: {fileID: 820811141}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -374,7 +418,7 @@ SpriteRenderer:
   m_SortingLayerID: 450084857
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e4cf67234d853304c969dc17db841294, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5e2e060d81248e4a971187ff5f864ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -385,6 +429,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &820811141
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 820811138}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c32891ad1d6b63f4a87c5b9ea4110eed, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &845138185
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,8 +505,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0153566, y: -0.52}
-  m_Size: {x: 0.6842786, y: 0.86}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.4, y: 0.88}
   m_Direction: 0
 --- !u!50 &955205658
 Rigidbody2D:
