@@ -238,37 +238,39 @@ public class PlayerController : FreeMovingGameObject
     {
         if (collision.tag == "PickUp")
         {
-            PickUp(collision.GetComponent<PickUp>().TypeOf);
+            var collisionScript = collision.GetComponent<ScrollingGameObject>();
+            collisionScript.SwitchVisibility();
+            PickUp(collision.GetComponent<ScrollingGameObject>().TypeOf);
         }
     }
     /// <summary>
     /// Срабатывает когда игрок подбирает бафф или дебафф или что душе угодно
     /// </summary>
     /// <param name="typeOf">Что подобрал</param>
-    public void PickUp(PickUps typeOf)
+    public void PickUp(TypeOfObject typeOf)
     {
         switch (typeOf)
         {
-            case PickUps.buff:
-                Debug.Log("buff");
+            case TypeOfObject.buff:
+
+                Debug.Log("player pick buff");
                 break;
-            case PickUps.debuff:
-                Debug.Log("debuff");
+            case TypeOfObject.debuff:
+                Debug.Log("player pick debuff");
                 break;
-            case PickUps.life:
-                Debug.Log("life");
+            case TypeOfObject.life:
+                Debug.Log("player pick life");
                 break;
-            case PickUps.weapon:
-                Debug.Log("weapon");
+            case TypeOfObject.weapon:
+                Debug.Log("player pick weapon");
                 break;
-            case PickUps.bullet:
-                Debug.Log("bullet");
+            case TypeOfObject.bullet:
+                Debug.Log("player pick bullet");
                 break;
-            case PickUps.bug:
-                Debug.Log("bug");
+            case TypeOfObject.bug:
+                Debug.Log("player pick bug");
                 break;
-            default:
-                break;
+            
         }
     }
 }

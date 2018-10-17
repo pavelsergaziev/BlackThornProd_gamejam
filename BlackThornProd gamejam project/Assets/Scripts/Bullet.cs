@@ -50,13 +50,50 @@ class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if (collision.tag == "PickUp" )
+        
+        if (collision.tag == "PickUp" || collision.tag == "Destractable")
         {
             var collisionScript = collision.GetComponent<ScrollingGameObject>();
-            collisionScript.SwitchVisibility();
-            //применить штраф за уничтожение бафа или дать бонус за уничтожение бага
-            DestroyBullet();
+            switch (collisionScript.TypeOf)
+            {
+                case TypeOfObject.none:
+                    break;
+                case TypeOfObject.buff:
+                    Debug.Log("bullet destroy buff");
+                    collisionScript.SwitchVisibility();
+                    DestroyBullet();
+                    break;
+                case TypeOfObject.debuff:
+                    Debug.Log("bullet destroy debuff");
+                    collisionScript.SwitchVisibility();
+                    DestroyBullet();
+                    break;
+                case TypeOfObject.life:
+                    collisionScript.SwitchVisibility();
+                    DestroyBullet();
+                    break;
+                case TypeOfObject.weapon:
+                    collisionScript.SwitchVisibility();
+                    DestroyBullet();
+                    break;
+                case TypeOfObject.bullet:
+                    collisionScript.SwitchVisibility();
+                    DestroyBullet();
+                    break;
+                case TypeOfObject.bug:
+                    Debug.Log("bullet destroy bug");
+                    collisionScript.SwitchVisibility();
+                    DestroyBullet();
+                    break;
+                case TypeOfObject.destructable:
+                    Debug.Log("bullet destroy Wall");
+                    collisionScript.SwitchVisibility();
+                    DestroyBullet();
+                    break;
+
+            }
         }
+        
     }
 }
 

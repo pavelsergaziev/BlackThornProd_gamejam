@@ -44,7 +44,7 @@ public class Harpoon : MonoBehaviour
     /// <summary>
     /// Тип пойманого обьекта
     /// </summary>
-    private PickUps _typeOfCathedPickUp;
+    private TypeOfObject _typeOfCathedPickUp;
 
     private void Start()
     {
@@ -81,6 +81,7 @@ public class Harpoon : MonoBehaviour
         _player.CanHarpoon = true;
         if (_pickUpisCatched)
         {
+
             _player.PickUp(_typeOfCathedPickUp);
         }
         Destroy(gameObject);///Здесь уничтожается подобранный обьект
@@ -90,10 +91,13 @@ public class Harpoon : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if (collision.tag == "PickUp"&& _pickUpisCatched == false)
+        if(collision.tag == "PickUp" && _pickUpisCatched == false)
         {
             ///Здесь подбирается зацепленный обьект и становится дочерним
             //я всё-таки сделал с копированием объекта. Так реально получается сильно меньше кода.
+            Debug.Log("Harpoon pick" + collision. GetComponent<ScrollingGameObject>().TypeOf);
+
+
             GameObject affectedObject = collision.gameObject;
             GameObject pickedUpObjectClone = Instantiate(affectedObject, affectedObject.transform.position, Quaternion.identity, transform);
             pickedUpObjectClone.GetComponent<ScrollingGameObject>().ScrollSpeed = 0;
@@ -101,7 +105,7 @@ public class Harpoon : MonoBehaviour
             
             _moveToTarget = false;
             _pickUpisCatched = true;
-            _typeOfCathedPickUp = collision.GetComponent<PickUp>().TypeOf;
+            _typeOfCathedPickUp = affectedObject.GetComponent<ScrollingGameObject>().TypeOf;
         }
     }
     

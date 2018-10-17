@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScrollingGameObject : BaseGameObject {
+    /// <summary>
+    /// Тип обьекта для взаимодействия
+    /// </summary>
+    public TypeOfObject TypeOf;
+
+
+
+
 
     [SerializeField]
     protected float _scrollSpeed;
     public float ScrollSpeed { get { return _scrollSpeed; } set { _scrollSpeed = value; } }
-
+    
     protected Rigidbody2D _rigidbody;
 
     //protected float _movementIncrement;

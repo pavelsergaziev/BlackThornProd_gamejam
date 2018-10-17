@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 50971143774630012}
   - component: {fileID: 61327048650221548}
   - component: {fileID: 114792178223933570}
-  - component: {fileID: 114193163875044738}
   m_Layer: 8
   m_Name: Floating pickup buff
   m_TagString: PickUp
@@ -118,18 +117,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.9453416}
   m_EdgeRadius: 0
---- !u!114 &114193163875044738
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1237371561541416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b545e079496b2e24f9649cf8108d6f6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TypeOf: 0
 --- !u!114 &114792178223933570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _childTransformToSnapToGrid: {fileID: 4015213937310928}
+  TypeOf: 1
   _scrollSpeed: 2
 --- !u!212 &212194772375605698
 SpriteRenderer:
