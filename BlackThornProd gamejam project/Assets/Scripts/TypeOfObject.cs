@@ -1,14 +1,16 @@
 ﻿/// <summary>
 /// Что можно подобрать
 /// </summary>
-public enum PickUps
+public enum TypeOfObject
 {
+    none,
     buff,
     debuff,
     life,
     weapon,
     bullet,
     bug,
+    destructable
 
 }
 

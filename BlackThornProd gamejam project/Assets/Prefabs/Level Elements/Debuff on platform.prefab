@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 50868468026636400}
   - component: {fileID: 61281911779117492}
   - component: {fileID: 114734185794879504}
-  - component: {fileID: 114119943283463672}
   m_Layer: 8
   m_Name: Debuff on platform
   m_TagString: PickUp
@@ -118,18 +117,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.9453416}
   m_EdgeRadius: 0
---- !u!114 &114119943283463672
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1843716650251902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b545e079496b2e24f9649cf8108d6f6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TypeOf: 1
 --- !u!114 &114734185794879504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _childTransformToSnapToGrid: {fileID: 4411785118938990}
+  TypeOf: 2
   _scrollSpeed: 2
 --- !u!212 &212770518259885276
 SpriteRenderer:
