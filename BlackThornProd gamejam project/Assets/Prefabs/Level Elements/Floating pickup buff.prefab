@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4015213937310928}
   - component: {fileID: 212194772375605698}
-  - component: {fileID: 95183600142841908}
+  - component: {fileID: 95722634948299088}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -118,9 +118,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.45, y: 0.55}
   m_EdgeRadius: 0
-<<<<<<< HEAD
-=======
---- !u!95 &95183600142841908
+--- !u!95 &95722634948299088
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -138,19 +136,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114193163875044738
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1237371561541416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b545e079496b2e24f9649cf8108d6f6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TypeOf: 0
->>>>>>> LevelGenerator---new-platforms
 --- !u!114 &114792178223933570
 MonoBehaviour:
   m_ObjectHideFlags: 1

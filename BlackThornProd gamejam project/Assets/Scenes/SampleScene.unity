@@ -866,7 +866,7 @@ MonoBehaviour:
   _delayBeforeFirstBugInTheAir: 3
   _minDelayBetweenBugsInTheAir: 2
   _maxDelayBetweenBugsInTheAir: 5
-  _BugInTheAirPrefab: {fileID: 1767021535727574, guid: c292b58eb9d83864db07cb9d87b096ac,
+  _BugInTheAirPrefab: {fileID: 1209440456000078, guid: adec85bfe7f2f9446af19f1af0939698,
     type: 2}
   _sizeOfBuffsInTheAirObjectPool: 15
   _minHeightAbovePlatformForBuffsInTheAir: 2
