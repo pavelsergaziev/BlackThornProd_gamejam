@@ -29,7 +29,20 @@ public class PlayerController : FreeMovingGameObject
     /// </summary>
     [Tooltip("Скорость снаряда")]
     [SerializeField]
-    private float _bulletSpeed;
+    private float _rocketSpeed;
+
+    [SerializeField]
+    private int _maxRocketCount;
+    [SerializeField]
+    private float _secToGetRocket;
+    [SerializeField]
+    private int _codeStrokesToCollect;
+    [SerializeField]
+    private int _startRocketCount;
+
+
+
+
     /// <summary>
     /// Ссылка на префаб гарпуна
     /// </summary>
@@ -79,7 +92,7 @@ public class PlayerController : FreeMovingGameObject
     /// </summary>
     [Tooltip("Префаб пули типа Bullet")]
     [SerializeField]
-    private Bullet _bullet;
+    private Bullet _rocket;
     #endregion
 
     /// <summary>
@@ -124,11 +137,20 @@ public class PlayerController : FreeMovingGameObject
     [HideInInspector]
     public bool CanHarpoon = true;
 
+    [HideInInspector]
+    public int CurrentRocketCount;
+    private float _timeAfterGetRocket = 0;
+    private UiManager _uiManager;
+    private int _codeStrokes = 0;
+
     protected override void Start()
     {
         base.Start();
         _rigidBody = GetComponent<Rigidbody2D>();
         _mainCamera = FindObjectOfType<Camera>();
+        _uiManager = FindObjectOfType<UiManager>();
+        _uiManager.UpdateCodeStrokesText(_codeStrokes.ToString());
+        CurrentRocketCount = _startRocketCount;
         IsControllable = true;// Временно для теста. Должен включаться после кат сцены
         WeaponIsHide = true;// Временно для теста. Должен включаться после кат сцены
         _canFire = true;// Временно для теста. Должен включаться после кат сцены
@@ -142,6 +164,7 @@ public class PlayerController : FreeMovingGameObject
             Scroll(ScrollSpeed);
             RotateWeapon();
             Shoot();
+            SetRocketsCount();
         }
     }
     private void FixedUpdate()
@@ -204,14 +227,17 @@ public class PlayerController : FreeMovingGameObject
     /// </summary>
     private void Shoot()
     {
-        if (_canFire)
+        if (_canFire && CurrentRocketCount > 0)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                var tmpBullet = Instantiate(_bullet, ShootingPoint.position, _weaponTransform.rotation);
-                tmpBullet.Speed = _bulletSpeed;
+                var tmpBullet = Instantiate(_rocket, ShootingPoint.position, _weaponTransform.rotation);
+                tmpBullet.Speed = _rocketSpeed;
                 _canFire = false;
                 _timeAfterLastShot = 0;
+
+                    CurrentRocketCount -= 1;
+  
             }
             if (Input.GetMouseButtonDown(1)&&CanHarpoon)
             {
@@ -270,7 +296,40 @@ public class PlayerController : FreeMovingGameObject
             case TypeOfObject.bug:
                 Debug.Log("player pick bug");
                 break;
-            
+            case TypeOfObject.codeStroke:
+                SetCodeStrokesCount();
+                Debug.Log("player pick codeStroke");
+                break;
+
         }
     }
+    private void SetRocketsCount()
+    {
+        if (CurrentRocketCount < _maxRocketCount)
+        {
+            if (_timeAfterGetRocket<=0)
+            {
+                CurrentRocketCount += 1;
+                _timeAfterGetRocket = _secToGetRocket;
+            }
+            else
+            {
+                _timeAfterGetRocket -= Time.deltaTime;
+            }
+        }
+        _uiManager.UpdateRocketsText(CurrentRocketCount.ToString());
+    }
+    private void SetCodeStrokesCount()
+    {
+        if (_codeStrokes<_codeStrokesToCollect)
+        {
+            _codeStrokes += 1;
+        }
+        else
+        {
+            Debug.Log("GGWP");
+        }
+        _uiManager.UpdateCodeStrokesText(_codeStrokes.ToString());
+    }
+
 }
