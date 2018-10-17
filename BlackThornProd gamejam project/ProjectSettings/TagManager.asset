@@ -75,3 +75,6 @@ TagManager:
   - name: Level Props Foreground
     uniqueID: 149169237
     locked: 0
+  - name: Effects
+    uniqueID: 1134587691
+    locked: 0
