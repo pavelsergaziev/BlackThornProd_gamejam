@@ -24,18 +24,12 @@ class Bullet : MonoBehaviour
     private PlayerController _playerController;
     
     private SoundOnObject _soundController;
-
-<<<<<<< HEAD
-    private const float _destroyTime = 1.5f;
+    
     [SerializeField]
     private float _rocketLounchVolume;
     [SerializeField]
     private float _explosionVolume;
-
-=======
     
-    
->>>>>>> graphics
 
     private void Start()
     {
