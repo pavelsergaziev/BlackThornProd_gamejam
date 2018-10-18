@@ -15,14 +15,22 @@ class Bullet : MonoBehaviour
 
     
     private PlayerController _playerController;
+    
+    private SoundOnObject _soundController;
 
     private const float _destroyTime = 1.5f;
-    
+    [SerializeField]
+    private float _rocketLounchVolume;
+    [SerializeField]
+    private float _explosionVolume;
+
 
     private void Start()
     {
         DestroyBullet(_destroyTime);
         _playerController = FindObjectOfType<PlayerController>();
+        _soundController = GetComponent<SoundOnObject>();
+        _soundController.PlaySound("RocketShot",false, _rocketLounchVolume);
     }
     private void Update()
     {
@@ -34,7 +42,14 @@ class Bullet : MonoBehaviour
     private void DestroyBullet()
     {
         //анимация взрыва
-        Destroy(gameObject);
+        _soundController.PlaySound("RocketExplosion",false, _explosionVolume);
+        GetComponent<SpriteRenderer>().enabled = false;
+        Speed = 0;
+        foreach (var item in GetComponents<Collider2D>())
+        {
+            item.enabled = false;
+        }
+        Destroy(gameObject,_soundController.GetTimeToEndOfClip("RocketExplosion"));
         return;
     }
     /// <summary>
