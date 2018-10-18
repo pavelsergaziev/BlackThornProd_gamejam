@@ -142,6 +142,7 @@ public class PlayerController : FreeMovingGameObject
     private float _timeAfterGetRocket = 0;
     private UiManager _uiManager;
     private int _codeStrokes = 0;
+    private SoundOnObject _soundController;
 
     protected override void Start()
     {
@@ -151,6 +152,7 @@ public class PlayerController : FreeMovingGameObject
         _uiManager = FindObjectOfType<UiManager>();
         _uiManager.UpdateCodeStrokesText(_codeStrokes.ToString());
         CurrentRocketCount = _startRocketCount;
+        _soundController = GetComponent<SoundOnObject>();
         IsControllable = true;// Временно для теста. Должен включаться после кат сцены
         WeaponIsHide = true;// Временно для теста. Должен включаться после кат сцены
         _canFire = true;// Временно для теста. Должен включаться после кат сцены
@@ -235,7 +237,7 @@ public class PlayerController : FreeMovingGameObject
                 tmpBullet.Speed = _rocketSpeed;
                 _canFire = false;
                 _timeAfterLastShot = 0;
-
+                
                     CurrentRocketCount -= 1;
   
             }
