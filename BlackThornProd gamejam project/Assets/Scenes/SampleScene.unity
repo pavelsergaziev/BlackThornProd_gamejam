@@ -1396,7 +1396,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 845138185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.46, y: 0, z: 0}
+  m_LocalPosition: {x: 0.177, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1234818998}
@@ -1916,8 +1916,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1234818997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.624, y: 0.2817, z: 0}
-  m_LocalScale: {x: 2.4568, y: 1.1562, z: 1}
+  m_LocalPosition: {x: 0.5, y: 0.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 845138186}
   m_Father: {fileID: 955205660}
@@ -1955,10 +1955,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 450084857
-  m_SortingLayer: 8
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1fa0243e4de002d4ca0a3cce8c718191, type: 3}
+  m_SortingLayerID: 851826995
+  m_SortingLayer: 6
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 21300000, guid: eaff470af4db46d4fae748eed0cfbfab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3157,13 +3157,21 @@ MonoBehaviour:
   _maxXDistanceBetweenPlatforms: 3.5
   _minYDistanceBetweenPlatforms: 0
   _maxYDistanceBetweenPlatforms: 1.5
-  _leftPlatformEdgeSprite: {fileID: 21300000, guid: 8ef85afd3fb86c84cb810007b07ff077,
+  _leftPlatformEdgeSprite: {fileID: 21300000, guid: ede67fcff006bcc44b292abb7f6756a3,
     type: 3}
-  _rightPlatformEdgeSprite: {fileID: 21300000, guid: 85e60855259089d4dbbb5d523e41ea87,
+  _rightPlatformEdgeSprite: {fileID: 21300000, guid: ef788ed5527c6dc4fa194661c39cbe91,
     type: 3}
   _platformMiddlePartsSprites:
-  - {fileID: 21300000, guid: 03085945f82ff1b479e6ceaf2c362e97, type: 3}
-  - {fileID: 21300000, guid: fe44e1fa4ba4eec42ba21e17183ce264, type: 3}
+  - {fileID: 21300000, guid: 3b0462d0d2f70a54a976b348acf5e7be, type: 3}
+  - {fileID: 21300000, guid: fe353f6f8c5a7a041a0bf1480cf90e46, type: 3}
+  - {fileID: 21300000, guid: cd52dfa2a44fc8240929f34b5d18be06, type: 3}
+  - {fileID: 21300000, guid: d9c72c5f0e77a064cbab69b17dac253d, type: 3}
+  - {fileID: 21300000, guid: 49ed12455f177cc4d89a6a7f071399bd, type: 3}
+  - {fileID: 21300000, guid: c572e676b5e47a543baf24f3caec654e, type: 3}
+  - {fileID: 21300000, guid: 280ae8041c7d21b45829c6685adc810b, type: 3}
+  - {fileID: 21300000, guid: f0c9b8151e0116549abfb091bb4f85b9, type: 3}
+  - {fileID: 21300000, guid: f0c9b8151e0116549abfb091bb4f85b9, type: 3}
+  - {fileID: 21300000, guid: f0c9b8151e0116549abfb091bb4f85b9, type: 3}
   _platformPartPrefab: {fileID: 1987667866764988, guid: bcf56d6690d51cf44924a8e1d5bf40d6,
     type: 2}
   _platformPrefab: {fileID: 1069711202996472, guid: 03425c2f046de7949bf1002d7740da35,
@@ -3176,14 +3184,14 @@ MonoBehaviour:
   _wallPrefab: {fileID: 1017978662077150, guid: 5cb16f64807b2f94abab77b849331bd4,
     type: 2}
   _sizeOfPickupBuffsOnPlatformsObjectPool: 5
-  _buffOnPlatformYDistanceToPlatform: 1
+  _buffOnPlatformYDistanceToPlatform: 1.8
   _delayBeforeFirstBuffOnPlatforms: 5
   _minDelayBetweenBuffOnPlatforms: 15
   _maxDelayBetweenBuffOnPlatforms: 25
   _pickupBuffOnPlatformsPrefab: {fileID: 1956731766018664, guid: 0d806c8e660ac2e4a830231cbfc7aabf,
     type: 2}
   _sizeOfPickupDebuffsOnPlatformsObjectPool: 5
-  _debuffOnPlatformYDistanceToPlatform: 1
+  _debuffOnPlatformYDistanceToPlatform: 1.8
   _delayBeforeFirstDebuffOnPlatforms: 10
   _minDelayBetweenDebuffOnPlatforms: 5
   _maxDelayBetweenDebuffOnPlatforms: 20

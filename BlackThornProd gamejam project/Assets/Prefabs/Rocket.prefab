@@ -79,6 +79,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 0
+  _destroyTime: 1.5
+  _explosionPrefab: {fileID: 1498162956937860, guid: 2e51ca276b007404f876aa3d93d54f2a,
+    type: 2}
+  _explosionObjectDestroyTime: 3
 --- !u!212 &212691333923324802
 SpriteRenderer:
   m_ObjectHideFlags: 1

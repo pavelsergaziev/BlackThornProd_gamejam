@@ -76,8 +76,8 @@ public class LevelGenerationController : MonoBehaviour {
     [SerializeField]
     private int _sizeOfPickupBuffsOnPlatformsObjectPool = 5;
     [SerializeField]
-    [Range(0.2f, 2f)]
-    private float _buffOnPlatformYDistanceToPlatform = 1f;
+    [Range(0.2f, 4f)]
+    private float _buffOnPlatformYDistanceToPlatform = 3f;
     [SerializeField]
     private float _delayBeforeFirstBuffOnPlatforms = 10f;
     [SerializeField]
@@ -93,8 +93,8 @@ public class LevelGenerationController : MonoBehaviour {
     [SerializeField]
     private int _sizeOfPickupDebuffsOnPlatformsObjectPool = 5;
     [SerializeField]
-    [Range(0.2f, 2f)]
-    private float _debuffOnPlatformYDistanceToPlatform = 1f;
+    [Range(0.2f, 4f)]
+    private float _debuffOnPlatformYDistanceToPlatform = 3f;
     [SerializeField]
     private float _delayBeforeFirstDebuffOnPlatforms = 10f;
     [SerializeField]
