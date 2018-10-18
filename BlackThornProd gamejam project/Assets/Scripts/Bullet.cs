@@ -12,18 +12,30 @@ class Bullet : MonoBehaviour
     /// <summary>
     /// Время, через которое снаряд будет уничтожен, если ни во что не врежется
     /// </summary>
+    [SerializeField]
+    private float _destroyTime = 1.5f;
 
-    
+    [SerializeField]
+    private GameObject _explosionPrefab;
+    [SerializeField]
+    private int _explosionObjectDestroyTime;
+
+
     private PlayerController _playerController;
     
     private SoundOnObject _soundController;
 
+<<<<<<< HEAD
     private const float _destroyTime = 1.5f;
     [SerializeField]
     private float _rocketLounchVolume;
     [SerializeField]
     private float _explosionVolume;
 
+=======
+    
+    
+>>>>>>> graphics
 
     private void Start()
     {
@@ -68,6 +80,12 @@ class Bullet : MonoBehaviour
         
         if (collision.tag == "PickUp" || collision.tag == "Destractable")
         {
+
+            //анимация взрыва
+            //положил сюда, но в зависимости от того, чем мы стреляем, может, и перенести в destroy bullet
+            Destroy(Instantiate(_explosionPrefab, transform.position, Quaternion.identity), _explosionObjectDestroyTime);
+
+
             var collisionScript = collision.GetComponent<ScrollingGameObject>();
             switch (collisionScript.TypeOf)
             {
