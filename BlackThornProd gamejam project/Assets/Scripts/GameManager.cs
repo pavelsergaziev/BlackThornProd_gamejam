@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour {
 
         _camera.orthographicSize = (float)Screen.height / _texelsPerUnit / 2 / _pixelsPerTexel;
 
-        _gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ, УБРАТЬ!!!
+        _gameHasBeenPlayedAlready = false;//ТЕСТОВОЕ, УБРАТЬ!!!
         
         Invoke("DeactivateObjectsBeforeStart", 0.1f);
 
