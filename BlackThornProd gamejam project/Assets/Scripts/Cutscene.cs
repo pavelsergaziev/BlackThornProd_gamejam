@@ -27,6 +27,7 @@ public class Cutscene : MonoBehaviour {
 
     public void StartCutscene()
     {
+
         StartCoroutine(TimeLoop());
     }
 
@@ -34,10 +35,10 @@ public class Cutscene : MonoBehaviour {
     private IEnumerator TimeLoop()
     {
 
-        while (_nextAnimationStateIndex < _animationTimeStamps.Length - 1)
-        {
+        SwitchVisibility();
 
-            _timer += Time.deltaTime;
+        while (_nextAnimationStateIndex < _animationTimeStamps.Length - 1)
+        {      
 
             //анимация
             if (_timer > _animationTimeStamps[_nextAnimationStateIndex])
@@ -47,10 +48,22 @@ public class Cutscene : MonoBehaviour {
             if (_timer > _textTimeStamps[_nextTextPieceIndex])
                 _textOnScreen.text = _textPieces[_nextTextPieceIndex++];            
 
-            yield return new WaitForEndOfFrame();            
-            
+            yield return new WaitForEndOfFrame();
+            _timer += Time.deltaTime;
+
         }
 
+        SwitchVisibility();
+
     }
+
+    private void SwitchVisibility()
+    {
+        _textOnScreen.enabled = !_textOnScreen.enabled;
+
+        foreach (Transform child in transform)
+            child.gameObject.SetActive(!child.gameObject.activeSelf);
+    }
+
 
 }

@@ -22,9 +22,16 @@ public class GameManager : MonoBehaviour {
 
     private PixelGridSnapper _pixelGridSnapper;
     public PixelGridSnapper PixelGridSnapper { get { return _pixelGridSnapper; } }
+
+    private SoundManager _soundManager;
+    private UiManager _uiManager;
+    private CursorController _cursorController;
+    private Cutscene _cutscenePlayer;
     
 
     private Camera _camera;
+
+    private bool _gameHasBeenPlayedAlready;
     
 
     void Awake()
@@ -47,13 +54,25 @@ public class GameManager : MonoBehaviour {
     {
 
         _camera = FindObjectOfType<Camera>();
+        _soundManager = FindObjectOfType<SoundManager>();
+        _cursorController = FindObjectOfType<CursorController>();
+        _cutscenePlayer = FindObjectOfType<Cutscene>();
+        _uiManager = FindObjectOfType<UiManager>();
 
         _camera.orthographicSize = (float)Screen.height / _texelsPerUnit / 2 / _pixelsPerTexel;
-        
 
+        _gameHasBeenPlayedAlready = true;
     }
+
 
 //запустить бесконечную корутину со скоростью, зависящей от средней скорости перемещения уровня, и в ней запускать генерацию уровня.
 
 
+    public void StartNewGame()
+    {
+        _soundManager.StartNewGame();        
+        _cutscenePlayer.StartCutscene();
+        _uiManager.StartGame();
+        _cursorController.SwitchToCustomCursor();
+    }
 }
