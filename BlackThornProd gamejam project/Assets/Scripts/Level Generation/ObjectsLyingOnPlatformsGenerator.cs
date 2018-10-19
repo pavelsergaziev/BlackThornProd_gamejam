@@ -16,7 +16,6 @@ public class ObjectsLyingOnPlatformsGenerator : TimedLevelElementsGenerator
         _placeObjectsOnlyAtPlatformCenter = placeObjectsOnlyAtPlatformCenter;
     }
 
-
     /// <summary>
     /// Попробовать создать объект, лежащий на платформе.
     /// </summary>

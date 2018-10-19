@@ -82,6 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _childTransformToSnapToGrid: {fileID: 4437736599464114}
+  TypeOf: 0
   _scrollSpeed: 4
 --- !u!212 &212281014321027840
 SpriteRenderer:
@@ -116,7 +117,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -893049991
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fe44e1fa4ba4eec42ba21e17183ce264, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -127,5 +128,5 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0

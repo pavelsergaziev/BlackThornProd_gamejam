@@ -40,7 +40,7 @@ public class PlayerController : FreeMovingGameObject
     [SerializeField]
     private int _startRocketCount;
 
-
+    private Animator _animator;
 
 
     /// <summary>
@@ -157,6 +157,8 @@ public class PlayerController : FreeMovingGameObject
         WeaponIsHide = true;// Временно для теста. Должен включаться после кат сцены
         _canFire = true;// Временно для теста. Должен включаться после кат сцены
         _groundLayerMask = 1 << LayerMask.NameToLayer("Ground");
+
+        _animator = _childTransformToSnapToGrid.GetComponent<Animator>();
     }
     private void Update()
     {
@@ -168,6 +170,8 @@ public class PlayerController : FreeMovingGameObject
             Shoot();
             SetRocketsCount();
         }
+
+        _animator.SetBool("isGrounded", IsGrounded);
     }
     private void FixedUpdate()
     {
