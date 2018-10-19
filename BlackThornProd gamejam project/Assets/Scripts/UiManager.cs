@@ -29,7 +29,7 @@ public class UiManager : MonoBehaviour {
     [SerializeField]
     private Text _rockets;
 
-    private bool _inGame;
+    public bool InGame;
 
     private SoundManager _soundManager;
     private CursorController _cursorController;
@@ -45,7 +45,7 @@ public class UiManager : MonoBehaviour {
     }
     private void Update()
     {
-        if (_inGame)
+        if (InGame)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -56,7 +56,7 @@ public class UiManager : MonoBehaviour {
     public void ShowMainMenuPannel()
     {
         Time.timeScale = 1f;
-        _inGame = false;
+        InGame = false;
         _pauseMenuPannel.gameObject.SetActive(false);
         _mainMenuPannel.gameObject.SetActive(true);
         _howToPlayPannel.gameObject.SetActive(false);
@@ -88,7 +88,7 @@ public class UiManager : MonoBehaviour {
     public void StartGame()
     {
         _playerController.IsControllable = true;
-        _inGame = true;
+        
         _mainMenuPannel.gameObject.SetActive(false);
         _howToPlayPannel.gameObject.SetActive(false);
         _aboutPannel.gameObject.SetActive(false);
@@ -134,7 +134,7 @@ public class UiManager : MonoBehaviour {
     }
     public void ShowDeadMenu()
     {
-        _inGame = false;
+        InGame = false;
         Time.timeScale = 0f;
         _deadMenuPannel.gameObject.SetActive(true);
         _cursorController.SwitchToNormalCursor();
