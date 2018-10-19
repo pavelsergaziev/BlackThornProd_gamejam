@@ -16,7 +16,9 @@ public class UiManager : MonoBehaviour {
     [SerializeField]
     private Transform _gamePannel;
     [SerializeField]
-    private Transform _pouseMenuBtn;
+    private Transform _pauseMenuPannel;
+    [SerializeField]
+    private Transform _deadMenuPannel;
     [SerializeField]
     private Transform _textPannel;
     [SerializeField]
@@ -26,20 +28,41 @@ public class UiManager : MonoBehaviour {
     private Text _codeStrokes;
     [SerializeField]
     private Text _rockets;
+
+    private bool _inGame;
+
+    private SoundManager _soundManager;
+    private CursorController _cursorController;
+    private PlayerController _playerController;
     
     
     private void Start()
     {
-        
-    
+        _soundManager = FindObjectOfType<SoundManager>();
+        _cursorController = FindObjectOfType<CursorController>();
+        _playerController = FindObjectOfType<PlayerController>();
+
     }
-    
+    private void Update()
+    {
+        if (_inGame)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ShowHidePouseMenu();
+            }
+        }
+    }
     public void ShowMainMenuPannel()
     {
+        Time.timeScale = 1f;
+        _inGame = false;
+        _pauseMenuPannel.gameObject.SetActive(false);
         _mainMenuPannel.gameObject.SetActive(true);
         _howToPlayPannel.gameObject.SetActive(false);
         _aboutPannel.gameObject.SetActive(false);
         _updateWindowPannel.gameObject.SetActive(false);
+        _gamePannel.gameObject.SetActive(false);
     }
     public void ShowHowToPlayPannel()
     {
@@ -64,6 +87,8 @@ public class UiManager : MonoBehaviour {
     }
     public void StartGame()
     {
+        _playerController.IsControllable = true;
+        _inGame = true;
         _mainMenuPannel.gameObject.SetActive(false);
         _howToPlayPannel.gameObject.SetActive(false);
         _aboutPannel.gameObject.SetActive(false);
@@ -79,10 +104,45 @@ public class UiManager : MonoBehaviour {
     {
         _codeStrokes.text = "int _codeStrokesToFinishProj = " + value;
     }
+    public void ShowHidePouseMenu()
+    {
+        
+        bool x = _pauseMenuPannel.gameObject.activeSelf;
+        if (x == true)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+        
+
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        _soundManager.ResumeMusic();
+        _pauseMenuPannel.gameObject.SetActive(false);
+        _cursorController.SwitchToCustomCursor();
+        _playerController.IsControllable = true;
+    }
+    public void ShowDeadMenu()
+    {
+        _inGame = false;
+        Time.timeScale = 0f;
+        _deadMenuPannel.gameObject.SetActive(true);
+        _cursorController.SwitchToNormalCursor();
+    }
+    public void PauseGame()
+    {
+        Time.timeScale = 0.01f;
+        _soundManager.PauseMusic();
+        _pauseMenuPannel.gameObject.SetActive(true);
+        _cursorController.SwitchToNormalCursor();
+        _playerController.IsControllable = false;
+    }
     
-
-
-
-
+    
 }
 

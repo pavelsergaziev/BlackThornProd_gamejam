@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour {
     private Camera _camera;
 
     private bool _gameHasBeenPlayedAlready;
+
+    
     
 
     void Awake()
@@ -87,13 +89,17 @@ public class GameManager : MonoBehaviour {
 
     public void StartNewGame()
     {
+
+        _soundManager.StartNewGameWhithCutScene();        
+
         //и поставить условие в зависимости от _gameHasBeenPlayedAlready
         PlayCutscene();
     }
 
     private void PlayCutscene()
     {
-        _soundManager.StartNewGame();
+       _soundManager.StartNewGameWhithCutScene(); 
+
         _cutscenePlayer.StartCutscene();
         _uiManager.StartGame();
         _cursorController.SwitchToCustomCursor();

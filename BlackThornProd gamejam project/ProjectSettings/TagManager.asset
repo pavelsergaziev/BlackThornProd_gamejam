@@ -8,6 +8,7 @@ TagManager:
   - CanHarpoon
   - PickUp
   - Destractable
+  - Death
   layers:
   - Default
   - TransparentFX

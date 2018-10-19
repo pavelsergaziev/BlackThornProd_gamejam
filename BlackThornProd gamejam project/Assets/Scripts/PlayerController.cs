@@ -107,7 +107,8 @@ public class PlayerController : FreeMovingGameObject
     /// <summary>
     /// Можно ли управлять игроком?
     /// </summary>
-    public bool IsControllable { get; private set; }
+    [HideInInspector]
+    public bool IsControllable;
     /// <summary>
     /// Игрок находится на земеле?
     /// </summary>
@@ -304,6 +305,19 @@ public class PlayerController : FreeMovingGameObject
             collisionScript.SwitchVisibility();
             PickUp(collision.GetComponent<ScrollingGameObject>().TypeOf);
             
+        }
+        if (collision.tag == "Death")
+        {
+            _uiManager.ShowDeadMenu();
+            FindObjectOfType<SoundManager>().DeadMenu();
+            _soundController.PlaySound("LooserFx", true);
+            foreach (var item in GetComponents<Collider2D>())
+            {
+                item.enabled = false;
+            }
+            
+            IsControllable = false;
+
         }
     }
     /// <summary>
