@@ -16,6 +16,13 @@ public class UiManager : MonoBehaviour {
     [SerializeField]
     private Transform _gamePannel;
     [SerializeField]
+    private Transform _pouseMenuBtn;
+    [SerializeField]
+    private Transform _textPannel;
+    [SerializeField]
+    private Text _textPannelText;
+
+    [SerializeField]
     private Text _codeStrokes;
     [SerializeField]
     private Text _rockets;
