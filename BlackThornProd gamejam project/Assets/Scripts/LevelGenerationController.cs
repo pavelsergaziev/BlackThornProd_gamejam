@@ -236,8 +236,7 @@ public class LevelGenerationController : MonoBehaviour {
     void Start()
     {
         _gridSnapper = FindObjectOfType<GameManager>().PixelGridSnapper;
-
-        _platformsGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, _sizeOfThePlatformsObjectPool, transform, _platformPartPrefab, _platformPrefab, _firstPlatformLength, _leftBorderX, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);        
+               
 
         _wallsGenerator = new ObjectsLyingOnPlatformsGenerator(_sizeOfWallsObjectPool, transform, _wallPrefab, (int)(_delayBeforeFirstWall / _delayToCheckBuildAndRemoveObjects), (int)(_minDelayBetweenWalls / _delayToCheckBuildAndRemoveObjects), (int)(_maxDelayBetweenWalls / _delayToCheckBuildAndRemoveObjects), true);
 
@@ -253,18 +252,21 @@ public class LevelGenerationController : MonoBehaviour {
         _foregroundObjectsGenerator = new BackgroundElementsGenerator(_sizeOfForegroundObjectsObjectPool, transform, _foregroundObjectPrefab);
 
 
+
+    }
+
+
+    private IEnumerator LevelGenerationLoop()
+    {
+
+        _platformsGenerator = new PlatformGenerator(_sizeOfThePlatformPartsObjectPool, _sizeOfThePlatformsObjectPool, transform, _platformPartPrefab, _platformPrefab, _firstPlatformLength, _leftBorderX, _leftPlatformEdgeSprite, _platformMiddlePartsSprites, _rightPlatformEdgeSprite, _gridSnapper);
+
         _farBackgroundObjectsGenerator.CheckAndTryCreateBatchOfObjects(_leftBorderX, _rightBorderX - _leftBorderX, _maxYDistanceOfBackgroundObjectsFromPlatform, (int)(((_rightBorderX - _leftBorderX) / _backgroundObjectsBatchWidth) * _minAmountOfFarBackgroundObjectsInBatch), (int)(((_rightBorderX - _leftBorderX) / _backgroundObjectsBatchWidth) * _maxAmountOfFarBackgroundObjectsInBatch), _farBackgroundObjectsSprites, _gridSnapper);
         _midBackgroundObjectsGenerator.CheckAndTryCreateBatchOfObjects(_leftBorderX, _rightBorderX - _leftBorderX, _maxYDistanceOfBackgroundObjectsFromPlatform, (int)(((_rightBorderX - _leftBorderX) / _backgroundObjectsBatchWidth) * _minAmountOfMidBackgroundObjectsInBatch), (int)(((_rightBorderX - _leftBorderX) / _backgroundObjectsBatchWidth) * _maxAmountOfMidBackgroundObjectsInBatch), _midBackgroundObjectsSprites, _gridSnapper);
         _farBackgroundObjectsGenerator.CheckAndTryCreateBatchOfObjects(_leftBorderX, _rightBorderX - _leftBorderX, _maxYDistanceOfBackgroundObjectsFromPlatform, (int)(((_rightBorderX - _leftBorderX) / _backgroundObjectsBatchWidth) * _minAmountOfNearBackgroundObjectsInBatch), (int)(((_rightBorderX - _leftBorderX) / _backgroundObjectsBatchWidth) * _maxAmountOfNearBackgroundObjectsInBatch), _nearBackgroundObjectsSprites, _gridSnapper);
         _farBackgroundObjectsGenerator.CheckAndTryCreateBatchOfObjects(_leftBorderX, _rightBorderX - _leftBorderX, _maxYDistanceOfBackgroundObjectsFromPlatform, (int)(((_rightBorderX - _leftBorderX) / _backgroundObjectsBatchWidth) * _minAmountOfForegroundObjectsInBatch), (int)(((_rightBorderX - _leftBorderX) / _backgroundObjectsBatchWidth) * _maxAmountOfForegroundObjectsInBatch), _foregroundObjectsSprites, _gridSnapper);
 
 
-        StartCoroutine(LevelGenerationLoop());
-    }
-     
-
-    private IEnumerator LevelGenerationLoop()
-    {
         WaitForSeconds delay = new WaitForSeconds(_delayToCheckBuildAndRemoveObjects);        
 
         while (true)
@@ -312,6 +314,11 @@ public class LevelGenerationController : MonoBehaviour {
 
             yield return delay;
         }
+    }
+
+    public void StartGeneration()
+    {
+        StartCoroutine(LevelGenerationLoop());
     }
     
 

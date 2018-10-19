@@ -236,7 +236,7 @@ SpriteRenderer:
   m_SortingLayerID: 450084857
   m_SortingLayer: 8
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: b6a70d3973b8fd248ae4228e2cdadb66, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 21db1080dae3b534e97c5f757e6c354b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -653,6 +653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _texelsPerUnit: 32
   _pixelsPerTexel: 3
+  _deadline: {fileID: 78720570}
 --- !u!4 &167839815
 Transform:
   m_ObjectHideFlags: 0
@@ -1736,7 +1737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &599990489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1749,10 +1750,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 1297457070}
-  _animationTimeStamps: []
-  _textOnScreen: {fileID: 0}
-  _textPieces: []
-  _textTimeStamps: []
+  _animationTimeStamps:
+  - 19.18
+  - 21.2
+  - 27
+  - 28.85
+  - 32
+  - 35.1
+  - 45
+  _textOnScreen: {fileID: 1703289060}
+  _textPieces:
+  - "What\u2019s next on the TODO list?"
+  - "Naaah, I\u2019ll do it tomorrow."
+  - Or maybe next week.
+  - 
+  - Time to binge watch another series.
+  - 
+  - "Who could that be? At this hour\u2026"
+  - "I\u2019ve got a really bad feeling..."
+  - 
+  - "Oh my god, it\u2019s The DeadLine!!!"
+  - I need to get some stuff done like right now!!
+  - 
+  _textTimeStamps:
+  - 2
+  - 6
+  - 9.5
+  - 13
+  - 14
+  - 18
+  - 21.8
+  - 24.3
+  - 26.5
+  - 29.2
+  - 31.7
+  - 40
+  _transitionToGameplayTimeStamp: 40
 --- !u!4 &599990490
 Transform:
   m_ObjectHideFlags: 0
@@ -1816,7 +1849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_Color: {r: 0.2392157, g: 0.23529413, b: 0.2627451, a: 0.53333336}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2726,7 +2759,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 955205656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33, y: 9.66, z: 0}
+  m_LocalPosition: {x: 0.33, y: 19.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1234818998}
@@ -2803,7 +2836,9 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &971239579
+
+--- !u!224 &983535760
+
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3469,7 +3504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1297457069
 Transform:
   m_ObjectHideFlags: 0
@@ -3624,30 +3659,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 557413197}
-        m_MethodName: StartGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1239802943}
+      - m_Target: {fileID: 167839814}
         m_MethodName: StartNewGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 63209130}
-        m_MethodName: SwitchToCustomCursor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4712,13 +4725,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 5
     m_MaxSize: 50
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' code code code...'
+  m_Text: 
 --- !u!222 &1703289061
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5531,7 +5544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1977976494
 Transform:
   m_ObjectHideFlags: 0

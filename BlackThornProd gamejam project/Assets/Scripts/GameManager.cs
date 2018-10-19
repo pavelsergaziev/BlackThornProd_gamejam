@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour {
     private UiManager _uiManager;
     private CursorController _cursorController;
     private Cutscene _cutscenePlayer;
+    private LevelGenerationController _levelGenerationController;
+    private GameObject _player;
+
+    [SerializeField]
+    private GameObject _deadline;
     
 
     private Camera _camera;
@@ -60,21 +65,54 @@ public class GameManager : MonoBehaviour {
         _cursorController = FindObjectOfType<CursorController>();
         _cutscenePlayer = FindObjectOfType<Cutscene>();
         _uiManager = FindObjectOfType<UiManager>();
+        _levelGenerationController = FindObjectOfType<LevelGenerationController>();
+
+        _player = FindObjectOfType<PlayerController>().gameObject;
 
         _camera.orthographicSize = (float)Screen.height / _texelsPerUnit / 2 / _pixelsPerTexel;
 
         _gameHasBeenPlayedAlready = true;
+
+        Invoke("DeactivateObjectsBeforeStart", 0.1f);
     }
 
 
 //запустить бесконечную корутину со скоростью, зависящей от средней скорости перемещения уровня, и в ней запускать генерацию уровня.
 
 
+
+    private void DeactivateObjectsBeforeStart()
+    {
+        _player.SetActive(false);
+        _deadline.SetActive(false);
+    }
+
     public void StartNewGame()
     {
+
         _soundManager.StartNewGameWhithCutScene();        
+
+        //и поставить условие в зависимости от _gameHasBeenPlayedAlready
+        PlayCutscene();
+    }
+
+    private void PlayCutscene()
+    {
+       _soundManager.StartNewGameWhithCutScene(); 
+
         _cutscenePlayer.StartCutscene();
         _uiManager.StartGame();
         _cursorController.SwitchToCustomCursor();
+
+
+
+        //_levelGenerationController.StartGeneration();
+    }
+
+    public void StartGameplay()
+    {
+        _levelGenerationController.StartGeneration();
+        _player.SetActive(true);
+        _deadline.SetActive(true);
     }
 }
