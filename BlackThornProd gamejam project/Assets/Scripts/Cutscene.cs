@@ -25,11 +25,6 @@ public class Cutscene : MonoBehaviour {
     private int _nextAnimationStateIndex;
     private int _nextTextPieceIndex;
 
-    // Use this for initialization
-    void Start () {
-        
-	}
-
     public void StartCutscene()
     {
         StartCoroutine(TimeLoop());
