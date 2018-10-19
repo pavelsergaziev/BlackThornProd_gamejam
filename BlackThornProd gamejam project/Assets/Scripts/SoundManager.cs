@@ -46,18 +46,28 @@ public class SoundManager : MonoBehaviour {
         }
         PlaySound(name, source, true);
     }
-    public void StartNewGame()
+    public void StartNewGameWhithCutScene()
     {
+        
         PlaySound("Chill+introMus", _musicSource,false);
         StartCoroutine(PlayAfter("MainThemeMus", _musicSource));
         StartCoroutine(PlayAfterSeconds(36, "DeadLineFx", true, _fxSource));
     }
+    public void StartNewGameWhithoutCutScene()
+    {
+        PlaySound("MainThemeMus", _musicSource, true);
+        StartCoroutine(PlayAfterSeconds(4, "DeadLineFx", true, _fxSource));
+
+    }
     public void DeadMenu()
     {
+        StopAllCoroutines();
         PlaySound("DeadMenuMus", _musicSource, true);
+        
     }
     public void MainMenu()
     {
+        _musicSource.pitch = 1f;
         PlaySound("MainMenuEmbience", _musicSource, true);
     }
     public void ButtonEnter()
@@ -79,5 +89,13 @@ public class SoundManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(delay);
         PlaySound(name, source, loop);
+    }
+    public void PauseMusic()
+    {
+        _musicSource.pitch = .5f;
+    }
+    public void ResumeMusic()
+    {
+        _musicSource.pitch = 1f;
     }
 }

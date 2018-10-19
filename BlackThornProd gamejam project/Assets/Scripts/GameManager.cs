@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour {
     private Camera _camera;
 
     private bool _gameHasBeenPlayedAlready;
+
+    
     
 
     void Awake()
@@ -70,7 +72,7 @@ public class GameManager : MonoBehaviour {
 
     public void StartNewGame()
     {
-        _soundManager.StartNewGame();        
+        _soundManager.StartNewGameWhithCutScene();        
         _cutscenePlayer.StartCutscene();
         _uiManager.StartGame();
         _cursorController.SwitchToCustomCursor();
