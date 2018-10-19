@@ -21,9 +21,18 @@ public class Cutscene : MonoBehaviour {
     [SerializeField]
     private float[] _textTimeStamps;
 
+    [SerializeField]
+    private float _transitionToGameplayTimeStamp;
+
     private float _timer;
     private int _nextAnimationStateIndex;
     private int _nextTextPieceIndex;
+    private GameManager _gameManager;
+
+    private void Start()
+    {
+        _gameManager = FindObjectOfType<GameManager>();
+    }
 
     public void StartCutscene()
     {
@@ -46,7 +55,10 @@ public class Cutscene : MonoBehaviour {
 
             //текст
             if (_timer > _textTimeStamps[_nextTextPieceIndex])
-                _textOnScreen.text = _textPieces[_nextTextPieceIndex++];            
+                _textOnScreen.text = _textPieces[_nextTextPieceIndex++];
+
+            if (_timer > _transitionToGameplayTimeStamp)
+                TransitionToGameplayScreen();
 
             yield return new WaitForEndOfFrame();
             _timer += Time.deltaTime;
@@ -55,15 +67,21 @@ public class Cutscene : MonoBehaviour {
 
         SwitchVisibility();
 
+        _gameManager.StartGameplay();
+
     }
 
     private void SwitchVisibility()
     {
-        _textOnScreen.enabled = !_textOnScreen.enabled;
+        _textOnScreen.transform.parent.gameObject.SetActive(!_textOnScreen.transform.parent.gameObject.activeSelf);
 
         foreach (Transform child in transform)
             child.gameObject.SetActive(!child.gameObject.activeSelf);
     }
 
+    private void TransitionToGameplayScreen()
+    {
+        Debug.Log("Анимация перехода к игре");
+    }
 
 }
