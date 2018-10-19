@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
 
         _camera.orthographicSize = (float)Screen.height / _texelsPerUnit / 2 / _pixelsPerTexel;
 
-        _gameHasBeenPlayedAlready = true;
+        //_gameHasBeenPlayedAlready = true;
 
         Invoke("DeactivateObjectsBeforeStart", 0.1f);
     }
@@ -88,7 +88,13 @@ public class GameManager : MonoBehaviour {
     public void StartNewGame()
     {
         //и поставить условие в зависимости от _gameHasBeenPlayedAlready
-        PlayCutscene();
+        if (!_gameHasBeenPlayedAlready)
+            PlayCutscene();
+        else
+        {
+            //и музыку с нужного места пустить!!!
+            StartGameplay();
+        }
     }
 
     private void PlayCutscene()
@@ -97,16 +103,15 @@ public class GameManager : MonoBehaviour {
         _cutscenePlayer.StartCutscene();
         _uiManager.StartGame();
         _cursorController.SwitchToCustomCursor();
-
-
-
-        //_levelGenerationController.StartGeneration();
     }
 
     public void StartGameplay()
     {
         _levelGenerationController.StartGeneration();
+        _uiManager.StartGameplay();
         _player.SetActive(true);
         _deadline.SetActive(true);
+
+        _gameHasBeenPlayedAlready = true;
     }
 }

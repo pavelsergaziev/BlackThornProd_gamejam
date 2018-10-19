@@ -68,16 +68,21 @@ public class UiManager : MonoBehaviour {
         _howToPlayPannel.gameObject.SetActive(false);
         _aboutPannel.gameObject.SetActive(false);
         _updateWindowPannel.gameObject.SetActive(false);
-        _gamePannel.gameObject.SetActive(true);
-        _codeStrokes.text = "int _codeStrokesToFinishProj = 10";
+        _codeStrokes.text = "int _codeSnippetsToFinishProj = 10";
     }
+
+    public void StartGameplay()
+    {
+        _gamePannel.gameObject.SetActive(true);
+    }
+
     public void UpdateRocketsText(string value)
     {
         _rockets.text = "int _rocketsCount = " + value;
     }
     public void UpdateCodeStrokesText(string value)
     {
-        _codeStrokes.text = "int _codeStrokesToFinishProj = " + value;
+        _codeStrokes.text = "int _codeSnippetsToFinishProj = " + value;
     }
     
 
