@@ -78,3 +78,6 @@ TagManager:
   - name: Effects
     uniqueID: 1134587691
     locked: 0
+  - name: Cutscene
+    uniqueID: 2253511645
+    locked: 0
