@@ -22,18 +22,23 @@ public class Cutscene : MonoBehaviour {
 
     void Update()
     {
-        if (_nextStateIndex < _timeStamps.Length - 1)
-        {
-            if (_timer > _timeStamps[_nextStateIndex])
-            {
-                _animator.SetInteger("switchStateTo", ++_nextStateIndex);
-                _timer = 0;
-            }
+        //if (_nextStateIndex < _timeStamps.Length - 1)
+        //{
+        //    if (_timer > _timeStamps[_nextStateIndex])
+        //    {
+        //        _animator.SetInteger("switchStateTo", ++_nextStateIndex);
+        //        _timer = 0;
+        //    }
 
-            _timer += Time.deltaTime;
-        }
+        //    _timer += Time.deltaTime;
+        //}
     }
 	
+
+    public void StartCutscene()
+    {
+        StartCoroutine(TimeLoop());
+    }
 
     //вариант с корутиной
     private IEnumerator TimeLoop()
