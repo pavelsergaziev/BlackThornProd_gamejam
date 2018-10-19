@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour {
     public void StartNewGame()
     {
 
-        _soundManager.StartNewGameWhithCutScene();        
+        //_soundManager.StartNewGameWhithCutScene();        
 
         //и поставить условие в зависимости от _gameHasBeenPlayedAlready
         PlayCutscene();
@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour {
     {
         _levelGenerationController.StartGeneration();
         _player.SetActive(true);
+        _uiManager.InGame = true;
         _deadline.SetActive(true);
     }
 }
