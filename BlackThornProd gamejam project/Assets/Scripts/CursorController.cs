@@ -7,8 +7,11 @@ public class CursorController : MonoBehaviour {
     bool _customCursorIsOn;
     private Camera _camera;
 
+    SpriteRenderer _spriteRenderer;
+
     private void Start()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _customCursorIsOn = false;
         _camera = FindObjectOfType<Camera>();
         SwitchToNormalCursor();
@@ -23,7 +26,8 @@ public class CursorController : MonoBehaviour {
 
     public void SwitchToCustomCursor()
     {
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
+        _spriteRenderer.enabled = true;
         Cursor.visible = false;
         
         _customCursorIsOn = true;
@@ -31,7 +35,8 @@ public class CursorController : MonoBehaviour {
     public void SwitchToNormalCursor()
     {
         Cursor.visible = true;
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        _spriteRenderer.enabled = false;
         _customCursorIsOn = false;
     }
 }
