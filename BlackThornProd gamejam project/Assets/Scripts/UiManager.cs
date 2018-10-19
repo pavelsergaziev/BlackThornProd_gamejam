@@ -88,7 +88,7 @@ public class UiManager : MonoBehaviour {
         _howToPlayPannel.gameObject.SetActive(false);
         _aboutPannel.gameObject.SetActive(false);
         _updateWindowPannel.gameObject.SetActive(false);
-
+        _cursorController.SwitchToCustomCursor();
         _codeStrokes.text = "int _codeSnippetsToFinishProj = 10";
         _gamePannel.gameObject.SetActive(true);
     }
@@ -116,6 +116,7 @@ public class UiManager : MonoBehaviour {
 
     public void ShowDeadMenu()
     {
+        Time.timeScale = 0;
         _deadMenuPannel.gameObject.SetActive(true);
     }
     
