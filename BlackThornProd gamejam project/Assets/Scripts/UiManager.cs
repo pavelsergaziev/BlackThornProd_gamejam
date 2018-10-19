@@ -14,16 +14,19 @@ public class UiManager : MonoBehaviour {
     [SerializeField]
     private Transform _updateWindowPannel;
     [SerializeField]
+    private Transform _gamePannel;
+    [SerializeField]
     private Text _codeStrokes;
     [SerializeField]
     private Text _rockets;
-
-
-
+    
+    
     private void Start()
     {
-        //ShowMainMenuPannel();
+        
+    
     }
+    
     public void ShowMainMenuPannel()
     {
         _mainMenuPannel.gameObject.SetActive(true);
@@ -58,6 +61,8 @@ public class UiManager : MonoBehaviour {
         _howToPlayPannel.gameObject.SetActive(false);
         _aboutPannel.gameObject.SetActive(false);
         _updateWindowPannel.gameObject.SetActive(false);
+        _gamePannel.gameObject.SetActive(true);
+        _codeStrokes.text = "int _codeStrokesToFinishProj = 10";
     }
     public void UpdateRocketsText(string value)
     {
@@ -67,6 +72,8 @@ public class UiManager : MonoBehaviour {
     {
         _codeStrokes.text = "int _codeStrokesToFinishProj = " + value;
     }
+    
+
 
 
 

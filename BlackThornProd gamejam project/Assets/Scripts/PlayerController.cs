@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 /// <summary>
 /// Логика и поля, отвечающие за игрока
 /// </summary>
@@ -41,6 +42,10 @@ public class PlayerController : FreeMovingGameObject
     private int _startRocketCount;
 
     private Animator _animator;
+    public float ChangeScrollSpeed;
+    
+    public float ScrollTime;
+    public ScrollingGameObject DeadLine;
 
 
     /// <summary>
@@ -143,6 +148,10 @@ public class PlayerController : FreeMovingGameObject
     private UiManager _uiManager;
     private int _codeStrokes = 0;
     private SoundOnObject _soundController;
+    private float _normalDeadLineSpeed;
+    private float _normalPlayerScrollSpeed;
+
+    
 
     protected override void Start()
     {
@@ -150,14 +159,16 @@ public class PlayerController : FreeMovingGameObject
         _rigidBody = GetComponent<Rigidbody2D>();
         _mainCamera = FindObjectOfType<Camera>();
         _uiManager = FindObjectOfType<UiManager>();
-        _uiManager.UpdateCodeStrokesText(_codeStrokes.ToString());
+        
         CurrentRocketCount = _startRocketCount;
+        _maxRocketCount = CurrentRocketCount;
         _soundController = GetComponent<SoundOnObject>();
         IsControllable = true;// Временно для теста. Должен включаться после кат сцены
         WeaponIsHide = true;// Временно для теста. Должен включаться после кат сцены
         _canFire = true;// Временно для теста. Должен включаться после кат сцены
         _groundLayerMask = 1 << LayerMask.NameToLayer("Ground");
-
+        _normalDeadLineSpeed = DeadLine.ScrollSpeed;
+        _normalPlayerScrollSpeed = ScrollSpeed;
         _animator = _childTransformToSnapToGrid.GetComponent<Animator>();
     }
     private void Update()
@@ -165,7 +176,7 @@ public class PlayerController : FreeMovingGameObject
         if (IsControllable)
         {
             ChekCanJump();
-            Scroll(ScrollSpeed);
+            Scroll(_normalPlayerScrollSpeed);
             RotateWeapon();
             Shoot();
             SetRocketsCount();
@@ -179,6 +190,8 @@ public class PlayerController : FreeMovingGameObject
         {
             CanJump = false;
             _rigidBody.AddForce(Vector2.up * JumpForce * Time.deltaTime);
+            var rnd = Random.Range(1, 6);
+            _soundController.PlaySound("JumpFx_" + rnd.ToString(), false);
         }
         foreach (Transform child in _groundChek)
         {
@@ -233,28 +246,45 @@ public class PlayerController : FreeMovingGameObject
     /// </summary>
     private void Shoot()
     {
-        if (_canFire && CurrentRocketCount > 0)
+        if (_canFire )
         {
-            if (Input.GetMouseButtonDown(0))
+
+            if (Input.GetMouseButtonDown(0) )
             {
-                var tmpBullet = Instantiate(_rocket, ShootingPoint.position, _weaponTransform.rotation);
-                tmpBullet.Speed = _rocketSpeed;
-                _canFire = false;
-                _timeAfterLastShot = 0;
-                
+                if (CurrentRocketCount > 0)
+                {
+                    var tmpBullet = Instantiate(_rocket, ShootingPoint.position, _weaponTransform.rotation);
+                    tmpBullet.Speed = _rocketSpeed;
+                    _canFire = false;
+                    _timeAfterLastShot = 0;
+
                     CurrentRocketCount -= 1;
-  
+                }
+                else
+                {
+                    _soundController.PlaySound("NoAmmoFx", false);
+                }
+
+
             }
-            if (Input.GetMouseButtonDown(1)&&CanHarpoon)
+            
+            if (Input.GetMouseButtonDown(1))
             {
-                
-                CanHarpoon = false;
-                var tmpHarpoon = Instantiate(_harpoon, ShootingPoint.position, _weaponTransform.rotation);
-                tmpHarpoon.ShootSpeed = _harpoonShootSpeed;
-                tmpHarpoon.MaxShootDistance = _harpoonMaxShootDistance;
-                tmpHarpoon.BackSpeed = _harpoonBackSpeed;
-                _canFire = false;
-                _timeAfterLastShot = 0;
+                if (CanHarpoon)
+                {
+                    CanHarpoon = false;
+                    var tmpHarpoon = Instantiate(_harpoon, ShootingPoint.position, _weaponTransform.rotation);
+                    tmpHarpoon.ShootSpeed = _harpoonShootSpeed;
+                    tmpHarpoon.MaxShootDistance = _harpoonMaxShootDistance;
+                    tmpHarpoon.BackSpeed = _harpoonBackSpeed;
+                    _canFire = false;
+                    _timeAfterLastShot = 0;
+                }
+                else
+                {
+                    _soundController.PlaySound("NoAmmoFx", false);
+                }
+
             }
         }
         else
@@ -273,6 +303,7 @@ public class PlayerController : FreeMovingGameObject
             var collisionScript = collision.GetComponent<ScrollingGameObject>();
             collisionScript.SwitchVisibility();
             PickUp(collision.GetComponent<ScrollingGameObject>().TypeOf);
+            
         }
     }
     /// <summary>
@@ -281,32 +312,30 @@ public class PlayerController : FreeMovingGameObject
     /// <param name="typeOf">Что подобрал</param>
     public void PickUp(TypeOfObject typeOf)
     {
+        var rnd = Random.Range(1, 7);
+
         switch (typeOf)
         {
+            
             case TypeOfObject.buff:
-
-                Debug.Log("player pick buff");
+                SpeedUpPlayer();
+                _soundController.PlaySound("GoodFx_" + rnd.ToString(), false);
                 break;
             case TypeOfObject.debuff:
-                Debug.Log("player pick debuff");
-                break;
-            case TypeOfObject.life:
-                Debug.Log("player pick life");
-                break;
-            case TypeOfObject.weapon:
-                Debug.Log("player pick weapon");
-                break;
-            case TypeOfObject.bullet:
-                Debug.Log("player pick bullet");
+                SpeedupDeadLine();
+                _soundController.PlaySound("BadFx_" + rnd.ToString(), false);
                 break;
             case TypeOfObject.bug:
-                Debug.Log("player pick bug");
+                SpeedupDeadLine();
+                _soundController.PlaySound("BadFx_" + rnd.ToString(), false);
                 break;
             case TypeOfObject.codeStroke:
+                _soundController.PlaySound("GoodFx_" + rnd.ToString(), false);
                 SetCodeStrokesCount();
-                Debug.Log("player pick codeStroke");
+                
                 break;
-
+            default:
+                break;
         }
     }
     private void SetRocketsCount()
@@ -335,7 +364,38 @@ public class PlayerController : FreeMovingGameObject
         {
             Debug.Log("GGWP");
         }
-        _uiManager.UpdateCodeStrokesText(_codeStrokes.ToString());
+        _uiManager.UpdateCodeStrokesText((_codeStrokesToCollect - _codeStrokes).ToString());
+    }
+    public void SlowDownplayer()
+    {
+        StartCoroutine(ChagePlayerScrollSpeed(ScrollTime, -ChangeScrollSpeed));
+    }
+    public void SpeedUpPlayer()
+    {
+        StartCoroutine(ChagePlayerScrollSpeed(ScrollTime, ChangeScrollSpeed));
+    }
+    IEnumerator  ChagePlayerScrollSpeed(float time, float speed)
+    {
+        _normalPlayerScrollSpeed = ScrollSpeed;
+        _normalPlayerScrollSpeed = speed;
+        yield return new WaitForSeconds(time);
+        _normalPlayerScrollSpeed = ScrollSpeed;
+    }
+    IEnumerator ChangeDedLineScrollSpeed(float time, float speed)
+    {
+
+        DeadLine.ScrollSpeed = _normalDeadLineSpeed;
+        DeadLine.ScrollSpeed += speed;
+        yield return new WaitForSeconds(time);
+        DeadLine.ScrollSpeed = _normalDeadLineSpeed;
+    }
+    public void SlowDownDedLine()
+    {
+        StartCoroutine(ChangeDedLineScrollSpeed(ScrollTime, ChangeScrollSpeed));
+    }
+    public void SpeedupDeadLine()
+    {
+        StartCoroutine(ChangeDedLineScrollSpeed(ScrollTime, -ChangeScrollSpeed));
     }
 
 }

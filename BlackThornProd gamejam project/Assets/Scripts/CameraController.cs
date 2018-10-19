@@ -33,7 +33,15 @@ public class CameraController : BaseGameObject
     private void FollowPlayer()
     {
         Vector3 desiredPos = new Vector3(_cameraPositionX, _player.position.y, _cameraPositionZ) + offset;
-        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed * Time.deltaTime);
-        transform.position = smoothedPos;
+        
+        
+        
+            Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed * Time.deltaTime);
+            transform.position = smoothedPos;
+        
+        
+        
+        //transform.position = new Vector3(Mathf.Clamp( smoothedPos.x, _player.position.x-5, _player.position.x + 5), Mathf.Clamp(smoothedPos.y, _player.position.y - 3, _player.position.y +3), smoothedPos.z);
     }
+
 }

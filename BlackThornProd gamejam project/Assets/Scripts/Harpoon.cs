@@ -46,10 +46,15 @@ public class Harpoon : MonoBehaviour
     /// </summary>
     private TypeOfObject _typeOfCathedPickUp;
 
+
+    private SoundOnObject _soundController;
+
     private void Start()
     {
         _player = FindObjectOfType<PlayerController>();
-        _linerRenderer = GetComponent<LineRenderer>();       
+        _linerRenderer = GetComponent<LineRenderer>();
+        _soundController = GetComponent<SoundOnObject>();
+        _soundController.PlaySound("HarpoonShotFx", false);
     }
     void Update ()
     {
@@ -95,9 +100,9 @@ public class Harpoon : MonoBehaviour
         {
             ///Здесь подбирается зацепленный обьект и становится дочерним
             //я всё-таки сделал с копированием объекта. Так реально получается сильно меньше кода.
-            Debug.Log("Harpoon pick" + collision. GetComponent<ScrollingGameObject>().TypeOf);
+            
 
-
+            _soundController.PlaySound("HarpoonHitFx", false);
             GameObject affectedObject = collision.gameObject;
             GameObject pickedUpObjectClone = Instantiate(affectedObject, affectedObject.transform.position, Quaternion.identity, transform);
             pickedUpObjectClone.GetComponent<ScrollingGameObject>().ScrollSpeed = 0;

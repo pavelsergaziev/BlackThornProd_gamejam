@@ -55,7 +55,7 @@ class Bullet : MonoBehaviour
         {
             item.enabled = false;
         }
-        Destroy(gameObject,_soundController.GetTimeToEndOfClip("RocketExplosion"));
+        Destroy(gameObject,1);
         return;
     }
     /// <summary>
@@ -81,42 +81,42 @@ class Bullet : MonoBehaviour
 
 
             var collisionScript = collision.GetComponent<ScrollingGameObject>();
+            var rnd = Random.Range(1, 7);
             switch (collisionScript.TypeOf)
             {
                 case TypeOfObject.none:
                     break;
                 case TypeOfObject.buff:
-                    Debug.Log("bullet destroy buff");
+                    _soundController.PlaySound("BadFx_" + rnd.ToString(), false);
+                    _playerController.SlowDownplayer();
                     collisionScript.SwitchVisibility();
                     DestroyBullet();
                     break;
                 case TypeOfObject.debuff:
-                    Debug.Log("bullet destroy debuff");
+                    _soundController.PlaySound("GoodFx_" + rnd.ToString(), false);
+                    _playerController.SlowDownDedLine();
                     collisionScript.SwitchVisibility();
                     DestroyBullet();
                     break;
-                case TypeOfObject.life:
-                    collisionScript.SwitchVisibility();
-                    DestroyBullet();
-                    break;
-                case TypeOfObject.weapon:
-                    collisionScript.SwitchVisibility();
-                    DestroyBullet();
-                    break;
-                case TypeOfObject.bullet:
-                    collisionScript.SwitchVisibility();
-                    DestroyBullet();
-                    break;
+                
                 case TypeOfObject.bug:
-                    Debug.Log("bullet destroy bug");
+                    _soundController.PlaySound("GoodFx_" + rnd.ToString(), false);
+                    _playerController.SlowDownDedLine();
                     collisionScript.SwitchVisibility();
                     DestroyBullet();
                     break;
                 case TypeOfObject.destructable:
-                    Debug.Log("bullet destroy Wall");
+                    _soundController.PlaySound("GoodFx_" + rnd.ToString(), false);
+
                     collisionScript.SwitchVisibility();
                     DestroyBullet();
                     break;
+                case TypeOfObject.codeStroke:
+                    _soundController.PlaySound("BadFx_" + rnd.ToString(), false);
+                    collisionScript.SwitchVisibility();
+                    DestroyBullet();
+                    break;
+
 
             }
         }

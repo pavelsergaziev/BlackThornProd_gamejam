@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114501572945074966}
   - component: {fileID: 50639427920245042}
   - component: {fileID: 61203184365474326}
+  - component: {fileID: 114667099877175018}
   m_Layer: 0
   m_Name: Harpoon
   m_TagString: Untagged
@@ -103,6 +104,20 @@ MonoBehaviour:
   ShootSpeed: 0
   MaxShootDistance: 5
   BackSpeed: 20
+--- !u!114 &114667099877175018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1359738665013266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e58fa86a76dfa14db42afb49de0e99c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClips:
+  - {fileID: 8300000, guid: 7c9ef79f9f0f3124e9e59e77c8321a35, type: 3}
+  - {fileID: 8300000, guid: c2b8bd980a10b784b91f3cbe203775d0, type: 3}
 --- !u!120 &120915691960452476
 LineRenderer:
   m_ObjectHideFlags: 1

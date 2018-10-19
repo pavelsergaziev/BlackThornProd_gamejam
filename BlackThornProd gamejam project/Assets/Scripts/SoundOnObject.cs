@@ -22,6 +22,12 @@ class SoundOnObject : MonoBehaviour
         audioSource.loop = loop;
         audioSource.Play();
     }
+    public void PlaySound(string name, bool loop,float volume, ulong delay)
+    {
+        AudioSource audioSource = Array.Find(GetComponents<AudioSource>(), source => source.clip.name == name);
+        audioSource.loop = loop;
+        audioSource.Play(delay);
+    }
     public void PlaySound(string name, bool loop, float volume)
     {
         AudioSource audioSource = Array.Find(GetComponents<AudioSource>(), source => source.clip.name == name);
