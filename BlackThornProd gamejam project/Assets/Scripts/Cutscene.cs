@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//using System.
+using UnityEngine.UI;
 
 public class Cutscene : MonoBehaviour {
 
@@ -10,30 +10,25 @@ public class Cutscene : MonoBehaviour {
     private Animator _animator;
 
     [SerializeField]
-    private float[] _timeStamps;
+    private float[] _animationTimeStamps;
+
+    [SerializeField]
+    private Text _textOnScreen;
+
+    [SerializeField]
+    private string[] _textPieces;
+
+    [SerializeField]
+    private float[] _textTimeStamps;
 
     private float _timer;
-    private int _nextStateIndex;
+    private int _nextAnimationStateIndex;
+    private int _nextTextPieceIndex;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         
 	}
-
-    void Update()
-    {
-        //if (_nextStateIndex < _timeStamps.Length - 1)
-        //{
-        //    if (_timer > _timeStamps[_nextStateIndex])
-        //    {
-        //        _animator.SetInteger("switchStateTo", ++_nextStateIndex);
-        //        _timer = 0;
-        //    }
-
-        //    _timer += Time.deltaTime;
-        //}
-    }
-	
 
     public void StartCutscene()
     {
@@ -44,21 +39,20 @@ public class Cutscene : MonoBehaviour {
     private IEnumerator TimeLoop()
     {
 
-        yield return new WaitForEndOfFrame();
-
-        while (_nextStateIndex < _timeStamps.Length - 1)
-        {            
-
-            if (_timer > _timeStamps[_nextStateIndex])
-            {
-                _animator.SetInteger("switchStateTo", ++_nextStateIndex);
-                _timer = 0;
-            }
+        while (_nextAnimationStateIndex < _animationTimeStamps.Length - 1)
+        {
 
             _timer += Time.deltaTime;
 
-            yield return new WaitForEndOfFrame();
-            
+            //анимация
+            if (_timer > _animationTimeStamps[_nextAnimationStateIndex])
+                _animator.SetInteger("switchStateTo", ++_nextAnimationStateIndex);
+
+            //текст
+            if (_timer > _textTimeStamps[_nextTextPieceIndex])
+                _textOnScreen.text = _textPieces[_nextTextPieceIndex++];            
+
+            yield return new WaitForEndOfFrame();            
             
         }
 
