@@ -43,20 +43,9 @@ public class UiManager : MonoBehaviour {
         _playerController = FindObjectOfType<PlayerController>();
 
     }
-    private void Update()
-    {
-        if (InGame)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                ShowHidePouseMenu();
-            }
-        }
-    }
+
     public void ShowMainMenuPannel()
     {
-        Time.timeScale = 1f;
-        InGame = false;
         _pauseMenuPannel.gameObject.SetActive(false);
         _mainMenuPannel.gameObject.SetActive(true);
         _howToPlayPannel.gameObject.SetActive(false);
@@ -87,17 +76,20 @@ public class UiManager : MonoBehaviour {
     }
     public void StartGame()
     {
-        _playerController.IsControllable = true;
-        
         _mainMenuPannel.gameObject.SetActive(false);
         _howToPlayPannel.gameObject.SetActive(false);
         _aboutPannel.gameObject.SetActive(false);
-        _updateWindowPannel.gameObject.SetActive(false);
-        _codeStrokes.text = "int _codeSnippetsToFinishProj = 10";
+        _updateWindowPannel.gameObject.SetActive(false);        
     }
 
     public void StartGameplay()
     {
+        _mainMenuPannel.gameObject.SetActive(false);
+        _howToPlayPannel.gameObject.SetActive(false);
+        _aboutPannel.gameObject.SetActive(false);
+        _updateWindowPannel.gameObject.SetActive(false);
+
+        _codeStrokes.text = "int _codeSnippetsToFinishProj = 10";
         _gamePannel.gameObject.SetActive(true);
     }
 
@@ -111,41 +103,20 @@ public class UiManager : MonoBehaviour {
     }
     public void ShowHidePouseMenu()
     {
-        
-        bool x = _pauseMenuPannel.gameObject.activeSelf;
-        if (x == true)
-        {
-            ResumeGame();
-        }
-        else
-        {
-            PauseGame();
-        }
-        
+        _pauseMenuPannel.gameObject.SetActive(!_pauseMenuPannel.gameObject.activeSelf);
+    }
+    //public void ResumeGame()
+    //{
+    //    _pauseMenuPannel.gameObject.SetActive(false);
+    //}
+    //public void PauseGame()
+    //{
+    //    _pauseMenuPannel.gameObject.SetActive(true);
+    //}
 
-    }
-    public void ResumeGame()
-    {
-        Time.timeScale = 1f;
-        _soundManager.ResumeMusic();
-        _pauseMenuPannel.gameObject.SetActive(false);
-        _cursorController.SwitchToCustomCursor();
-        _playerController.IsControllable = true;
-    }
     public void ShowDeadMenu()
     {
-        InGame = false;
-        Time.timeScale = 0f;
         _deadMenuPannel.gameObject.SetActive(true);
-        _cursorController.SwitchToNormalCursor();
-    }
-    public void PauseGame()
-    {
-        Time.timeScale = 0.01f;
-        _soundManager.PauseMusic();
-        _pauseMenuPannel.gameObject.SetActive(true);
-        _cursorController.SwitchToNormalCursor();
-        _playerController.IsControllable = false;
     }
     
     

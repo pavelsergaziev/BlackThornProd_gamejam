@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.SceneManagement;
+
 /// <summary>
 /// Гейм-менеджер, синглтон
 /// </summary>
@@ -28,7 +30,7 @@ public class GameManager : MonoBehaviour {
     private CursorController _cursorController;
     private Cutscene _cutscenePlayer;
     private LevelGenerationController _levelGenerationController;
-    private GameObject _player;
+    private PlayerController _playerController;
 
     [SerializeField]
     private GameObject _deadline;
@@ -38,7 +40,10 @@ public class GameManager : MonoBehaviour {
 
     private bool _gameHasBeenPlayedAlready;
 
-    
+    private bool _shouldStartFromGameplay;
+
+    private enum GameState { mainMenu, cutscene, gameplay, paused, dead }
+    private GameState _currentGameState;
     
 
     void Awake()
@@ -67,23 +72,49 @@ public class GameManager : MonoBehaviour {
         _uiManager = FindObjectOfType<UiManager>();
         _levelGenerationController = FindObjectOfType<LevelGenerationController>();
 
-        _player = FindObjectOfType<PlayerController>().gameObject;
+        _playerController = FindObjectOfType<PlayerController>();
 
         _camera.orthographicSize = (float)Screen.height / _texelsPerUnit / 2 / _pixelsPerTexel;
 
-        //_gameHasBeenPlayedAlready = true;
-
+        _gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ, УБРАТЬ!!!
+        
         Invoke("DeactivateObjectsBeforeStart", 0.1f);
+
+        _currentGameState = GameState.mainMenu;
     }
 
 
-//запустить бесконечную корутину со скоростью, зависящей от средней скорости перемещения уровня, и в ней запускать генерацию уровня.
-
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            switch (_currentGameState)
+            {
+                case GameState.mainMenu:
+                    break;
+                case GameState.cutscene:
+                    break;
+                case GameState.gameplay: PauseGame();
+                    break;
+                case GameState.paused: ResumeGame();
+                    break;
+                case GameState.dead:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
 
     private void DeactivateObjectsBeforeStart()
     {
-        _player.SetActive(false);
+
+        Debug.Log("deactivation");
+
+        _playerController.gameObject.SetActive(false);
+        _playerController.IsControllable = false;
+
         _deadline.SetActive(false);
     }
 
@@ -97,28 +128,96 @@ public class GameManager : MonoBehaviour {
             PlayCutscene();
         else
         {
-            //и музыку с нужного места пустить!!!
+            _soundManager.StartNewGameWhithoutCutScene();
             StartGameplay();
         }
     }
 
     private void PlayCutscene()
     {
-       _soundManager.StartNewGameWhithCutScene(); 
+        _currentGameState = GameState.cutscene;
 
+       _soundManager.StartNewGameWhithCutScene();
         _cutscenePlayer.StartCutscene();
         _uiManager.StartGame();
         _cursorController.SwitchToCustomCursor();
+
+        Debug.Log(_currentGameState);
     }
 
     public void StartGameplay()
     {
+        _currentGameState = GameState.gameplay;
+
         _levelGenerationController.StartGeneration();
+        Debug.Log("wtf");
+
         _uiManager.StartGameplay();
-        _player.SetActive(true);
-        _uiManager.InGame = true;
+        _playerController.gameObject.SetActive(true);
+        _playerController.IsControllable = true;
         _deadline.SetActive(true);
 
         _gameHasBeenPlayedAlready = true;
+
+        Debug.Log(_currentGameState);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        _currentGameState = GameState.mainMenu;
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+
+        Debug.Log(_currentGameState);
+    }
+
+    public void PauseGame()
+    {
+        _currentGameState = GameState.paused;
+
+        Time.timeScale = 0.01f;
+        _soundManager.PauseMusic();
+        _uiManager.ShowHidePouseMenu();
+        _cursorController.SwitchToNormalCursor();
+        _playerController.GetComponent<PlayerController>().IsControllable = false;
+
+        Debug.Log(_currentGameState);
+    }
+
+    public void ResumeGame()
+    {
+        _currentGameState = GameState.gameplay;
+
+        Time.timeScale = 1f;
+        _soundManager.ResumeMusic();
+        _uiManager.ShowHidePouseMenu();
+        _cursorController.SwitchToCustomCursor();
+        _playerController.GetComponent<PlayerController>().IsControllable = true;
+
+        Debug.Log(_currentGameState);
+    }
+
+    public void Die()
+    {
+        _currentGameState = GameState.dead;
+
+        Time.timeScale = 0f;
+        _uiManager.ShowDeadMenu();
+        _cursorController.SwitchToNormalCursor();
+
+        Debug.Log(_currentGameState);
+    }
+
+    public void RestartGameplay()
+    {
+        _currentGameState = GameState.gameplay;
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        _soundManager.StartNewGameWhithoutCutScene();
+        StartGameplay();
     }
 }
