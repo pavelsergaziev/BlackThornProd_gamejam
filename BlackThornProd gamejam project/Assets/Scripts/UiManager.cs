@@ -97,7 +97,7 @@ public class UiManager : MonoBehaviour {
 
     public void UpdateRocketsText(string value)
     {
-        _rockets.text = "int _rocketsCount = " + value;
+        _rockets.text = "int _flashRocketsCount = " + value;
     }
     public void UpdateCodeStrokesText(string value)
     {

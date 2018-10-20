@@ -32,10 +32,10 @@ public class LevelGenerationController : MonoBehaviour {
     [SerializeField]
     private int _firstPlatformLength = 5;
     [SerializeField]
-    [Range(1.5f, 3f)]
+    [Range(1.5f, 8f)]
     private float _minXDistanceBetweenPlatforms = 2f;
     [SerializeField]
-    [Range(3f, 5f)]
+    [Range(1.5f, 10f)]
     private float _maxXDistanceBetweenPlatforms = 4f;
     [SerializeField]
     [Range(0f, 1f)]

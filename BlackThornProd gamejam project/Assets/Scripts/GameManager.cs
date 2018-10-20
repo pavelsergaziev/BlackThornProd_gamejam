@@ -64,21 +64,18 @@ public class GameManager : MonoBehaviour {
     void Start()
     {
         _gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ, УБРАТЬ!!!
-
-        Debug.Log("старт геймменеджера");
+        
         SceneManager.sceneLoaded += OnSceneLoaded;
         Initialize();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("сцена загружена");
         Invoke("Initialize", 0.1f);
     }
 
     private void Initialize()
     {
-        Debug.Log("инициализация геймменеджера");
 
         if (_pixelGridSnapper == null)
             _pixelGridSnapper = new PixelGridSnapper(_texelsPerUnit, _pixelsPerTexel);
@@ -97,8 +94,7 @@ public class GameManager : MonoBehaviour {
         
 
         _currentGameState = GameState.mainMenu;
-
-        Debug.Log(_gameHasBeenPlayedAlready);
+        
 
         if (_shouldStartFromGameplay)
         {
@@ -138,9 +134,7 @@ public class GameManager : MonoBehaviour {
 
     private void DeactivateObjectsBeforeStart()
     {
-
-        Debug.Log("deactivation");
-
+        
         _playerController.gameObject.SetActive(false);
         _playerController.IsControllable = false;
 

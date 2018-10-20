@@ -1182,7 +1182,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.791
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1534,6 +1534,10 @@ Prefab:
         type: 2}
       propertyPath: m_Offset.x
       value: -0.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022250440301048, guid: 5d0d8c10ef6ca6a47876d89a448d1cae, type: 2}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d0d8c10ef6ca6a47876d89a448d1cae, type: 2}
@@ -3119,8 +3123,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: _finishGamePannel.text = "Well done! You have finished the project! Sorry,
-    but we had no time to make something more exciting than this grey pannel. Even
+  m_Text: _finishGamePanel.text = "Well done! You have finished the project! Sorry,
+    but we had no time to make something more exciting than this grey panel. Even
     music wouldn't stop. And no button to quit. Sorry!"
 --- !u!222 &1084942955
 CanvasRenderer:
@@ -3534,7 +3538,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 851826995
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: eaff470af4db46d4fae748eed0cfbfab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4848,7 +4852,7 @@ MonoBehaviour:
   m_Text: "\n\tUsing YellowPurplePealsEngine;\n\n\tnamespace TheDeadLine{\n\t\n\t\tClass
     About{\n\t\t\tstring _ideaAndConcept = \"Pavel Sergaziev, Denis Kotenko\";\n\t\t\tstring
     _graphics = \"Pavel Sergaziev\";\n\t\t\tstring _programming = Pavel Sergaziev,
-    Denis Kotenko\";\n\t\t\tstring _music = \"Pavel Sergaziev\";\n\t\t\tstring _soundDesigne
+    Denis Kotenko\";\n\t\t\tstring _music = \"Pavel Sergaziev\";\n\t\t\tstring _soundDesign
     = \"Denis Kotenko\";\n\t\t\t}\n\t}\n\t\t\t"
 --- !u!222 &1590491443
 CanvasRenderer:
@@ -5322,10 +5326,12 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "\n\tUsing YellowPurplePealsEngine;\n\n\tnamespace TheDeadLine{\n\t\n\t\tClass
     HowToPlay{\n\t\t\tstring _introduction = \"This game is about one of the most
-    important things in game development - time management. Try to collect all script
-    patterns you need to finish the project before THE DEADLINE comes! Use CODEROCKETLOUNCHER
-    to destroy and CODEHARPOON to catch items. Have fun!\";\n\t\t\t\n\t\tVoid Update(){\n\t\t\tif(Input.GetAxisRaw(\"Jump\")){Jump();}\n\t\t\tif
-    (Input.GetMouseButtonDown(0)){FireRocket();}\n\t\t\tif (Input.GetMouseButtonDown(1)){Harpoon();}\n\t\t\t}\t\t\t\t\t\t\t\t\n\t\t}\n\t}\n\t\t\t"
+    important things in game development - time management. Try to collect all code
+    snippets you need to finish the project before THE DEADLINE gets you! Use CODEROCKETLAUNCHER
+    to destroy stuff and CODEHARPOON to catch items. Note that different objects have
+    different results depending on whether you catch them or vaporize them. Have fun!\";\n\t\t\t\n\t\tVoid
+    Update(){\n\t\t\tif(Input.GetAxisRaw(\"Jump\")){Jump();}\n\t\t\tif (Input.GetMouseButtonDown(0)){FireFlashdriveRocket();}\n\t\t\tif
+    (Input.GetMouseButtonDown(1)){FireTheGrapplingMouse();}\n\t\t\t}\t\t\t\t\t\t\t\t\n\t\t}\n\t}\n\t\t\t"
 --- !u!222 &1770538430
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6195,16 +6201,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5782e21921041264f96ab94fbb3fed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftBorderX: -15
-  _rightBorderX: 15
+  _leftBorderX: -10
+  _rightBorderX: 20
   _delayToCheckBuildAndRemoveObjects: 1
   _sizeOfThePlatformPartsObjectPool: 60
   _sizeOfThePlatformsObjectPool: 10
   _minPlatformLength: 3
   _maxPlatformLength: 15
-  _firstPlatformLength: 35
-  _minXDistanceBetweenPlatforms: 2
-  _maxXDistanceBetweenPlatforms: 3.5
+  _firstPlatformLength: 40
+  _minXDistanceBetweenPlatforms: 2.7
+  _maxXDistanceBetweenPlatforms: 4
   _minYDistanceBetweenPlatforms: 0
   _maxYDistanceBetweenPlatforms: 1.5
   _leftPlatformEdgeSprite: {fileID: 21300000, guid: ede67fcff006bcc44b292abb7f6756a3,
@@ -6228,43 +6234,43 @@ MonoBehaviour:
     type: 2}
   _sizeOfWallsObjectPool: 5
   _wallsYDistanceToPlatform: 3
-  _delayBeforeFirstWall: 25
-  _minDelayBetweenWalls: 30
-  _maxDelayBetweenWalls: 60
+  _delayBeforeFirstWall: 5
+  _minDelayBetweenWalls: 10
+  _maxDelayBetweenWalls: 25
   _wallPrefab: {fileID: 1017978662077150, guid: 5cb16f64807b2f94abab77b849331bd4,
     type: 2}
-  _sizeOfPickupBuffsOnPlatformsObjectPool: 10
+  _sizeOfPickupBuffsOnPlatformsObjectPool: 20
   _buffOnPlatformYDistanceToPlatform: 1.8
-  _delayBeforeFirstBuffOnPlatforms: 5
-  _minDelayBetweenBuffOnPlatforms: 2
-  _maxDelayBetweenBuffOnPlatforms: 5
+  _delayBeforeFirstBuffOnPlatforms: 10
+  _minDelayBetweenBuffOnPlatforms: 5
+  _maxDelayBetweenBuffOnPlatforms: 7
   _pickupBuffOnPlatformsPrefab: {fileID: 1956731766018664, guid: 0d806c8e660ac2e4a830231cbfc7aabf,
     type: 2}
-  _sizeOfPickupDebuffsOnPlatformsObjectPool: 5
+  _sizeOfPickupDebuffsOnPlatformsObjectPool: 10
   _debuffOnPlatformYDistanceToPlatform: 1.8
-  _delayBeforeFirstDebuffOnPlatforms: 10
-  _minDelayBetweenDebuffOnPlatforms: 5
-  _maxDelayBetweenDebuffOnPlatforms: 20
+  _delayBeforeFirstDebuffOnPlatforms: 20
+  _minDelayBetweenDebuffOnPlatforms: 4
+  _maxDelayBetweenDebuffOnPlatforms: 8
   _pickupDebuffOnPlatformsPrefab: {fileID: 1843716650251902, guid: 0c00d2edad63b314f80a3a55931b8ff9,
     type: 2}
-  _sizeOfBugsInTheAirObjectPool: 15
+  _sizeOfBugsInTheAirObjectPool: 20
   _minHeightAbovePlatformForBugsInTheAir: 2
   _maxHeightAbovePlatformForBugsInTheAir: 5
-  _delayBeforeFirstBugInTheAir: 3
-  _minDelayBetweenBugsInTheAir: 2
-  _maxDelayBetweenBugsInTheAir: 5
+  _delayBeforeFirstBugInTheAir: 5
+  _minDelayBetweenBugsInTheAir: 1
+  _maxDelayBetweenBugsInTheAir: 6
   _BugInTheAirPrefab: {fileID: 1209440456000078, guid: adec85bfe7f2f9446af19f1af0939698,
     type: 2}
   _sizeOfBuffsInTheAirObjectPool: 15
   _minHeightAbovePlatformForBuffsInTheAir: 2
   _maxHeightAbovePlatformForBuffsInTheAir: 5
   _delayBeforeFirstBuffInTheAir: 10
-  _minDelayBetweenBuffsInTheAir: 1
-  _maxDelayBetweenBuffsInTheAir: 5
+  _minDelayBetweenBuffsInTheAir: 3
+  _maxDelayBetweenBuffsInTheAir: 6
   _BuffInTheAirPrefab: {fileID: 1237371561541416, guid: 0d6dddf037e4ff744a39e55e91a70a95,
     type: 2}
-  _maxYDistanceOfBackgroundObjectsFromPlatform: 10
-  _backgroundObjectsBatchWidth: 10
+  _maxYDistanceOfBackgroundObjectsFromPlatform: 7
+  _backgroundObjectsBatchWidth: 15
   _sizeOfFarBackgroundObjectsObjectPool: 200
   _minAmountOfFarBackgroundObjectsInBatch: 10
   _maxAmountOfFarBackgroundObjectsInBatch: 20
@@ -6274,9 +6280,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6562fbda3b7ad15449f4a8fc2086de43, type: 3}
   _farBackgroundObjectPrefab: {fileID: 1639599721793070, guid: 64955095c95070746a926c3670b39d3c,
     type: 2}
-  _sizeOfMidBackgroundObjectsObjectPool: 150
-  _minAmountOfMidBackgroundObjectsInBatch: 5
-  _maxAmountOfMidBackgroundObjectsInBatch: 10
+  _sizeOfMidBackgroundObjectsObjectPool: 120
+  _minAmountOfMidBackgroundObjectsInBatch: 3
+  _maxAmountOfMidBackgroundObjectsInBatch: 7
   _midBackgroundObjectsSprites:
   - {fileID: 21300000, guid: bb019397b68a31a449685d1a80e67ad2, type: 3}
   - {fileID: 21300000, guid: f806660a1952c1c4b86e6bf362e2b1f7, type: 3}

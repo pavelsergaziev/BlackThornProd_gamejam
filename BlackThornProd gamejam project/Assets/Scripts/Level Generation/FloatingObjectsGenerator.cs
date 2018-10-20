@@ -24,14 +24,17 @@ public class FloatingObjectsGenerator : TimedLevelElementsGenerator
 
                 Vector2 raycastSource = new Vector2(creatingBorderPositionX - (i / 2), 0);
 
-                RaycastHit2D hit = Physics2D.Raycast(raycastSource, Vector2.down);
+                RaycastHit2D hit = Physics2D.Raycast(raycastSource, Vector2.down, RaycastDistance, LayerMaskForRaycasting);
                 if (!hit)
-                    hit = Physics2D.Raycast(raycastSource, Vector2.up);
+                    hit = Physics2D.Raycast(raycastSource, Vector2.up, RaycastDistance, LayerMaskForRaycasting);
 
                 if (hit && hit.collider.tag == "Platform")
                 {
-                    PlaceObjectFromPool(new Vector3(creatingBorderPositionX, hit.collider.transform.position.y + Random.Range(minHeightAbovePlatform, maxHeightAbovePlatform), _objectsPool.Peek().transform.position.z), gridSnapper);
+                    //добавил немного рандома в положение по иксу
+                    PlaceObjectFromPool(new Vector3(creatingBorderPositionX + Random.Range(0,2f), hit.collider.transform.position.y + Random.Range(minHeightAbovePlatform, maxHeightAbovePlatform), _objectsPool.Peek().transform.position.z), gridSnapper);
                     break;
+
+                    
                 }
             }
 

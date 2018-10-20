@@ -35,6 +35,7 @@ public class PlatformGenerator : ProximityLevelElementsGenerator
         Transform rightmostActivePlatformPart = _activeObjects[_activeObjects.Count - 1].transform;
         if (rightmostActivePlatformPart.position.x < creatingBorderPositionX)
             CreatePlatform(Random.Range(minPlatformLength, maxPlatformLength + 1), new Vector3(rightmostActivePlatformPart.position.x + Random.Range(minXDistanceBetweenPlatforms, maxXDistanceBetweenPlatforms), rightmostActivePlatformPart.position.y + (Random.Range(minYDistanceBetweenPlatforms, maxYDistanceBetweenPlatforms) * Random.Range(-1, 2)), rightmostActivePlatformPart.transform.position.z), leftEdge, middleSprites, rightEdge, gridSnapper);
+
     }
 
     private void CreatePlatform(int platformLength, Vector3 startingPosition, Sprite leftEdge, Sprite[] middleSprites, Sprite rightEdge, PixelGridSnapper gridSnapper)
@@ -45,8 +46,9 @@ public class PlatformGenerator : ProximityLevelElementsGenerator
             PlaceObjectFromPool(new Vector3(startingPosition.x + ((i + 1) * _platformPartPrefabWidth), startingPosition.y, startingPosition.z), middleSprites[Random.Range(0, middleSprites.Length)], gridSnapper);
 
         PlaceObjectFromPool(new Vector3(startingPosition.x + ((platformLength - 1) * _platformPartPrefabWidth), startingPosition.y, startingPosition.z), rightEdge, gridSnapper);
-        
+
         PlatformWrappersGenerator.PlacePlatformFromPool((startingPosition + _activeObjects[_activeObjects.Count - 1].transform.position) / 2, new Vector2(_platformPartPrefabWidth * platformLength, PlatformWrappersGenerator.NextPlatformInPool.GetComponent<BoxCollider2D>().size.y));
+        
     }
 
 

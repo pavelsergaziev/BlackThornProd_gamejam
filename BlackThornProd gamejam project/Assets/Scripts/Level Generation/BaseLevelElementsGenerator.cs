@@ -9,6 +9,9 @@ public abstract class BaseLevelElementsGenerator {
     
     protected GameObject _tempObject;
 
+    protected const float RaycastDistance = 100;
+    protected const int LayerMaskForRaycasting = 1 << 8;
+
     public BaseLevelElementsGenerator(int objectsPoolSize, Transform levelLayoutObject, GameObject objectPrefab)
     {
         for (int i = 0; i < objectsPoolSize; i++)
@@ -43,13 +46,22 @@ public abstract class BaseLevelElementsGenerator {
 
     protected virtual void PlaceObjectFromPool(Vector3 position)
     {
-        if (_objectsPool.Count > 1)//Иногда в наследуемых классах делается _objectsPool.Peek(), поэтому тут единица, а не ноль. Но надо посмотреть, не сломал ли я чего этим условием
-        {
+        //if (_objectsPool.Count > 1)//Иногда в наследуемых классах делается _objectsPool.Peek(), поэтому тут единица, а не ноль. Но надо посмотреть, не сломал ли я чего этим условием
+        //{
+        //    _tempObject = _objectsPool.Dequeue();
+        //    _tempObject.transform.position = position;
+        //    _tempObject.SetActive(true);
+        //    _activeObjects.Add(_tempObject);
+        //}
+
+        //вариант с enqueue сразу
+
             _tempObject = _objectsPool.Dequeue();
             _tempObject.transform.position = position;
             _tempObject.SetActive(true);
             _activeObjects.Add(_tempObject);
-        }
+            _objectsPool.Enqueue(_tempObject);
+
 
     }
 
@@ -76,7 +88,7 @@ public abstract class BaseLevelElementsGenerator {
     {
         _tempObject = _activeObjects[0];
         _activeObjects.RemoveAt(0);
-        _objectsPool.Enqueue(_tempObject);
+        //_objectsPool.Enqueue(_tempObject); //в том варианте если объект кладётся в очередь сразу при активации
         _tempObject.SetActive(false);
     }
     

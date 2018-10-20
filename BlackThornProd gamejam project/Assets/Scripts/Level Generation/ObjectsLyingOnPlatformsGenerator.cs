@@ -32,9 +32,9 @@ public class ObjectsLyingOnPlatformsGenerator : TimedLevelElementsGenerator
 
                 Vector2 raycastSource = new Vector2(creatingBorderPositionX + (i / 2), 0);
 
-                Collider2D hitCollider = Physics2D.Raycast(raycastSource, Vector2.down).collider;
+                Collider2D hitCollider = Physics2D.Raycast(raycastSource, Vector2.down, RaycastDistance, LayerMaskForRaycasting).collider;
                 if (hitCollider == null)
-                    hitCollider = Physics2D.Raycast(raycastSource, Vector2.up).collider;
+                    hitCollider = Physics2D.Raycast(raycastSource, Vector2.up, RaycastDistance, LayerMaskForRaycasting).collider;
 
                 if (hitCollider != null && hitCollider.tag == "Platform")
                 {
@@ -45,7 +45,7 @@ public class ObjectsLyingOnPlatformsGenerator : TimedLevelElementsGenerator
                         ?
                         hitCollider.transform.position + Vector3.up * YDistanceToPlatform
                         :
-                        new Vector3(Random.Range(hitCollider.transform.position.x - (hitCollider.bounds.size.x / 2), hitCollider.transform.position.x + (hitCollider.bounds.size.x / 2)), hitCollider.transform.position.y + YDistanceToPlatform, _objectsPool.Peek().transform.position.z);
+                        new Vector3(Random.Range(creatingBorderPositionX + (i / 2), hitCollider.transform.position.x + (hitCollider.bounds.size.x / 2)), hitCollider.transform.position.y + YDistanceToPlatform, _objectsPool.Peek().transform.position.z);
 
                     PlaceObjectFromPool(spawnPosition, gridSnapper);
 
