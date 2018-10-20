@@ -371,8 +371,7 @@ public class PlayerController : FreeMovingGameObject
     private void SetCodeStrokesCount()
     {
         _codeStrokes += 1;
-
-        Debug.Log("snippet collected");
+        
         if (_codeStrokes>=_codeStrokesToCollect)
             _gameManager.Win();
 
