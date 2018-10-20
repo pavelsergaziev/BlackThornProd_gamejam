@@ -14,10 +14,6 @@ public class BackgroundElementsGenerator : ProximityLevelElementsGenerator {
 
     public void CheckAndTryCreateBatchOfObjects(int creatingBorderPositionX, float maxXDistanceToOriginPoint, float maxYDistanceFromPlatform, int minAmountOfObjectsInBatch, int maxAmountOfObjectsInBatch, Sprite[] sprites, PixelGridSnapper gridSnapper)
     {
-        Debug.Log(_activeObjects.Count);
-
-        if (_activeObjects.Count > 0)
-            Debug.Log(_activeObjects[_activeObjects.Count - 1].name + " " + (_activeObjects[_activeObjects.Count - 1].transform.position.x - creatingBorderPositionX));
 
         if (_activeObjects.Count == 0 || _activeObjects[_activeObjects.Count - 1].transform.position.x < creatingBorderPositionX)
         {
@@ -27,12 +23,8 @@ public class BackgroundElementsGenerator : ProximityLevelElementsGenerator {
             if (!hit)
                 hit = Physics2D.Raycast(raycastSource, Vector2.up);
 
-            if (_activeObjects.Count > 0 && hit)
-                Debug.Log(_activeObjects[_activeObjects.Count - 1].name + " hit w raycast " + hit.collider.tag);
-
             if (hit && hit.collider.tag == "Platform")
             {
-                Debug.Log("зашли в условие хита");
                 int amountOfObjects = Random.Range(minAmountOfObjectsInBatch, maxAmountOfObjectsInBatch + 1);
                 float xDistanceBetweenObjects = maxXDistanceToOriginPoint / amountOfObjects;
 

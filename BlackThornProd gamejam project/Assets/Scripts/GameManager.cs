@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
-        _gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ, УБРАТЬ!!!
+        _gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ
         
         SceneManager.sceneLoaded += OnSceneLoaded;
         Initialize();
@@ -164,8 +164,6 @@ public class GameManager : MonoBehaviour {
         _cutscenePlayer.StartCutscene();
         _uiManager.StartGame();
         _cursorController.SwitchToCustomCursor();
-
-        Debug.Log(_currentGameState);
     }
 
     public void StartGameplay()
@@ -179,8 +177,6 @@ public class GameManager : MonoBehaviour {
         _deadline.SetActive(true);
 
         _gameHasBeenPlayedAlready = true;
-
-        Debug.Log(_currentGameState);
     }
 
     public void ReturnToMainMenu()
@@ -189,9 +185,7 @@ public class GameManager : MonoBehaviour {
 
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-
-        Debug.Log(_currentGameState);
+        
     }
 
     public void PauseGame()
@@ -203,8 +197,6 @@ public class GameManager : MonoBehaviour {
         _uiManager.ShowHidePouseMenu();
         _cursorController.SwitchToNormalCursor();
         _playerController.GetComponent<PlayerController>().IsControllable = false;
-
-        Debug.Log(_currentGameState);
     }
 
     public void ResumeGame()
@@ -216,8 +208,6 @@ public class GameManager : MonoBehaviour {
         _uiManager.ShowHidePouseMenu();
         _cursorController.SwitchToCustomCursor();
         _playerController.GetComponent<PlayerController>().IsControllable = true;
-
-        Debug.Log(_currentGameState);
     }
 
     public void Die()
@@ -227,8 +217,6 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0f;
         _uiManager.ShowDeadMenu();
         _cursorController.SwitchToNormalCursor();
-
-        Debug.Log(_currentGameState);
     }
 
     public void Win()
