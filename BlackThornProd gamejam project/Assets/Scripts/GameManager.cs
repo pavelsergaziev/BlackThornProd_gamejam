@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
-        _gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ
+        //_gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ
         
         SceneManager.sceneLoaded += OnSceneLoaded;
         Initialize();
