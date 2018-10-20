@@ -22,6 +22,8 @@ public class UiManager : MonoBehaviour {
     [SerializeField]
     private Transform _textPannel;
     [SerializeField]
+    private Transform _ggPannel;
+    [SerializeField]
     private Text _textPannelText;
 
     [SerializeField]
@@ -118,6 +120,13 @@ public class UiManager : MonoBehaviour {
     {
         Time.timeScale = 0;
         _deadMenuPannel.gameObject.SetActive(true);
+    }
+    public void ShowGGPannel()
+    {
+        Time.timeScale = 0;
+        _playerController.IsControllable = false;
+        _cursorController.SwitchToNormalCursor();
+        
     }
     
     
