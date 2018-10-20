@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
     private PlayerController _playerController;
         
     private GameObject _deadline;
-    
+
 
     private Camera _camera;
 
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
 
     private bool _shouldStartFromGameplay;
 
-    private enum GameState { mainMenu, cutscene, gameplay, paused, dead }
+    private enum GameState { mainMenu, cutscene, gameplay, paused, dead, won }
     private GameState _currentGameState;
     
 
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
-        //_gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ, УБРАТЬ!!!
+        _gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ, УБРАТЬ!!!
 
         Debug.Log("старт геймменеджера");
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -73,7 +73,6 @@ public class GameManager : MonoBehaviour {
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("сцена загружена");
-        //Initialize();
         Invoke("Initialize", 0.1f);
     }
 
@@ -95,9 +94,6 @@ public class GameManager : MonoBehaviour {
         _deadline = FindObjectOfType<DeadlineIdentifier>().gameObject;
 
         _camera.orthographicSize = (float)Screen.height / _texelsPerUnit / 2 / _pixelsPerTexel;
-
-        //_gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ, УБРАТЬ!!!
-
         
 
         _currentGameState = GameState.mainMenu;
@@ -130,6 +126,8 @@ public class GameManager : MonoBehaviour {
                 case GameState.paused: ResumeGame();
                     break;
                 case GameState.dead:
+                    break;
+                case GameState.won:
                     break;
                 default:
                     break;
@@ -239,6 +237,16 @@ public class GameManager : MonoBehaviour {
         Debug.Log(_currentGameState);
     }
 
+    public void Win()
+    {
+        _currentGameState = GameState.won;
+
+        Time.timeScale = 0;
+        _playerController.IsControllable = false;
+        _cursorController.SwitchToNormalCursor();
+        _uiManager.ShowGGPannel();
+    }
+
     public void RestartGameplay()
     {
 
@@ -249,4 +257,7 @@ public class GameManager : MonoBehaviour {
 
 
     }
+
+
+
 }

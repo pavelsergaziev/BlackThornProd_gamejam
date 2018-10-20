@@ -12,6 +12,9 @@ public class BackgroundElementsGenerator : ProximityLevelElementsGenerator {
 
     public void CheckAndTryCreateBatchOfObjects(int creatingBorderPositionX, float maxXDistanceToOriginPoint, float maxYDistanceFromPlatform, int minAmountOfObjectsInBatch, int maxAmountOfObjectsInBatch, Sprite[] sprites, PixelGridSnapper gridSnapper)
     {
+        if (_activeObjects.Count > 0)
+            Debug.Log(_activeObjects[_activeObjects.Count - 1].transform.position.x - creatingBorderPositionX);
+
         if (_activeObjects.Count == 0 || _activeObjects[_activeObjects.Count - 1].transform.position.x < creatingBorderPositionX)
         {
             Vector2 raycastSource = new Vector2(creatingBorderPositionX, 0);

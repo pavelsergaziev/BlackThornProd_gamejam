@@ -370,14 +370,12 @@ public class PlayerController : FreeMovingGameObject
     }
     private void SetCodeStrokesCount()
     {
-        if (_codeStrokes<_codeStrokesToCollect)
-        {
-            _codeStrokes += 1;
-        }
-        else
-        {
-            Debug.Log("GGWP");
-        }
+        _codeStrokes += 1;
+
+        Debug.Log("snippet collected");
+        if (_codeStrokes>=_codeStrokesToCollect)
+            _gameManager.Win();
+
         _uiManager.UpdateCodeStrokesText((_codeStrokesToCollect - _codeStrokes).ToString());
     }
     public void SlowDownplayer()

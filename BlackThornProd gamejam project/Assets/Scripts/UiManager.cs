@@ -120,13 +120,11 @@ public class UiManager : MonoBehaviour {
     {
         Time.timeScale = 0;
         _deadMenuPannel.gameObject.SetActive(true);
+        _cursorController.SwitchToNormalCursor();
     }
     public void ShowGGPannel()
     {
-        Time.timeScale = 0;
-        _playerController.IsControllable = false;
-        _cursorController.SwitchToNormalCursor();
-        
+        _ggPannel.gameObject.SetActive(true);        
     }
     
     
