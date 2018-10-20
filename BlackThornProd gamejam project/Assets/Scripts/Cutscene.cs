@@ -43,6 +43,9 @@ public class Cutscene : MonoBehaviour {
 
     private bool _isTransitioning;
 
+    [SerializeField]
+    private FadePanel _fadePanel;
+
     private void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
@@ -122,17 +125,25 @@ public class Cutscene : MonoBehaviour {
 
         SwitchVisibility();        
 
-        while (_timer < _transitionMidTimeStamp)
+        while (_timer < _transitionEndTimeStamp)
         {
             //анимация
+            if (!_isTransitioning)
+            {
+                if (_timer > _animationTimeStamps[_nextAnimationStateIndex])
+                    _animator.SetInteger("switchStateTo", ++_nextAnimationStateIndex);
 
-            if (_timer > _animationTimeStamps[_nextAnimationStateIndex])
-                _animator.SetInteger("switchStateTo", ++_nextAnimationStateIndex);
+                //текст
+                if (_timer > _textTimeStamps[_nextTextPieceIndex])
+                    _textOnScreen.text = _textPieces[_nextTextPieceIndex++];
 
-            //текст
-            if (_timer > _textTimeStamps[_nextTextPieceIndex])
-                _textOnScreen.text = _textPieces[_nextTextPieceIndex++];
-
+                if (_timer > _transitionStartTimeStamp)
+                {
+                    _fadePanel.gameObject.SetActive(true);
+                    _fadePanel.FadeInOutTransition();
+                    _isTransitioning = true;
+                }
+            }
 
             yield return new WaitForEndOfFrame();
             _timer += Time.deltaTime;

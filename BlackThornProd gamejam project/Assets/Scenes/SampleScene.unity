@@ -1155,6 +1155,92 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 253659110}
   m_CullTransparentMesh: 0
+--- !u!1 &280338519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 280338520}
+  - component: {fileID: 280338523}
+  - component: {fileID: 280338522}
+  - component: {fileID: 280338521}
+  m_Layer: 5
+  m_Name: Fade Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &280338520
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 280338519}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1413576358}
+  m_Father: {fileID: 2115380274}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &280338521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 280338519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbffc9b31d67f204f9ee7fb047efa4e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fadePanel: {fileID: 1413576359}
+  fadeInTime: 1.5
+  stayTime: 1
+  fadeOutTime: 1.5
+--- !u!114 &280338522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 280338519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &280338523
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 280338519}
+  m_CullTransparentMesh: 0
 --- !u!1 &447287845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1268,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.791
+  m_Volume: 0.69
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1803,11 +1889,12 @@ MonoBehaviour:
   - 29.2
   - 31.7
   - 40
-  _transitionStartTimeStamp: 33
+  _transitionStartTimeStamp: 35
   _transitionSprite: {fileID: 666328099}
   _transitionMidTimeStamp: 36
-  _transitionEndTimeStamp: 38
+  _transitionEndTimeStamp: 37
   _transitionColorChangeSpeed: 0.4
+  _fadePanel: {fileID: 280338521}
 --- !u!4 &599990490
 Transform:
   m_ObjectHideFlags: 0
@@ -2570,7 +2657,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4152,6 +4239,75 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1377624057}
+  m_CullTransparentMesh: 0
+--- !u!1 &1413576357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1413576358}
+  - component: {fileID: 1413576360}
+  - component: {fileID: 1413576359}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1413576358
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1413576357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 280338520}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1413576359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1413576357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1413576360
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1413576357}
   m_CullTransparentMesh: 0
 --- !u!1 &1460720850
 GameObject:
@@ -6209,10 +6365,10 @@ MonoBehaviour:
   _minPlatformLength: 3
   _maxPlatformLength: 15
   _firstPlatformLength: 40
-  _minXDistanceBetweenPlatforms: 2.7
-  _maxXDistanceBetweenPlatforms: 4
+  _minXDistanceBetweenPlatforms: 2
+  _maxXDistanceBetweenPlatforms: 3.6
   _minYDistanceBetweenPlatforms: 0
-  _maxYDistanceBetweenPlatforms: 1.5
+  _maxYDistanceBetweenPlatforms: 1
   _leftPlatformEdgeSprite: {fileID: 21300000, guid: ede67fcff006bcc44b292abb7f6756a3,
     type: 3}
   _rightPlatformEdgeSprite: {fileID: 21300000, guid: ef788ed5527c6dc4fa194661c39cbe91,
@@ -6234,21 +6390,21 @@ MonoBehaviour:
     type: 2}
   _sizeOfWallsObjectPool: 5
   _wallsYDistanceToPlatform: 3
-  _delayBeforeFirstWall: 5
+  _delayBeforeFirstWall: 30
   _minDelayBetweenWalls: 10
   _maxDelayBetweenWalls: 25
   _wallPrefab: {fileID: 1017978662077150, guid: 5cb16f64807b2f94abab77b849331bd4,
     type: 2}
   _sizeOfPickupBuffsOnPlatformsObjectPool: 20
   _buffOnPlatformYDistanceToPlatform: 1.8
-  _delayBeforeFirstBuffOnPlatforms: 10
+  _delayBeforeFirstBuffOnPlatforms: 9
   _minDelayBetweenBuffOnPlatforms: 5
   _maxDelayBetweenBuffOnPlatforms: 7
   _pickupBuffOnPlatformsPrefab: {fileID: 1956731766018664, guid: 0d806c8e660ac2e4a830231cbfc7aabf,
     type: 2}
   _sizeOfPickupDebuffsOnPlatformsObjectPool: 10
   _debuffOnPlatformYDistanceToPlatform: 1.8
-  _delayBeforeFirstDebuffOnPlatforms: 20
+  _delayBeforeFirstDebuffOnPlatforms: 22
   _minDelayBetweenDebuffOnPlatforms: 4
   _maxDelayBetweenDebuffOnPlatforms: 8
   _pickupDebuffOnPlatformsPrefab: {fileID: 1843716650251902, guid: 0c00d2edad63b314f80a3a55931b8ff9,
@@ -6256,17 +6412,17 @@ MonoBehaviour:
   _sizeOfBugsInTheAirObjectPool: 20
   _minHeightAbovePlatformForBugsInTheAir: 2
   _maxHeightAbovePlatformForBugsInTheAir: 5
-  _delayBeforeFirstBugInTheAir: 5
+  _delayBeforeFirstBugInTheAir: 2
   _minDelayBetweenBugsInTheAir: 1
-  _maxDelayBetweenBugsInTheAir: 6
+  _maxDelayBetweenBugsInTheAir: 5
   _BugInTheAirPrefab: {fileID: 1209440456000078, guid: adec85bfe7f2f9446af19f1af0939698,
     type: 2}
   _sizeOfBuffsInTheAirObjectPool: 15
   _minHeightAbovePlatformForBuffsInTheAir: 2
   _maxHeightAbovePlatformForBuffsInTheAir: 5
-  _delayBeforeFirstBuffInTheAir: 10
-  _minDelayBetweenBuffsInTheAir: 3
-  _maxDelayBetweenBuffsInTheAir: 6
+  _delayBeforeFirstBuffInTheAir: 7
+  _minDelayBetweenBuffsInTheAir: 2
+  _maxDelayBetweenBuffsInTheAir: 5
   _BuffInTheAirPrefab: {fileID: 1237371561541416, guid: 0d6dddf037e4ff744a39e55e91a70a95,
     type: 2}
   _maxYDistanceOfBackgroundObjectsFromPlatform: 7
@@ -6421,6 +6577,7 @@ RectTransform:
   - {fileID: 1533314908}
   - {fileID: 1377624058}
   - {fileID: 849980720}
+  - {fileID: 280338520}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
