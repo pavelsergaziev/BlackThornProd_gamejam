@@ -1,25 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
-public class GlobalManager : MonoBehaviour {
+public class ButtonListener : MonoBehaviour {
 
     private GameManager _gameManager;
-	void Start () {
+    void Start()
+    {
         _gameManager = FindObjectOfType<GameManager>();
 
     }
-	public void StartNewGame()
+    public void StartNewGame()
     {
         _gameManager.StartNewGame();
     }
-	public void StartGameplay()
+    public void StartGameplay()
     {
         _gameManager.StartGameplay();
     }
-    public void ReturnTomMainMenu()
+    public void ReturnToMainMenu()
     {
         _gameManager.ReturnToMainMenu();
     }

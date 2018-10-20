@@ -31,8 +31,7 @@ public class GameManager : MonoBehaviour {
     private Cutscene _cutscenePlayer;
     private LevelGenerationController _levelGenerationController;
     private PlayerController _playerController;
-
-    [SerializeField]
+        
     private GameObject _deadline;
     
 
@@ -64,6 +63,26 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
+        //_gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ, УБРАТЬ!!!
+
+        Debug.Log("старт геймменеджера");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        Initialize();
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("сцена загружена");
+        //Initialize();
+        Invoke("Initialize", 0.1f);
+    }
+
+    private void Initialize()
+    {
+        Debug.Log("инициализация геймменеджера");
+
+        if (_pixelGridSnapper == null)
+            _pixelGridSnapper = new PixelGridSnapper(_texelsPerUnit, _pixelsPerTexel);
 
         _camera = FindObjectOfType<Camera>();
         _soundManager = FindObjectOfType<SoundManager>();
@@ -73,14 +92,26 @@ public class GameManager : MonoBehaviour {
         _levelGenerationController = FindObjectOfType<LevelGenerationController>();
 
         _playerController = FindObjectOfType<PlayerController>();
+        _deadline = FindObjectOfType<DeadlineIdentifier>().gameObject;
 
         _camera.orthographicSize = (float)Screen.height / _texelsPerUnit / 2 / _pixelsPerTexel;
 
-        _gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ, УБРАТЬ!!!
+        //_gameHasBeenPlayedAlready = true;//ТЕСТОВОЕ, УБРАТЬ!!!
+
         
-        Invoke("DeactivateObjectsBeforeStart", 0.1f);
 
         _currentGameState = GameState.mainMenu;
+
+        Debug.Log(_gameHasBeenPlayedAlready);
+
+        if (_shouldStartFromGameplay)
+        {
+            _shouldStartFromGameplay = false;
+            _soundManager.StartNewGameWhithoutCutScene();
+            StartGameplay();
+        }
+        else
+            Invoke("DeactivateObjectsBeforeStart", 0.1f);
     }
 
 
@@ -127,7 +158,7 @@ public class GameManager : MonoBehaviour {
         if (!_gameHasBeenPlayedAlready)
             PlayCutscene();
         else
-        {
+        {            
             _soundManager.StartNewGameWhithoutCutScene();
             StartGameplay();
         }
@@ -150,8 +181,6 @@ public class GameManager : MonoBehaviour {
         _currentGameState = GameState.gameplay;
 
         _levelGenerationController.StartGeneration();
-        Debug.Log("wtf");
-
         _uiManager.StartGameplay();
         _playerController.gameObject.SetActive(true);
         _playerController.IsControllable = true;
@@ -212,12 +241,12 @@ public class GameManager : MonoBehaviour {
 
     public void RestartGameplay()
     {
-        _currentGameState = GameState.gameplay;
+
+        _shouldStartFromGameplay = true;
 
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        _soundManager.StartNewGameWhithoutCutScene();
-        StartGameplay();
+
     }
 }
